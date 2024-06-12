@@ -66,7 +66,7 @@ void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> 
     vector<Posicion>
         posiciones = {{-50, 0},
                       {-40, -10},
-                      {-35, 20},
+                      {-35, -28},
                       {-40, 10},
                       {-35, 28},
                       {-25, 11},

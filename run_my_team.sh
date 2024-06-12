@@ -8,7 +8,7 @@ read TEAM_NAME
 PLAYER_EXECUTABLE="./build/player"
 
 # Definir el nombre de tu equipo y los puertos base
-BASE_PORT=8100
+BASE_PORT=8200
 
 # Ejecutar jugadores de tu equipo
 for i in {0..10}; do
