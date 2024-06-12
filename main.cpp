@@ -64,23 +64,24 @@ void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> 
     };
 
     vector<Posicion>
-        posiciones = {{50, 0},
-                      {35, -20},
-                      {35, 20},
-                      {20, -25},
-                      {18, -9},
-                      {18, 5},
-                      {20, 20},
-                      {2, -18},
-                      {28, -18},
-                      {35, 11},
-                      {5, 0}};
+        posiciones = {{-50, 0},
+                      {-35, -20},
+                      {-35, -28},
+                      {-42, -14},
+                      {-42, 28},
+                      {-25, 11},
+                      {-8, -20},
+                      {-25, -11},
+                      {-5, 0},
+                      {-15, 0},
+                      {-8, -20}};
   
     Posicion myPos = posiciones[player.unum - 1];
 
     auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
     udp_socket.sendTo(moveCommand, recipient);
     cout << "Move command sent" << "Posicion: " << moveCommand << endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 
@@ -133,11 +134,6 @@ int main(int argc, char *argv[])
     
     cout << player.unum << endl;
     sendInitialMoveMessage(player, udp_socket, server_udp);
-
-    while (true)
-    {
-        std::this_thread::sleep_for(std::chrono::seconds(0.1));
-    }
 
 return 0;
 }
