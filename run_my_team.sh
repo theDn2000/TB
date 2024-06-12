@@ -13,6 +13,6 @@ BASE_PORT=8000
 # Ejecutar jugadores de tu equipo
 for i in {0..10}; do
     PORT=$(($BASE_PORT + $i))
-    gnome-terminal -- bash -c "$PLAYER_EXECUTABLE $TEAM_NAME $PORT" &
+    gnome-terminal -- bash -c "$PLAYER_EXECUTABLE $TEAM_NAME $PORT; exec bash"
     sleep 1
 done
