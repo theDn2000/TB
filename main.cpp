@@ -65,12 +65,12 @@ void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> 
 
     vector<Posicion>
         posiciones = {{-50, 0},
-                      {-35, -20},
-                      {-35, -28},
-                      {-42, -14},
-                      {-42, 28},
+                      {-40, -10},
+                      {-35, 20},
+                      {-40, 10},
+                      {-35, 28},
                       {-25, 11},
-                      {-8, -20},
+                      {-8, 20},
                       {-25, -11},
                       {-5, 0},
                       {-15, 0},
@@ -134,11 +134,6 @@ int main(int argc, char *argv[])
     
     cout << player.unum << endl;
     sendInitialMoveMessage(player, udp_socket, server_udp);
-
-    while (true)
-    {
-        
-    }
 
 return 0;
 }
