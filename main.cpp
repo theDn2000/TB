@@ -54,8 +54,6 @@ Player parseInitialMessage(std::string &message, Player &player)
 }
 
 
-
-
 // Move command function
 void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)
 {
@@ -82,7 +80,7 @@ void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> 
 
     auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
     udp_socket.sendTo(moveCommand, recipient);
-    cout << "Move command sent" << endl;
+    cout << "Move command sent" << "Posicion: " << myPos.x << " " << myPos.y << endl;
     // 5 secods delay
     std::this_thread::sleep_for(std::chrono::seconds(5));
 }
