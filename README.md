@@ -1,12 +1,4 @@
+Repositorio oficial del equipo MABACI FC
+
 >[!IMPORTANT]
->Prueba de github desde terminal
-
->[!NOTE]
->Hola usiadhisaudiu
-
->[!NOTE]
->Hola soy Luis
-
->[!NOTE]
->Hola soy maria
-
+>Video semana 1: [https://youtu.be/-Q6tBKK7FWM](https://youtu.be/-Q6tBKK7FWM)
