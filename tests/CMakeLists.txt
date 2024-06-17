@@ -17,24 +17,9 @@ FetchContent_MakeAvailable(googletest)
 include_directories(_deps/googletest-src/googletest/include)
 include_directories(../)
 
-include(FetchContent)
-set(BUILD_MinimalCppSocket_SAMPLES OFF CACHE BOOL "" FORCE) # you don't want the samples in this case
-FetchContent_Declare(
-min_sock
-GIT_REPOSITORY https://github.com/andreacasalino/Minimal-Socket
-GIT_TAG        master
-)
-FetchContent_MakeAvailable(min_sock)
-
-# ADD PATH FOR FINDING HEADERS
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/_deps/min_sock-src/src/header)
-
-# ADD PATH FOR FINDING LIBRARIES
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/_deps/min_sock-src/build)
-
 enable_testing()
 
-target_link_libraries(runTests MinimalSocket)
+
 
 
 # el main, el test, el archivo que quiero probar

@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
-#include <MinimalSocket/udp/UdpSocket.h>
 using namespace std;
 
 // Include the header file
@@ -39,6 +38,7 @@ Player parseInitialMessage(std::string &message, Player &player)
     return player;
 }
 
+/*
 // Move command function
 void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)
 {
@@ -67,3 +67,4 @@ void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> 
     udp_socket.sendTo(moveCommand, recipient);
     cout << "Move command sent" << "Posicion: " << moveCommand << endl;
 }
+*/
