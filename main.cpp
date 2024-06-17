@@ -100,17 +100,22 @@ int main(int argc, char *argv[])
         auto received_message = udp_socket.receive(message_max_size);
         std::string received_message_content = received_message->received_message;
 
-        cout << "Received message: " << received_message_content << endl;
+        //cout << "Received message: " << received_message_content << endl;
 
         vector<string> parsed_message = separate_string(received_message_content);
-        cout << "Parsed message: " << parsed_message[0] << endl;
+        //cout << "Parsed message: " << parsed_message[0] << endl;
 
+        // Search for see message
+        if (parsed_message[0].find("see") != std::string::npos)
+        {
+            cout << "See message received" << endl;
+            cout << "Parsed message: " << parsed_message[0] << endl;
 
+            vector<string> see_message = separate_string(parsed_message[parsed_message.size()-2]);
 
-
-
-
-        
+            cout << "Ball coords: " << see_message[0] << endl;
+        }
+ 
     }
 
 return 0;
