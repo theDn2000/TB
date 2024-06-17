@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 
     // Create objects
     Player player{team_name, "", "", 0, 0, 0};
-    Ball ball{0, 0, 0, 0};
+    Ball ball{"0", "0", "0", "0"};
     
     // parse the initial message
     player = parseInitialMessage(received_message_content, player);
@@ -128,8 +128,8 @@ int main(int argc, char *argv[])
                 }
             }
             vector<string> ball_coords = separate_string_separator(see_message[ball_pos], " ");
-            ball.x = stod(ball_coords[1]);
-            ball.y = stod(ball_coords[2]);
+            ball.x = ball_coords[1];
+            ball.y = ball_coords[2];
 
             cout << "Ball position: " << ball.x << " " << ball.y << endl;
             
