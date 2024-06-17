@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
             cout << "See message received" << endl;
             cout << "Parsed message: " << parsed_message[0] << endl;
 
-            vector<string> see_message = separate_string(parsed_message[parsed_message.size()-2]);
+            vector<string> see_message = separate_string(parsed_message[0]);
 
             cout << "Ball coords: " << see_message[0] << endl;
         }
