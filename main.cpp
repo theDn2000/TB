@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
                     break;
                 }
             }
-            ball_coords = separate_string_separator(see_message[ball_pos], " ");
+            vector<string> ball_coords = separate_string_separator(see_message[ball_pos], " ");
             ball.x = stod(ball_coords[1]);
             ball.y = stod(ball_coords[2]);
 
