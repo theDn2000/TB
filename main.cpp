@@ -114,7 +114,18 @@ int main(int argc, char *argv[])
 
             vector<string> see_message = separate_string(parsed_message[0]);
 
-            cout << "Ball coords: " << see_message[see_message.size() - 2] << " " << see_message[see_message.size() - 1] << endl;
+
+            // Find the "(b)" and save the position of the ball
+            size_t ball_pos = 0;
+            for (size_t i = 0; i < see_message.size(); i++)
+            {
+                if (see_message[i].find("(b)") <= 5)
+                {
+                    ball_pos = i;
+                    break;
+                }
+            }
+            cout << "Ball coords: " << see_message[ball_pos] << endl;
         }
  
     }
