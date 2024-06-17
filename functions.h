@@ -16,8 +16,8 @@ struct Player
 
 struct Ball
 {
-    double x;
-    double y;
+    std::string x;
+    std::string y;
     double vx;
     double vy;
 };
