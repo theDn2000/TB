@@ -7,6 +7,15 @@ using namespace std;
 // Include the header file
 #include "functions.h"
 
+struct Player
+{
+    std::string team_name;
+    std::string playmode;
+    std::string side;
+    int unum;
+    double x;
+    double y;
+};
 // Functions
 
 // Parse initial message function (init Side Unum PlayMode)
