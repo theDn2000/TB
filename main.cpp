@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
         cout << "Received message: " << received_message_content << endl;
 
         vector<string> parsed_message = separate_string(received_message_content);
-        out << "Parsed message: " << parsed_message[0] << endl;
+        cout << "Parsed message: " << parsed_message[0] << endl;
 
 
 
