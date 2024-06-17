@@ -47,12 +47,13 @@ vector<string> separate_string(string & s)
     int pos{0};
     int level{0};
     string temp;
+     /*
     // Compruebo que empieza con parentesis
     if (s[0] != '(')
     {
         throw std::runtime_error("No empieza con parentesis");
     }
-    /*
+   
     // Compruebo que termina con parentesis
     if (s[s.size()-1] != ')')
     {
