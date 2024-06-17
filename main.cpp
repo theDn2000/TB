@@ -100,8 +100,10 @@ int main(int argc, char *argv[])
         auto received_message = udp_socket.receive(message_max_size);
         std::string received_message_content = received_message->received_message;
 
+        cout << "Received message: " << received_message_content << endl;
+
         vector<string> parsed_message = separate_string(received_message_content);
-        cout << "Received message: " << parsed_message[0] << endl;
+        cout << "Parsed message: " << parsed_message[0] << endl;
 
 
 
