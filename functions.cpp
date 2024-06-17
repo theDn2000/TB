@@ -90,14 +90,16 @@ vector<string> separate_string(string & s)
         else
         {
             // Comprueba que no hay palabras sin parentesis
+            /*
             if (level == 0 && s[pos] != ' ')
             {
                 throw std::runtime_error("Palabra sin parentesis");
             }
-            else
-            {
+            */
+            
+            
                 temp += s[pos];
-            }
+            
         }
         pos++;
     }
