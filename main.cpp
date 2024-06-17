@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 
             vector<string> see_message = separate_string(parsed_message[0]);
 
-            cout << "Ball coords: " << see_message[0] << endl;
+            cout << "Ball coords: " << see_message[see_message.size() - 2] << " " << see_message[see_message.size() - 1] << endl;
         }
  
     }
