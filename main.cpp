@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
         std::string received_message_content = received_message->received_message;
 
         std::string parsed_message = separate_string(received_message_content);
-        cout << "Received message: " << received_message_content << endl;
+        cout << "Received message: " << parsed_message << endl;
 
 
 
