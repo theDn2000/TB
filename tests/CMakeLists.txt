@@ -34,7 +34,7 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/_deps/min_sock-src/build)
 
 enable_testing()
 
-target_link_libraries(player MinimalSocket)
+target_link_libraries(runTests MinimalSocket)
 
 
 # el main, el test, el archivo que quiero probar
