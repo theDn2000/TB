@@ -52,16 +52,19 @@ vector<string> separate_string(string & s)
     {
         throw std::runtime_error("No empieza con parentesis");
     }
+    /*
     // Compruebo que termina con parentesis
     if (s[s.size()-1] != ')')
     {
         throw std::runtime_error("No termina con parentesis");
     }
+    
     // Comprueba que no haya paréntesis sin ningún carácter dentro
     if (s[pos] == '(' && s[pos+1] == ')')
     {
         throw std::runtime_error("Parentesis vacio");
     }
+    */
 
     // Recorro el string
     while (pos < s.size())
