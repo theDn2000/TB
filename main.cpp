@@ -87,7 +87,9 @@ int main(int argc, char *argv[])
     MinimalSocket::Address other_sender_udp = received_message->sender;
     MinimalSocket::Address server_udp = MinimalSocket::Address{"127.0.0.1", other_sender_udp.getPort()};
 
+    // Create objects
     Player player{team_name, "", "", 0, 0, 0};
+    Ball ball{0, 0, 0, 0};
     
     // parse the initial message
     player = parseInitialMessage(received_message_content, player);
@@ -125,7 +127,12 @@ int main(int argc, char *argv[])
                     break;
                 }
             }
-            cout << "Ball coords: " << see_message[ball_pos] << endl;
+            ball_coords = separate_string_separator(see_message[ball_pos], " ");
+            ball.x = stod(ball_coords[1]);
+            ball.y = stod(ball_coords[2]);
+
+            cout << "Ball position: " << ball.x << " " << ball.y << endl;
+            
         }
  
     }

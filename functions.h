@@ -14,6 +14,14 @@ struct Player
     double y;
 };
 
+struct Ball
+{
+    double x;
+    double y;
+    double vx;
+    double vy;
+};
+
 Player parseInitialMessage(std::string &message, Player &player);
 
 vector<string> separate_string(string & s);
