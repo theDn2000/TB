@@ -128,8 +128,8 @@ int main(int argc, char *argv[])
                 }
             }
             vector<string> ball_coords = separate_string_separator(see_message[ball_pos], " ");
-            ball.x = ball_coords[1];
-            ball.y = ball_coords[2];
+            ball.x = stod(ball_coords[1]);
+            ball.y = stod(ball_coords[2]);
 
             cout << "Ball position: " << ball.x << " " << ball.y << endl;
             
