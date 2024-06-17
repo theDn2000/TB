@@ -11,6 +11,8 @@ using namespace std;
 #include <thread>
 #include <vector>
 
+#include "functions.h"
+
 // Define Player struct
 
 struct Player
