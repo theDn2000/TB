@@ -39,6 +39,19 @@ Player parseInitialMessage(std::string &message, Player &player)
     return player;
 }
 
+vector<string> separate_string_separator(string & s, string separator)
+{
+    vector<string> v;
+    int pos = 0;
+    while ((pos = s.find(separator)) != string::npos)
+    {
+        v.push_back(s.substr(0, pos));
+        s.erase(0, pos + separator.length());
+    }
+    v.push_back(s);
+    return v;
+}
+
 // Parse string function
 vector<string> separate_string(string & s)
 {
