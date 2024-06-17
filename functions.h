@@ -18,8 +18,8 @@ struct Ball
 {
     std::string x;
     std::string y;
-    double vx;
-    double vy;
+    std::string vx;
+    std::string vy;
 };
 
 Player parseInitialMessage(std::string &message, Player &player);
