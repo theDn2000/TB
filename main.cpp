@@ -10,6 +10,7 @@ using namespace std;
 #include <chrono>
 #include <thread>
 #include <vector>
+#include <sstream>
 
 #include "functions.h"
 
@@ -105,8 +106,8 @@ int main(int argc, char *argv[])
         vector<string> parsed_message = separate_string(received_message_content);
         //cout << "Parsed message: " << parsed_message[0] << endl;
 
-        // Search for see message
-        if (parsed_message[0].find("see") != std::string::npos)
+        // Search for see message if it is not in the first position don't parse it
+        if (parsed_message[0].find("see") <= 5)
         {
             cout << "See message received" << endl;
             cout << "Parsed message: " << parsed_message[0] << endl;
