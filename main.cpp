@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
             
 
             // Calculate the angle to the ball
-            double angle = atan(stod(ball.y), stod(ball.x));
+            double angle = atan2(stod(ball.y), stod(ball.x));
             angle = angle * 180 / M_PI;
             cout << "Angle to the ball: " << angle << endl;
 
