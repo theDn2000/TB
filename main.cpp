@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
                 angle = angle * 180 / M_PI;
                 cout << "Angle to the ball: " << angle << endl;
 
-
+                int i = 0;
                 while (i!=4)
                 {
                     std::string rotate_command = "(turn " + to_string(angle/4) + ")";
