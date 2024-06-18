@@ -143,6 +143,11 @@ int main(int argc, char *argv[])
                 double angle = atan2(stod(ball.y), stod(ball.x));
                 angle = angle * 180 / M_PI;
                 cout << "Angle to the ball: " << angle << endl;
+
+                // Rotate the player to the ball
+                std::string rotate_command = "(turn " + to_string(angle) + ")";
+                // Send the rotate command
+                udp_socket.sendTo(rotate_command, server_udp);
             }
 
         }
