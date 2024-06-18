@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
     MinimalSocket::Address server_udp = MinimalSocket::Address{"127.0.0.1", other_sender_udp.getPort()};
 
     // Create objects
-    Player player{team_name, "", "", 0, 0, 0};
+    Player player{team_name, "", "", false, 0, 0, 0};
     Ball ball{"0", "0", "0", "0"};
     
     // parse the initial message
@@ -120,25 +120,30 @@ int main(int argc, char *argv[])
 
             // Find the "(b)" and save the position of the ball
             size_t ball_pos = 0;
+            player.see_ball = false;
             for (size_t i = 0; i < see_message.size(); i++)
             {
                 if (see_message[i].find("(b)") <= 5)
                 {
                     ball_pos = i;
+                    player.see_ball = true;
                     break;
                 }
             }
-            vector<string> ball_coords = separate_string_separator(see_message[ball_pos], " ");
-            ball.x = ball_coords[1];
-            ball.y = ball_coords[2];
 
-            cout << "Ball position: " << ball.x << " " << ball.y << endl;
-            
+            if (player.see_ball)
+            {
+                vector<string> ball_coords = separate_string_separator(see_message[ball_pos], " ");
+                ball.x = ball_coords[1];
+                ball.y = ball_coords[2];
 
-            // Calculate the angle to the ball
-            double angle = atan2(stod(ball.y), stod(ball.x));
-            angle = angle * 180 / M_PI;
-            cout << "Angle to the ball: " << angle << endl;
+                cout << "Ball position: " << ball.x << " " << ball.y << endl;
+
+                // Calculate the angle to the ball
+                double angle = atan2(stod(ball.y), stod(ball.x));
+                angle = angle * 180 / M_PI;
+                cout << "Angle to the ball: " << angle << endl;
+            }
 
         }
  

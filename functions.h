@@ -10,6 +10,7 @@ struct Player
     std::string team_name;
     std::string playmode;
     std::string side;
+    bool see_ball;
     int unum;
     double x;
     double y;
