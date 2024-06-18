@@ -151,6 +151,13 @@ int main(int argc, char *argv[])
                     udp_socket.sendTo(rotate_command, server_udp);
                     i++;
                 }
+
+                // In this moment, the player should be looking to the ball
+                // Create the dash command
+                int power = 80;
+                std::string dash_command = "(dash " + to_string(power) + ")";
+                udp_socket.sendTo(dash_command, server_udp);
+
             }
 
         }
