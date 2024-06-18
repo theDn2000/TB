@@ -150,7 +150,6 @@ int main(int argc, char *argv[])
                     std::string rotate_command = "(turn " + to_string(angle/4) + ")";
                     udp_socket.sendTo(rotate_command, server_udp);
                     i++;
-                    std::this_thread::sleep_for(std::chrono::seconds(1));
                 }
             }
 
