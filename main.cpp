@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
                     i++;
                 }
 
-                if (angle = 0)
+                if (angle == 0)
                 {
                     // In this moment, the player should be looking to the ball
                     // Create the dash command
