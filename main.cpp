@@ -152,13 +152,15 @@ int main(int argc, char *argv[])
                     i++;
                 }
 
-                // In this moment, the player should be looking to the ball
-                // Create the dash command
-                int power = 80;
-                std::string dash_command = "(dash " + to_string(power) + " 0)";
-                udp_socket.sendTo(dash_command, server_udp);
-                cout << "Dash command sent: " << dash_command << endl;
-
+                if (angle = 0)
+                {
+                    // In this moment, the player should be looking to the ball
+                    // Create the dash command
+                    int power = 80;
+                    std::string dash_command = "(dash " + to_string(power) + " 0)";
+                    udp_socket.sendTo(dash_command, server_udp);
+                    cout << "Dash command sent: " << dash_command << endl;
+                }
             }
 
         }
