@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
                 int power = 80;
                 std::string dash_command = "(dash " + to_string(power) + " 0)";
                 udp_socket.sendTo(dash_command, server_udp);
-                cout << "Dash command sent:" << dash_command << endl;
+                cout << "Dash command sent: " << dash_command << endl;
 
             }
 
