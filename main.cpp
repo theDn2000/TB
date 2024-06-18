@@ -142,6 +142,7 @@ int main(int argc, char *argv[])
                 // Calculate the angle to the ball
                 double angle = atan2(stod(ball.y), stod(ball.x));
                 angle = angle * 180 / M_PI;
+                angle = angle/4;
                 cout << "Angle to the ball: " << angle << endl;
 
                 // Rotate the player to the ball
