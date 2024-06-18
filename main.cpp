@@ -11,6 +11,7 @@ using namespace std;
 #include <thread>
 #include <vector>
 #include <sstream>
+#include <cmath>
 
 #include "functions.h"
 
@@ -133,6 +134,12 @@ int main(int argc, char *argv[])
 
             cout << "Ball position: " << ball.x << " " << ball.y << endl;
             
+
+            // Calculate the angle to the ball
+            double angle = atan(stod(ball.y), stod(ball.x));
+            angle = angle * 180 / M_PI;
+            cout << "Angle to the ball: " << angle << endl;
+
         }
  
     }
