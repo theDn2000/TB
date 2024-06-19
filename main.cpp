@@ -174,12 +174,9 @@ int main(int argc, char *argv[])
                             division = 5;
                         }
                         // Rotate the player to the ball
-                        while (i!=division)
-                        {
-                            std::string rotate_command = "(turn " + to_string(angle/division) + ")";
-                            udp_socket.sendTo(rotate_command, server_udp);
-                            i++;
-                        }
+                        std::string rotate_command = "(turn " + to_string(angle/division) + ")";
+                        udp_socket.sendTo(rotate_command, server_udp);
+                        
                     }
 
                     else
@@ -189,7 +186,7 @@ int main(int argc, char *argv[])
                         int power = 100;
                         std::string dash_command = "(dash " + to_string(power) + " 0)";
                         udp_socket.sendTo(dash_command, server_udp);
-                        cout << "Dash command sent: " << dash_command << endl;
+                        //cout << "Dash command sent: " << dash_command << endl;
                     }
                 }
 
