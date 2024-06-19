@@ -112,8 +112,8 @@ int main(int argc, char *argv[])
         // Search for see message
         if (parsed_message[0].find("see") <= 5)
         {
-            cout << "See message received" << endl;
-            cout << "Parsed message: " << parsed_message[0] << endl;
+            //cout << "See message received" << endl;
+            //cout << "Parsed message: " << parsed_message[0] << endl;
 
             vector<string> see_message = separate_string(parsed_message[0]);
 
