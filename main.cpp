@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
                 angle = angle * 180 / M_PI;
                 cout << "Angle to the ball: " << angle << endl;
 
-                if (distance < 1)
+                if (distance < 1.5)
                 {
                     // Kick the ball
                     int power = 100;
