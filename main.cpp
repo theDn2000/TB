@@ -164,9 +164,9 @@ int main(int argc, char *argv[])
                     if (angle != 0)
                     {
                         // Rotate the player to the ball
-                        while (i!=4)
+                        while (i!=10)
                         {
-                            std::string rotate_command = "(turn " + to_string(angle/4) + ")";
+                            std::string rotate_command = "(turn " + to_string(angle/10) + ")";
                             udp_socket.sendTo(rotate_command, server_udp);
                             i++;
                         }
