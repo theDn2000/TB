@@ -74,9 +74,9 @@ int main(int argc, char *argv[])
     }
 
     MinimalSocket::Address other_recipient_udp = MinimalSocket::Address{"127.0.0.1", 6000};
-    cout << "(init " + team_name + "(version 19))";
+    cout << "(init " + team_name + "(version 15))";
 
-    udp_socket.sendTo("(init " + team_name + "(version 19))", other_recipient_udp);
+    udp_socket.sendTo("(init " + team_name + "(version 15))", other_recipient_udp);
     cout << "Init Message sent" << endl;
 
     std::size_t message_max_size = 1000000;
