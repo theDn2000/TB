@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
                 angle = angle * 180 / M_PI;
                 cout << "Angle to the ball: " << angle << endl;
 
-                if (distance < 1)
+                if (distance < 2)
                 {
                     // Kick the ball
                     int power = 100;
@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
             else
             {
                 // Rotate to find the ball
-                if (player.side == "l")
+                if (player.y < 0)
                 {
                     std::string rotate_command = "(turn " + to_string(-80) + ")";
                     udp_socket.sendTo(rotate_command, server_udp);
