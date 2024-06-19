@@ -157,6 +157,7 @@ int main(int argc, char *argv[])
                     // Kick the ball
                     int power = 100;
                     std::string kick_command = "(kick " + to_string(power) + " 0)";
+                    udp_socket.sendTo(kick_command, server_udp);
                     cout << "Kick command sent: " << kick_command << endl << endl << endl << endl << endl << endl << endl;
                 }
                 else
@@ -176,7 +177,6 @@ int main(int argc, char *argv[])
                         // Rotate the player to the ball
                         std::string rotate_command = "(turn " + to_string(angle/division) + ")";
                         udp_socket.sendTo(rotate_command, server_udp);
-                        
                     }
 
                     else
@@ -188,7 +188,7 @@ int main(int argc, char *argv[])
                         }
                         else if (distance < 3)
                         {
-                            power = 3;
+                            power = 10;
                         }
                         // In this moment, the player should be looking to the ball
                         // Create the dash command
