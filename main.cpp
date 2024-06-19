@@ -145,13 +145,14 @@ int main(int argc, char *argv[])
 
                 // Calculate the distance to the ball
                 double distance = sqrt(pow(stod(ball.x), 2) + pow(stod(ball.y), 2));
+                cout << "Distance to the ball: " << distance << endl;
 
                 // Calculate the angle to the ball
                 double angle = atan2(stod(ball.y), stod(ball.x));
                 angle = angle * 180 / M_PI;
                 cout << "Angle to the ball: " << angle << endl;
 
-                if (distance < 1)
+                if (distance < 0.6)
                 {
                     // Kick the ball
                     int power = 100;
