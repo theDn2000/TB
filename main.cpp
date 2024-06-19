@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
         vector<string> parsed_message = separate_string(received_message_content);
         //cout << "Parsed message: " << parsed_message[0] << endl;
 
-        // Search for see message if it is not in the first position don't parse it
+        // Search for see message
         if (parsed_message[0].find("see") <= 5)
         {
             cout << "See message received" << endl;
@@ -123,12 +123,16 @@ int main(int argc, char *argv[])
             player.see_ball = false;
             for (size_t i = 0; i < see_message.size(); i++)
             {
+                // Search for the ball
                 if (see_message[i].find("(b)") <= 5)
                 {
                     ball_pos = i;
                     player.see_ball = true;
                     break;
                 }
+
+                // Search for the goal
+
             }
 
             if (player.see_ball)
@@ -139,31 +143,43 @@ int main(int argc, char *argv[])
 
                 cout << "Ball position: " << ball.x << " " << ball.y << endl;
 
+                // Calculate the distance to the ball
+                double distance = sqrt(pow(stod(ball.x), 2) + pow(stod(ball.y), 2));
+
                 // Calculate the angle to the ball
                 double angle = atan2(stod(ball.y), stod(ball.x));
                 angle = angle * 180 / M_PI;
                 cout << "Angle to the ball: " << angle << endl;
 
-                int i = 0;
-                if (angle != 0)
+                if (distance < 1)
                 {
-                    // Rotate the player to the ball
-                    while (i!=4)
-                    {
-                        std::string rotate_command = "(turn " + to_string(angle/4) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                        i++;
-                    }
+                    // Kick the ball
+                    int power = 100;
+                    std::string kick_command = "(kick" + to_string(power) + ")";
                 }
-
-                if (angle == 0)
+                else
                 {
-                    // In this moment, the player should be looking to the ball
-                    // Create the dash command
-                    int power = 80;
-                    std::string dash_command = "(dash " + to_string(power) + " 0)";
-                    udp_socket.sendTo(dash_command, server_udp);
-                    cout << "Dash command sent: " << dash_command << endl;
+                    int i = 0;
+                    if (angle != 0)
+                    {
+                        // Rotate the player to the ball
+                        while (i!=4)
+                        {
+                            std::string rotate_command = "(turn " + to_string(angle/4) + ")";
+                            udp_socket.sendTo(rotate_command, server_udp);
+                            i++;
+                        }
+                    }
+
+                    if (angle == 0)
+                    {
+                        // In this moment, the player should be looking to the ball
+                        // Create the dash command
+                        int power = 80;
+                        std::string dash_command = "(dash " + to_string(power) + " 0)";
+                        udp_socket.sendTo(dash_command, server_udp);
+                        cout << "Dash command sent: " << dash_command << endl;
+                    }
                 }
 
 
