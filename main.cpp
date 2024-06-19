@@ -166,9 +166,9 @@ int main(int argc, char *argv[])
                     if (abs(angle) >= 10)
                     {
                         int division = 1;
-                        if (distance < 3)
+                        if (distance < 6)
                         {
-                            division = 25;
+                            division = 20;
                         }
                         else
                         {
@@ -182,9 +182,9 @@ int main(int argc, char *argv[])
                     else
                     {
                         int power = 100;
-                        if (distance < 2)
+                        if (distance < 3)
                         {
-                            power = 45;
+                            power = 60;
                         }
                         else if (distance < 7)
                         {
