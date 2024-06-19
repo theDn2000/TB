@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
                 angle = angle * 180 / M_PI;
                 cout << "Angle to the ball: " << angle << endl;
 
-                if (distance < 2)
+                if (distance < 1)
                 {
                     // Kick the ball
                     int power = 100;
@@ -182,13 +182,13 @@ int main(int argc, char *argv[])
                     else
                     {
                         int power = 100;
-                        if (distance < 7)
+                        if (distance < 3)
                         {
                             power = 10;
                         }
-                        else if (distance < 3)
+                        else if (distance < 7)
                         {
-                            power = 10;
+                            power = 50;
                         }
                         // In this moment, the player should be looking to the ball
                         // Create the dash command
