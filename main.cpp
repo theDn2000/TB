@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
                 else
                 {
                     int i = 0;
-                    if (angle >= 10)
+                    if (abs(angle) >= 10)
                     {
                         int division = 1;
                         if (distance < 6)
@@ -181,9 +181,17 @@ int main(int argc, char *argv[])
 
                     else
                     {
+                        int power = 100;
+                        if (distance < 7)
+                        {
+                            power = 10;
+                        }
+                        else if (distance < 3)
+                        {
+                            power = 3;
+                        }
                         // In this moment, the player should be looking to the ball
                         // Create the dash command
-                        int power = 50;
                         std::string dash_command = "(dash " + to_string(power) + " 0)";
                         udp_socket.sendTo(dash_command, server_udp);
                         //cout << "Dash command sent: " << dash_command << endl;
