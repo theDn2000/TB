@@ -164,13 +164,14 @@ int main(int argc, char *argv[])
                     int i = 0;
                     if (angle != 0)
                     {
+                        int division = 1;
                         if (distance < 6)
                         {
-                            int division = 20;
+                            division = 20;
                         }
                         else
                         {
-                            int division = 5;
+                            division = 5;
                         }
                         // Rotate the player to the ball
                         while (i!=division)
