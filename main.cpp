@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
                         int power = 100;
                         if (distance < 3)
                         {
-                            power = 80;
+                            power = 60;
                         }
                         else if (distance < 7)
                         {
