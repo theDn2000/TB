@@ -211,6 +211,20 @@ int main(int argc, char *argv[])
 
 
             }
+            else
+            {
+                // Rotate to find the ball
+                if (player.side == "l")
+                {
+                    std::string rotate_command = "(turn " + to_string(-80) + ")";
+                    udp_socket.sendTo(rotate_command, server_udp);
+                }
+                else
+                {
+                    std::string rotate_command = "(turn " + to_string(80) + ")";
+                    udp_socket.sendTo(rotate_command, server_udp);
+                }
+            }
 
         }
  
