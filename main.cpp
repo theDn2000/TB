@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
                 if (distance < 1)
                 {
                     // Kick the ball
-                    int power = 50;
+                    int power = 100;
                     std::string kick_command = "(kick " + to_string(power) + " 0)";
                     cout << "Kick command sent: " << kick_command << endl << endl << endl << endl << endl << endl << endl;
                 }
@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
                     {
                         // In this moment, the player should be looking to the ball
                         // Create the dash command
-                        int power = 100;
+                        int power = 50;
                         std::string dash_command = "(dash " + to_string(power) + " 0)";
                         udp_socket.sendTo(dash_command, server_udp);
                         //cout << "Dash command sent: " << dash_command << endl;
