@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
                 {
                     // Kick the ball
                     int power = 100;
-                    std::string kick_command = "(kick" + to_string(power) + ")";
+                    std::string kick_command = "(kick " + to_string(power) + ")";
                     cout << "Kick command sent: " << kick_command << endl;
                 }
                 else
