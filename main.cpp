@@ -184,11 +184,11 @@ int main(int argc, char *argv[])
                         int power = 100;
                         if (distance < 3)
                         {
-                            power = 30;
+                            power = 80;
                         }
                         else if (distance < 7)
                         {
-                            power = 50;
+                            power = 80;
                         }
                         // In this moment, the player should be looking to the ball
                         // Create the dash command
