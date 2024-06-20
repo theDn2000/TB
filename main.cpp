@@ -114,11 +114,7 @@ int main(int argc, char *argv[])
         // Search for see message
         if (parsed_message[0].find("see") <= 5)
         {
-            //cout << "See message received" << endl;
-            //cout << "Parsed message: " << parsed_message[0] << endl;
-
             vector<string> see_message = separate_string(parsed_message[0]);
-
 
             // Find the "(b)" and save the position of the ball
             size_t ball_pos = 0;
@@ -196,14 +192,8 @@ int main(int argc, char *argv[])
                         // Create the dash command
                         std::string dash_command = "(dash " + to_string(power) + " 0)";
                         udp_socket.sendTo(dash_command, server_udp);
-                        //cout << "Dash command sent: " << dash_command << endl;
                     }
                 }
-
-
-                // Tiempo de espera (100ms) [?]
-
-                // Rotación del jugador si no ve la pelota [1]
 
                 // Saber donde estan las porterias y chutar hacia ellas en el caso de llegar a la pelota [2]
 
