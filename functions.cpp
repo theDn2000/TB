@@ -130,6 +130,8 @@ vector<string> separate_string(string & s)
     }
 }
 
+
+// Find data in see message function
 /*
 // Move command function
 void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)

@@ -113,7 +113,6 @@ int main(int argc, char *argv[])
         {
             vector<string> see_message = separate_string(parsed_message[0]);
 
-            // Find the "(b)" and save the position of the ball
             size_t ball_pos = 0;
             player.see_ball = false;
             for (size_t i = 0; i < see_message.size(); i++)
@@ -124,6 +123,25 @@ int main(int argc, char *argv[])
                     ball_pos = i;
                     player.see_ball = true;
                     break;
+                }
+                
+                // Search for the goal
+                if (see_message[i].find("(g r)")<= 7)
+                {
+                    goal_R_pos=i;
+                    player.see_goal=true;
+                    break;
+                    cout << "Goal right found" << endl;
+                
+                }
+                
+                // Search for the goal
+                if (see_message[i].find("(g l)")<= 7)
+                {
+                    goal_L_pos=i;
+                    player.see_goal=true;
+                    break;
+                    cout << "Goal left found" << endl;
                 }
 
                 // Search for the goal
