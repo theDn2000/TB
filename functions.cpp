@@ -4,8 +4,9 @@
 #include <stdexcept>
 using namespace std;
 
-// Include the header file
+// Include headers
 #include "functions.h"
+#include "structs.h"
 
 
 // Functions
