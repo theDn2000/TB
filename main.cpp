@@ -15,7 +15,7 @@ using namespace std;
 
 // Include headers
 #include "functions.h"
-#include "estructuras.h"
+#include "structs.h"
 
 // Move command function
 void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)

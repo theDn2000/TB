@@ -3,6 +3,7 @@
 #include<vector>
 #include<string>
 #include <cmath>
+#include"structs.h"
 using namespace std;
 
 Player parseInitialMessage(std::string &message, Player &player);
