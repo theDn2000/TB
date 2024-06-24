@@ -114,6 +114,10 @@ int main(int argc, char *argv[])
         if (parsed_message[0].find("see") <= 5)
         {
             vector<string> see_message = separate_string(parsed_message[0]);
+            for (auto element : see_message)
+            {
+                cout << element << endl;
+            }
             // Save the data from the see message
             store_data_see(see_message, player, ball, goal_R, goal_L);
             }

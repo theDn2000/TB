@@ -142,6 +142,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
             cout << "The player sees the ball" << endl;
             player.see_ball = true;
             vector<string> ball_coords = separate_string_separator(see_message[i], " ");
+            cout << "Ball coordinates: " << ball_coords[1] << " " << ball_coords[2] << endl;
             ball.x = ball_coords[1];
             ball.y = ball_coords[2];
             cout << "Ball coordinates: " << ball.x << " " << ball.y << endl;
