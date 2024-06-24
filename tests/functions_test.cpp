@@ -25,5 +25,6 @@ TEST(StoreDataSee, StoreDataSeeTest)
     CentroPorteriaIzquierda goal_L;
     vector<string> see_message = separate_string(see);
     store_data_see(see_message, player, ball, goal_R, goal_L);
+    cout << ball.x << endl;
     EXPECT_EQ(ball.x, "49.4");
 }
