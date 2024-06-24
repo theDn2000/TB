@@ -11,3 +11,6 @@ Player parseInitialMessage(std::string &message, Player &player);
 vector<string> separate_string(string & s);
 
 vector<string> separate_string_separator(string & s, string separator);
+
+void store_data_see(vector<string> &see_message, Player &player, Ball &ball, CentroPorteriaDerecha &goal_R, CentroPorteriaIzquierda &goal_L);
+

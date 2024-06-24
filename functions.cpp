@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include <cmath>
 using namespace std;
 
 // Include headers
@@ -129,6 +130,77 @@ vector<string> separate_string(string & s)
         return v;
     }
 }
+
+// Find data in see message function
+void store_data_see(vector<string> &see_message, Player &player, Ball &ball, CentroPorteriaDerecha &goal_R, CentroPorteriaIzquierda &goal_L)
+{
+    for (size_t i = 0; i < see_message.size(); i++)
+    {
+        // Search for the ball
+        if (see_message[i].find("(b)"))
+        {
+            player.see_ball = true;
+            vector<string> ball_coords = separate_string_separator(see_message[i], " ");
+            ball.x = ball_coords[1];
+            ball.y = ball_coords[2];
+            // Calculate the distance to the ball
+            double distance = sqrt(pow(stod(ball.x), 2) + pow(stod(ball.y), 2));
+            ball.distance = distance;
+            // Calculate the angle to the ball
+            double angle = atan2(stod(ball.y), stod(ball.x));
+            angle = angle * 180 / M_PI;
+            cout << "Angle to the ball: " << angle << endl;
+        }
+        else
+        {
+            // The player does not see the ball
+            player.see_ball = false;
+            return;
+        }
+
+        // Search for the right goal
+        if (see_message[i].find("(g r)"))
+        {
+            player.see_goal=true;
+            vector<string> right_goal_coords = separate_string_separator(see_message[i], " ");
+            goal_R.x = right_goal_coords[2];
+            goal_R.y = right_goal_coords[3];
+        }
+
+        // Search for the left goal
+        if (see_message[i].find("(g l)"))
+        {
+            player.see_goal=true;
+            vector<string> left_goal_coords = separate_string_separator(see_message[i], " ");
+            goal_L.x = left_goal_coords[2];
+            goal_L.y = left_goal_coords[3];
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Find data in see message function

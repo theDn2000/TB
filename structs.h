@@ -24,6 +24,8 @@ struct Ball
     std::string y;
     std::string vx;
     std::string vy;
+    double distance;
+    double angle;
 };
 
 struct CentroPorteriaDerecha
