@@ -144,6 +144,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
             vector<string> ball_coords = separate_string_separator(see_message[i], " ");
             ball.x = ball_coords[1];
             ball.y = ball_coords[2];
+            cout << "Ball coordinates: " << ball.x << " " << ball.y << endl;
             // Calculate the distance to the ball
             double distance = sqrt(pow(stod(ball.x), 2) + pow(stod(ball.y), 2));
             ball.distance = distance;
