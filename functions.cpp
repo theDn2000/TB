@@ -134,15 +134,15 @@ vector<string> separate_string(string & s)
 // Find data in see message function
 void store_data_see(vector<string> &see_message, Player &player, Ball &ball, CentroPorteriaDerecha &goal_R, CentroPorteriaIzquierda &goal_L)
 {
+    bool found = false;
     for (size_t i = 0; i < see_message.size(); i++)
     {
         // Search for the ball
-        if (see_message[i].find("(b)"))
+        if (see_message[i].find("(b)")!=string::npos)
         {
             cout << "The player sees the ball" << endl;
             player.see_ball = true;
             vector<string> ball_coords = separate_string_separator(see_message[i], " ");
-            cout << "Ball coordinates: " << ball_coords[1] << " " << ball_coords[2] << endl;
             ball.x = ball_coords[1];
             ball.y = ball_coords[2];
             cout << "Ball coordinates: " << ball.x << " " << ball.y << endl;
@@ -152,13 +152,8 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
             // Calculate the angle to the ball
             double angle = atan2(stod(ball.y), stod(ball.x));
             angle = angle * 180 / M_PI;
+            found = true;
             //cout << "Angle to the ball: " << angle << endl;
-        }
-        else
-        {
-            // The player does not see the ball
-            player.see_ball = false;
-            return;
         }
 
         // Search for the right goal
@@ -178,6 +173,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
             goal_L.x = left_goal_coords[2];
             goal_L.y = left_goal_coords[3];
         }
+    }
+    if (found == false)
+    {
+        player.see_ball = false;
     }
 }
 
