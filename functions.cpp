@@ -134,6 +134,7 @@ vector<string> separate_string(string & s)
 // Find data in see message function
 void store_data_see(vector<string> &see_message, Player &player, Ball &ball, CentroPorteriaDerecha &goal_R, CentroPorteriaIzquierda &goal_L)
 {
+    vector<string> ball_coords;
     bool found = false;
     for (size_t i = 0; i < see_message.size(); i++)
     {
@@ -142,7 +143,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
         {
             cout << "The player sees the ball" << endl;
             player.see_ball = true;
-            vector<string> ball_coords = separate_string_separator(see_message[i], " ");
+            ball_coords = separate_string_separator(see_message[i], " ");
             ball.x = ball_coords[1];
             ball.y = ball_coords[2];
             cout << "Ball coordinates: " << ball.x << " " << ball.y << endl;
@@ -157,7 +158,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
         }
 
         // Search for the right goal
-        if (see_message[i].find("(g r)"))
+        if (see_message[i].find("(g r)")!=string::npos)
         {
             player.see_goal=true;
             vector<string> right_goal_coords = separate_string_separator(see_message[i], " ");
@@ -166,7 +167,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
         }
 
         // Search for the left goal
-        if (see_message[i].find("(g l)"))
+        if (see_message[i].find("(g l)")!=string::npos)
         {
             player.see_goal=true;
             vector<string> left_goal_coords = separate_string_separator(see_message[i], " ");
