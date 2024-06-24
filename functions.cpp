@@ -139,6 +139,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
         // Search for the ball
         if (see_message[i].find("(b)"))
         {
+            cout << "The player sees the ball" << endl;
             player.see_ball = true;
             vector<string> ball_coords = separate_string_separator(see_message[i], " ");
             ball.x = ball_coords[1];
@@ -148,7 +149,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
             ball.distance = distance;
             // Calculate the angle to the ball
             double angle = atan2(stod(ball.y), stod(ball.x));
-            angle = angle * 180 / M_PI;
+            angle = angle * 180 / 3.14159265359;
             cout << "Angle to the ball: " << angle << endl;
         }
         else
