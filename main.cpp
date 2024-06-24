@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
         // Logic of the player
         if (player.see_ball)
         {
-            if (distance < 1.5)
+            if (ball.distance < 1.5)
             {
                 // Kick the ball
                 int power = 100;
@@ -134,10 +134,10 @@ int main(int argc, char *argv[])
             else
             {
                 int i = 0;
-                if (abs(angle) >= 10)
+                if (abs(ball.angle) >= 10)
                 {
                     int division = 1;
-                    if (distance < 6)
+                    if (ball.distance < 6)
                     {
                         division = 20;
                     }
@@ -146,18 +146,18 @@ int main(int argc, char *argv[])
                         division = 5;
                     }
                     // Rotate the player to the ball
-                    std::string rotate_command = "(turn " + to_string(angle/division) + ")";
+                    std::string rotate_command = "(turn " + to_string(ball.angle/division) + ")";
                     udp_socket.sendTo(rotate_command, server_udp);
                 }
 
                 else
                 {
                     int power = 100;
-                    if (distance < 3)
+                    if (ball.distance < 3)
                     {
                         power = 60;
                     }
-                    else if (distance < 7)
+                    else if (ball.distance < 7)
                     {
                         power = 80;
                     }
