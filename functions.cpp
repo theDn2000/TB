@@ -145,12 +145,12 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
             ball.x = ball_coords[1];
             ball.y = ball_coords[2];
             // Calculate the distance to the ball
-            double distance = sqrt(pow(stod(ball.x), 2) + pow(stod(ball.y), 2));
-            ball.distance = distance;
+            //double distance = sqrt(pow(stod(ball.x), 2) + pow(stod(ball.y), 2));
+            //ball.distance = distance;
             // Calculate the angle to the ball
-            double angle = atan2(stod(ball.y), stod(ball.x));
-            angle = angle * 180 / 3.14159265359;
-            cout << "Angle to the ball: " << angle << endl;
+            //double angle = atan2(stod(ball.y), stod(ball.x));
+            //angle = angle * 180 / 3.14159265359;
+            //cout << "Angle to the ball: " << angle << endl;
         }
         else
         {
