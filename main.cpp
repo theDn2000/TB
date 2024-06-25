@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 
     while (true)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
         auto received_message = udp_socket.receive(message_max_size);
         std::string received_message_content = received_message->received_message;
 
@@ -114,19 +114,12 @@ int main(int argc, char *argv[])
         if (parsed_message[0].find("see") <= 5)
         {
             vector<string> see_message = separate_string(parsed_message[0]);
-            for (auto element : see_message)
-            {
-                cout << element << endl;
-            }
-            // Save the data from the see message
             store_data_see(see_message, player, ball, goal_R, goal_L);
-            
-
-
-
+        
             // Logic of the player
-            if (player.see_ball)
+            if (player.see_ball == true)
             {
+                cout << "holaaaaa" << endl;
                 if (ball.distance < 1.5)
                 {
                     // Kick the ball
@@ -149,38 +142,38 @@ int main(int argc, char *argv[])
                         {
                             division = 5;
                         }
-                        // Rotate the player to the ball
-                        std::string rotate_command = "(turn " + to_string(ball.angle/division) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
+                    // Rotate the player to the ball
+                    std::string rotate_command = "(turn " + to_string(ball.angle/division) + ")";
+                    udp_socket.sendTo(rotate_command, server_udp);
+                }
 
-                    else
+                else
+                {
+                    int power = 100;
+                    if (ball.distance < 3)
                     {
-                        int power = 100;
-                        if (ball.distance < 3)
-                        {
-                            power = 60;
-                        }
-                        else if (ball.distance < 7)
-                        {
-                            power = 80;
-                        }
-                        // In this moment, the player should be looking to the ball
-                        // Create the dash command
-                        std::string dash_command = "(dash " + to_string(power) + " 0)";
-                        udp_socket.sendTo(dash_command, server_udp);
+                        power = 60;
                     }
+                    else if (ball.distance < 7)
+                    {
+                        power = 80;
+                    }
+                    // In this moment, the player should be looking to the ball
+                    // Create the dash command
+                    std::string dash_command = "(dash " + to_string(power) + " 0)";
+                    udp_socket.sendTo(dash_command, server_udp);
                 }
             }
-                // Saber donde estan las porterias y chutar hacia ellas en el caso de llegar a la pelota [2]
 
-                // Que corran hacia la pelota mientras giran (IDEA) [3]
+            // Saber donde estan las porterias y chutar hacia ellas en el caso de llegar a la pelota [2]
 
-                // Revisar codigo y optimizar [4]
+            // Que corran hacia la pelota mientras giran (IDEA) [3]
 
+            // Revisar codigo y optimizar [4]
         }
         else
         {
+            cout << "----------------" << endl;
             // Rotate to find the ball
             if (player.y < 0)
             {
@@ -192,6 +185,7 @@ int main(int argc, char *argv[])
                 std::string rotate_command = "(turn " + to_string(80) + ")";
                 udp_socket.sendTo(rotate_command, server_udp);
             }
+        }
         }
     }
 return 0;
