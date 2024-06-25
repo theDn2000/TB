@@ -135,7 +135,9 @@ vector<string> separate_string(string & s)
 void store_data_see(vector<string> &see_message, Player &player, Ball &ball, CentroPorteriaDerecha &goal_R, CentroPorteriaIzquierda &goal_L)
 {
     vector<string> ball_coords;
-    bool found = false;
+    bool found_ball = false;
+    bool found_goal_R = false;
+    bool found_goal_L = false;
     for (size_t i = 0; i < see_message.size(); i++)
     {
         // Search for the ball
@@ -153,9 +155,9 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
             // Calculate the angle to the ball
             double angle = atan2(stod(ball.y), stod(ball.x));
             angle = angle * 180 / M_PI;
-            found = true;
+            found_ball = true;
             //cout << "Angle to the ball: " << angle << endl;
-        }
+        } 
     }
     if (found == false)
     {
