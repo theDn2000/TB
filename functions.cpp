@@ -156,24 +156,6 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
             found = true;
             //cout << "Angle to the ball: " << angle << endl;
         }
-
-        // Search for the right goal
-        if (see_message[i].find("(g r)")!=string::npos)
-        {
-            player.see_goal=true;
-            vector<string> right_goal_coords = separate_string_separator(see_message[i], " ");
-            goal_R.x = right_goal_coords[2];
-            goal_R.y = right_goal_coords[3];
-        }
-
-        // Search for the left goal
-        if (see_message[i].find("(g l)")!=string::npos)
-        {
-            player.see_goal=true;
-            vector<string> left_goal_coords = separate_string_separator(see_message[i], " ");
-            goal_L.x = left_goal_coords[2];
-            goal_L.y = left_goal_coords[3];
-        }
     }
     if (found == false)
     {
