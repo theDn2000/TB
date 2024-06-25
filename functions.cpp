@@ -159,7 +159,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
             //cout << "Angle to the ball: " << angle << endl;
         } 
     }
-    if (found == false)
+    if (found_ball == false)
     {
         player.see_ball = false;
     }
