@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
         if (parsed_message[0].find("see") <= 5)
         {
             vector<string> see_message = separate_string(parsed_message[0]);
-            store_data_see(see_message, player, ball, goal_R, goal_L);
+            store_data_see(see_message, player, ball, own_goal, opponent_goal);
         
             // Logic of the player
             if (player.see_ball == true)
