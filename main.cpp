@@ -119,7 +119,6 @@ int main(int argc, char *argv[])
             // Logic of the player
             if (player.see_ball == true)
             {
-                cout << "holaaaaa" << endl;
                 if (ball.distance < 1.5)
                 {
                     // Kick the ball

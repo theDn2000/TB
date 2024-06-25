@@ -154,7 +154,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
             ball.distance = distance;
             // Calculate the angle to the ball
             double angle = atan2(stod(ball.y), stod(ball.x));
-            angle = angle * 180 / M_PI;
+            ball.angle = angle * 180 / M_PI;
             found_ball = true;
             //cout << "Angle to the ball: " << angle << endl;
         } 
