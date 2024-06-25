@@ -93,6 +93,8 @@ int main(int argc, char *argv[])
     // Create objects
     Player player{team_name, "", "", false, 0, 0, 0};
     Ball ball{"0", "0", "0", "0"};
+    Goal own_goal{"0", "0", "init"};
+    Goal opponent_goal{"0", "0", "init"};
     
     // parse the initial message
     player = parseInitialMessage(received_message_content, player);
@@ -100,16 +102,16 @@ int main(int argc, char *argv[])
     cout << player.unum << endl;
     sendInitialMoveMessage(player, udp_socket, server_udp);
 
-    // Create the goals
+    // Configure the goals
     if (player.side == "r")
     {
-        Goal opponent_goal{"0", "0", "l"};
-        Goal own_goal{"0", "0", "r"};
+        opponent_goal.side = "l";
+        own_goal.side = "r";
     }
     else
     {
-        Goal opponent_goal{"0", "0", "r"};
-        Goal own_goal{"0", "0", "l"};
+        opponent_goal.side = "r";
+        own_goal.side = "l";
     }
 
     while (true)
