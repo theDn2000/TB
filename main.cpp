@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
                         std::string kick_command = "(kick " + to_string(power) + " 0)";
                         udp_socket.sendTo(kick_command, server_udp);
                     }
-                    else if (ball.distance < 7)
+                    else if (ball.distance < 20)
                     {
                         // Dash to the ball
                         int power = 100;
@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
                     else
                     {
                         // Rotate because he mad
-                        std::string rotate_command = "(turn " + to_string(180) + ")";
+                        std::string rotate_command = "(turn " + to_string(30) + ")";
                     }
 
                     break;
