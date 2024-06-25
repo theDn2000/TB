@@ -132,12 +132,10 @@ vector<string> separate_string(string & s)
 }
 
 // Find data in see message function
-void store_data_see(vector<string> &see_message, Player &player, Ball &ball, CentroPorteriaDerecha &goal_R, CentroPorteriaIzquierda &goal_L)
+void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goal &own_goal, Goal &opponent_goal)
 {
     vector<string> ball_coords;
     bool found_ball = false;
-    bool found_goal_R = false;
-    bool found_goal_L = false;
     for (size_t i = 0; i < see_message.size(); i++)
     {
         // Search for the ball
@@ -164,10 +162,32 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
         {
             cout << "The player sees the right goal" << endl;
             vector<string> goal_coords = separate_string_separator(see_message[i], " ");
-            goal_R.x = goal_coords[2];
-            goal_R.y = goal_coords[3];
-            cout << "Right goal coordinates: " << goal_R.x << " " << goal_R.y << endl;
-            found_goal_R = true;
+
+            if (own_goal.side == "r")
+            {
+                own_goal.x = goal_coords[2];
+                own_goal.y = goal_coords[3];
+                cout << "Own goal coordinates: " << own_goal.x << " " << own_goal.y << endl;
+                player.see_own_goal = true;
+            }
+            else
+            {
+                opponent_goal.x = goal_coords[2];
+                opponent_goal.y = goal_coords[3];
+                cout << "Opponent goal coordinates: " << opponent_goal.x << " " << opponent_goal.y << endl;
+                player.see_opponent_goal = true;
+            }
+        }
+        else
+        {
+            if (own_goal.side == "r")
+            {
+                player.see_own_goal = false;
+            }
+            else
+            {
+                player.see_opponent_goal = false;
+            }
         }
 
         // Search for the left goal
@@ -175,12 +195,33 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
         {
             cout << "The player sees the left goal" << endl;
             vector<string> goal_coords = separate_string_separator(see_message[i], " ");
-            goal_L.x = goal_coords[2];
-            goal_L.y = goal_coords[3];
-            cout << "Left goal coordinates: " << goal_L.x << " " << goal_L.y << endl;
-            found_goal_L = true;
+
+            if (own_goal.side == "l")
+            {
+                own_goal.x = goal_coords[2];
+                own_goal.y = goal_coords[3];
+                cout << "Own goal coordinates: " << own_goal.x << " " << own_goal.y << endl;
+                player.see_own_goal = true;
+            }
+            else
+            {
+                opponent_goal.x = goal_coords[2];
+                opponent_goal.y = goal_coords[3];
+                cout << "Opponent goal coordinates: " << opponent_goal.x << " " << opponent_goal.y << endl;
+                player.see_opponent_goal = true;
+            }
         }
-        
+        else
+        {
+            if (own_goal.side == "l")
+            {
+                player.see_own_goal = false;
+            }
+            else
+            {
+                player.see_opponent_goal = false;
+            }
+        }
     }
     if (found_ball == false)
     {

@@ -93,8 +93,6 @@ int main(int argc, char *argv[])
     // Create objects
     Player player{team_name, "", "", false, 0, 0, 0};
     Ball ball{"0", "0", "0", "0"};
-    CentroPorteriaDerecha goal_R{"0", "0"};
-    CentroPorteriaIzquierda goal_L{"0", "0"};
     
     // parse the initial message
     player = parseInitialMessage(received_message_content, player);
@@ -102,9 +100,21 @@ int main(int argc, char *argv[])
     cout << player.unum << endl;
     sendInitialMoveMessage(player, udp_socket, server_udp);
 
+    // Create the goals
+    if (player.side == "r")
+    {
+        Goal opponent_goal{"0", "0", "l"};
+        Goal own_goal{"0", "0", "r"};
+    }
+    else
+    {
+        Goal opponent_goal{"0", "0", "r"};
+        Goal own_goal{"0", "0", "l"};
+    }
+
     while (true)
     {
-                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
         auto received_message = udp_socket.receive(message_max_size);
         std::string received_message_content = received_message->received_message;
 
@@ -119,6 +129,97 @@ int main(int argc, char *argv[])
             // Logic of the player
             if (player.see_ball == true)
             {
+                switch (player.unum) 
+                {
+                    case 1:
+                        // Goalkeeper
+                        if (ball.distance < 1.5)
+                        {
+                            // Kick the ball
+                            int power = 100;
+                            std::string kick_command = "(kick " + to_string(power) + " 0)";
+                            udp_socket.sendTo(kick_command, server_udp);
+                        }
+                        else if (ball.distance < 7)
+                        {
+                            // Dash to the ball
+                            int power = 100;
+                            std::string dash_command = "(dash " + to_string(power) + " 0)";
+                            udp_socket.sendTo(dash_command, server_udp);
+                        }
+                        else
+                        {
+                            // Dash to the goal
+                        }
+
+                        break;
+                    // Case for the remaining numbers
+                    
+                    case 2:
+                        // Código para el caso 2
+                        break;
+                    case 3:
+                        // Código para el caso 3
+                        break;
+                    case 4:
+                        // Código para el caso 4
+                        break;
+                    case 5:
+                        // Código para el caso 5
+                        break;
+                    case 6:
+                        // Código para el caso 6
+                        break;
+                    case 7:
+                        // Código para el caso 7
+                        break;
+                    case 8:
+                        // Código para el caso 8
+                        break;
+                    case 9:
+                        // Código para el caso 9
+                        break;
+                    case 10:
+                        // Código para el caso 10
+                        break;
+                    default:
+                        // Código para cualquier otro caso no especificado
+                        break;
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 if (ball.distance < 1.5)
                 {
                     // Kick the ball

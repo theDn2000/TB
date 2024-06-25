@@ -12,7 +12,8 @@ struct Player
     std::string playmode;
     std::string side;
     bool see_ball;
-    bool see_goal;
+    bool see_own_goal;
+    bool see_opponent_goal;
     int unum;
     double x;
     double y;
@@ -28,16 +29,11 @@ struct Ball
     double angle;
 };
 
-struct CentroPorteriaDerecha
+struct Goal
 {
     std::string x;
     std::string y;
-};
-
-struct CentroPorteriaIzquierda
-{
-    std::string x;
-    std::string y;
+    std::string side;
 };
 
 struct JugadorCercano
