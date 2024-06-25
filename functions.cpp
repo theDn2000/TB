@@ -164,8 +164,8 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
         {
             cout << "The player sees the right goal" << endl;
             vector<string> goal_coords = separate_string_separator(see_message[i], " ");
-            goal_R.x = goal_coords[1];
-            goal_R.y = goal_coords[2];
+            goal_R.x = goal_coords[2];
+            goal_R.y = goal_coords[3];
             cout << "Right goal coordinates: " << goal_R.x << " " << goal_R.y << endl;
             found_goal_R = true;
         }
@@ -175,8 +175,8 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Cen
         {
             cout << "The player sees the left goal" << endl;
             vector<string> goal_coords = separate_string_separator(see_message[i], " ");
-            goal_L.x = goal_coords[1];
-            goal_L.y = goal_coords[2];
+            goal_L.x = goal_coords[2];
+            goal_L.y = goal_coords[3];
             cout << "Left goal coordinates: " << goal_L.x << " " << goal_L.y << endl;
             found_goal_L = true;
         }
