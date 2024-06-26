@@ -231,6 +231,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> center_coords = separate_string_separator(see_message[i], " ");
             field.flag_center = {stof(center_coords[2]), stof(center_coords[3])};
             player.flags_seen++;
+            cout << "Center flag coordinates: " << field.flag_center[0] << " " << field.flag_center[1] << endl;
         }
 
         // Search for the center top flag
@@ -280,20 +281,6 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             field.flag_right_bottom = {stof(right_bottom_coords[3]), stof(right_bottom_coords[4])};
             player.flags_seen++;
         }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     }
     if (found_ball == false)
