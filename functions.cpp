@@ -308,11 +308,8 @@ vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> 
 {
     // Calculate the distances between the points
     float D1 = sqrt(pow(P2[0]-P1[0], 2) + pow(P2[1]-P1[1], 2));
-    cout << "D1: " << D1 << endl;
     float D2 = sqrt(pow(P3[0]-P1[0], 2) + pow(P3[1]-P1[1], 2));
-    cout << "D2: " << D2 << endl;
-    float D3 = sqrt(pow(P3[0]-P2[0], 2) + pow(P3[1]-P2[1], 2));
-    cout << "D3: " << D3 << endl;
+    float D3 = sqrt(pow(P3[0]-P1[0], 2) + pow(P3[1]-P1[1], 2));
 
     // Calculate matrix A
     vector<float> A = {2*(P2[0]-P1[0]), 2*(P2[1]-P1[1]),
