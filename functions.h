@@ -14,3 +14,4 @@ vector<string> separate_string_separator(string & s, string separator);
 
 void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goal &own_goal, Goal &opponent_goal);
 
+vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> &P3, float D1, float D2, float D3);

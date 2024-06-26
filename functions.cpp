@@ -230,6 +230,30 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
 }
 
 
+// Trilateration 2D function
+vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> &P3, float D1, float D2, float D3,)
+{
+    // Calculate matrix A
+    vector<float> A = {2*(P2[0]-P1[0]), 2*(P2[1]-P1[1]),
+                        2*(P3[0]-P1[0]), 2*(P3[1]-P1[1])};
+
+    // Calculate matrix B
+    vector<float> B = {static_cast<float>(pow(D1, 2) - pow(D2, 2) + pow(P2[0], 2) - pow(P1[0], 2) + pow(P2[1], 2) - pow(P1[1], 2)),
+                        static_cast<float>(pow(D1, 2) - pow(D3, 2) + pow(P3[0], 2) - pow(P1[0], 2) + pow(P3[1], 2) - pow(P1[1], 2))};
+
+    // Calculate the inverse of A
+    float det = A[0]*A[3] - A[1]*A[2];
+    vector<float> A_inv = {A[3]/det, -A[1]/det,
+                           -A[2]/det, A[0]/det};
+    
+    // Calculate the result
+    vector<float> result = {A_inv[0]*B[0] + A_inv[1]*B[1],
+                            A_inv[2]*B[0] + A_inv[3]*B[1]};
+
+    return result;
+}
+
+
 
 
 
