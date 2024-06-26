@@ -231,7 +231,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
 
 
 // Trilateration 2D function
-vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> &P3, float D1, float D2, float D3,)
+vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> &P3, float D1, float D2, float D3)
 {
     // Calculate matrix A
     vector<float> A = {2*(P2[0]-P1[0]), 2*(P2[1]-P1[1]),
