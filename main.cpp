@@ -95,6 +95,7 @@ int main(int argc, char *argv[])
     Ball ball{"0", "0", "0", "0"};
     Goal own_goal{"0", "0", "init"};
     Goal opponent_goal{"0", "0", "init"};
+    Field field;
     
     // parse the initial message
     player = parseInitialMessage(received_message_content, player);

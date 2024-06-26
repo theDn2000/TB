@@ -132,10 +132,11 @@ vector<string> separate_string(string & s)
 }
 
 // Find data in see message function
-void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goal &own_goal, Goal &opponent_goal)
+void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goal &own_goal, Goal &opponent_goal, Field &field)
 {
     vector<string> ball_coords;
     bool found_ball = false;
+    player.flags_seen = 0;
     for (size_t i = 0; i < see_message.size(); i++)
     {
         // Search for the ball
@@ -222,6 +223,78 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
                 player.see_opponent_goal = false;
             }
         }
+    
+        // Search for the flags
+        // Search for the center flag
+        if (see_message[i].find("(f c)") != string::npos)
+        {
+            vector<string> center_coords = separate_string_separator(see_message[i], " ");
+            field.flag_center = {stof(center_coords[2]), stof(center_coords[3])};
+            player.flags_seen++;
+        }
+
+        // Search for the center top flag
+        if (see_message[i].find("(f c t)") != string::npos)
+        {
+            vector<string> center_top_coords = separate_string_separator(see_message[i], " ");
+            field.flag_center_top = {stof(center_top_coords[3]), stof(center_top_coords[4])};
+            player.flags_seen++;
+        }
+
+        // Search for the center bottom flag
+        if (see_message[i].find("(f c b)") != string::npos)
+        {
+            vector<string> center_bottom_coords = separate_string_separator(see_message[i], " ");
+            field.flag_center_bottom = {stof(center_bottom_coords[3]), stof(center_bottom_coords[4])};
+            player.flags_seen++;
+        }
+
+        // Search for the left top flag
+        if (see_message[i].find("(f l t)") != string::npos)
+        {
+            vector<string> left_top_coords = separate_string_separator(see_message[i], " ");
+            field.flag_left_top = {stof(left_top_coords[3]), stof(left_top_coords[4])};
+            player.flags_seen++;
+        }
+
+        // Search for the left bottom flag
+        if (see_message[i].find("(f l b)") != string::npos)
+        {
+            vector<string> left_bottom_coords = separate_string_separator(see_message[i], " ");
+            field.flag_left_bottom = {stof(left_bottom_coords[3]), stof(left_bottom_coords[4])};
+            player.flags_seen++;
+        }
+
+        // Search for the right top flag
+        if (see_message[i].find("(f r t)") != string::npos)
+        {
+            vector<string> right_top_coords = separate_string_separator(see_message[i], " ");
+            field.flag_right_top = {stof(right_top_coords[3]), stof(right_top_coords[4])};
+            player.flags_seen++;
+        }
+
+        // Search for the right bottom flag
+        if (see_message[i].find("(f r b)") != string::npos)
+        {
+            vector<string> right_bottom_coords = separate_string_separator(see_message[i], " ");
+            field.flag_right_bottom = {stof(right_bottom_coords[3]), stof(right_bottom_coords[4])};
+            player.flags_seen++;
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     }
     if (found_ball == false)
     {
@@ -231,8 +304,13 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
 
 
 // Trilateration 2D function
-vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> &P3, float D1, float D2, float D3)
+vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> &P3)
 {
+    // Calculate the distances between the points
+    float D1 = sqrt(pow(P2[0]-P1[0], 2) + pow(P2[1]-P1[1], 2));
+    float D2 = sqrt(pow(P3[0]-P1[0], 2) + pow(P3[1]-P1[1], 2));
+    float D3 = sqrt(pow(P3[0]-P2[0], 2) + pow(P3[1]-P2[1], 2));
+
     // Calculate matrix A
     vector<float> A = {2*(P2[0]-P1[0]), 2*(P2[1]-P1[1]),
                         2*(P3[0]-P1[0]), 2*(P3[1]-P1[1])};
@@ -240,6 +318,8 @@ vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> 
     // Calculate matrix B
     vector<float> B = {static_cast<float>(pow(D1, 2) - pow(D2, 2) + pow(P2[0], 2) - pow(P1[0], 2) + pow(P2[1], 2) - pow(P1[1], 2)),
                         static_cast<float>(pow(D1, 2) - pow(D3, 2) + pow(P3[0], 2) - pow(P1[0], 2) + pow(P3[1], 2) - pow(P1[1], 2))};
+
+
 
     // Calculate the inverse of A
     float det = A[0]*A[3] - A[1]*A[2];
