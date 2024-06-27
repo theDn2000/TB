@@ -142,9 +142,9 @@ int main(int argc, char *argv[])
             {
                 cout << "The player sees 3 flags or more" << endl;
                 int flags_used = 0;
-                vector<double> P1;
-                vector<double> P2;
-                vector<double> P3;
+                vector<double> P1 = {0, 0};
+                vector<double> P2 = {0, 0};
+                vector<double> P3 = {0, 0};
                 double D1 = 0;
                 double D2 = 0;
                 double D3 = 0;
