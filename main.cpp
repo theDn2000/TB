@@ -146,6 +146,7 @@ int main(int argc, char *argv[])
                 // Recorre todas las variables de la estructura field
                 for (auto &flag : flags)
                 {
+                    cout << "Flag: " << flag[0] << " " << flag[1] << endl;
                     // If the flag coordinates are (999, 999) then the flag is not seen
                     if (flag[0] != 999 && flags_used < 3)
                     {
