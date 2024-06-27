@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
                         else if (flags_used == 3)
                         {
                             D3 = sqrt(pow(flags[i][0], 2) + pow(flags[i][1], 2));
-                            P3 = {flags_abs[i][0], flags_abs[i][1]}
+                            P3 = {flags_abs[i][0], flags_abs[i][1]};
                         }
                         cout << "Flags used:" <<flags_used << endl;
                     }
