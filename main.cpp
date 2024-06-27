@@ -152,15 +152,15 @@ int main(int argc, char *argv[])
                         flags_used++;
                         if (flags_used == 1)
                         {
-                            P1 = {flag()[0], flag()[1]};
+                            P1 = {flag[0], flag[1]};
                         }
                         else if (flags_used == 2)
                         {
-                            P2 = {flag()[0], flag()[1]};
+                            P2 = {flag[0], flag[1]};
                         }
                         else if (flags_used == 3)
                         {
-                            P3 = {flag()[0], flag()[1]};
+                            P3 = {flag[0], flag[1]};
                         }
                         cout << "Flags used:" <<flags_used << endl;
                     }
