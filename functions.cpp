@@ -147,6 +147,12 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     field.flag_left_bottom = {999, 999};
     field.flag_right_top = {999, 999};
     field.flag_right_bottom = {999, 999};
+    field.flag_penalty_left_top = {999, 999};
+    field.flag_penalty_left_center = {999, 999};
+    field.flag_penalty_left_bottom = {999, 999};
+    field.flag_penalty_right_top = {999, 999};
+    field.flag_penalty_right_center = {999, 999};
+    field.flag_penalty_right_bottom = {999, 999};
 
     
 
