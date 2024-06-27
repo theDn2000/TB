@@ -36,41 +36,41 @@ struct Field
 {
     float offset = 100;
     vector<double> flag_center;
-    vector<double> flag_center_abs = {0 + offset, 0 + offset};
+    vector<double> flag_center_abs = {0, 0};
     vector<double> flag_center_top;
-    vector<double> flag_center_top_abs = {0.0 + offset, -33.5 + offset};
+    vector<double> flag_center_top_abs = {0.0, -33.5};
     vector<double> flag_center_bottom;
-    vector<double> flag_center_bottom_abs = {0 + offset, 33.5 + offset};
+    vector<double> flag_center_bottom_abs = {0, 33.5};
     vector<double> flag_left_top;
-    vector<double> flag_left_top_abs = {-52.2 + offset, -33.5 + offset};
+    vector<double> flag_left_top_abs = {-52.2, -33.5};
     vector<double> flag_left_bottom;
-    vector<double> flag_left_bottom_abs = {-52.2 + offset, 33.5 + offset};
+    vector<double> flag_left_bottom_abs = {-52.2, 33.5};
     vector<double> flag_right_top;
-    vector<double> flag_right_top_abs = {52.5 + offset, -33.5 + offset};
+    vector<double> flag_right_top_abs = {52.5, -33.5};
     vector<double> flag_right_bottom;
-    vector<double> flag_right_bottom_abs = {52.5 + offset, 33.5 + offset};
+    vector<double> flag_right_bottom_abs = {52.5, 33.5};
 
     vector<double> flag_penalty_left_top;
-    vector<double> flag_penalty_left_top_abs = {-36 + offset, -20 + offset};
+    vector<double> flag_penalty_left_top_abs = {-36, -20};
     vector<double> flag_penalty_left_center;
-    vector<double> flag_penalty_left_center_abs = {-36 + offset, 0 + offset};
+    vector<double> flag_penalty_left_center_abs = {-36, 0};
     vector<double> flag_penalty_left_bottom;
-    vector<double> flag_penalty_left_bottom_abs = {-36 + offset, 20 + offset};
+    vector<double> flag_penalty_left_bottom_abs = {-36, 20};
     vector<double> flag_penalty_right_top;
-    vector<double> flag_penalty_right_top_abs = {36 + offset, -20 + offset};
+    vector<double> flag_penalty_right_top_abs = {36, -20};
     vector<double> flag_penalty_right_center;
-    vector<double> flag_penalty_right_center_abs = {36 + offset, 0 + offset};
+    vector<double> flag_penalty_right_center_abs = {36, 0};
     vector<double> flag_penalty_right_bottom;
-    vector<double> flag_penalty_right_bottom_abs = {36 + offset, 20 + offset};
+    vector<double> flag_penalty_right_bottom_abs = {36, 20};
 
     vector<double> flag_goal_left_top;
-    vector<double> flag_goal_left_top_abs = {-52.5 + offset, -7.32 + offset};
+    vector<double> flag_goal_left_top_abs = {-52.5, -7.32};
     vector<double> flag_goal_left_bottom;
-    vector<double> flag_goal_left_bottom_abs = {-52.5 + offset, 7.32 + offset};
+    vector<double> flag_goal_left_bottom_abs = {-52.5, 7.32};
     vector<double> flag_goal_right_top;
-    vector<double> flag_goal_right_top_abs = {52.5 + offset, -7.32 + offset};
+    vector<double> flag_goal_right_top_abs = {52.5, -7.32};
     vector<double> flag_goal_right_bottom;
-    vector<double> flag_goal_right_bottom_abs = {52.5 + offset, 7.32 + offset};
+    vector<double> flag_goal_right_bottom_abs = {52.5, 7.32};
 };
 
 struct Goal
