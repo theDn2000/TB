@@ -145,7 +145,7 @@ int main(int argc, char *argv[])
                 for (auto &flag : flags)
                 {
                     // If the flag coordinates are (999, 999) then the flag is not seen
-                    if (flag.get()[0] != 999)
+                    if (flag.get()[0] != 999 && flags_used < 3)
                     {
                         flags_used++;
                         if (flags_used == 1)
