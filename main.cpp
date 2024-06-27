@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
                 float D2 = 0;
                 float D3 = 0;
                 // Recorre todas las variables de la estructura field
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < flags.size(); i++)
                 {
                     // If the flag coordinates are (999, 999) then the flag is not seen
                     if (flags[i][0] != 999 && flags_used < 3) 
