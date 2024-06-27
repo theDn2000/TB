@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     Field field;
     
     // Reference vector to the flags
-    std::vector<std::reference_wrapper<float>> flags = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom};
+    std::vector<std::reference_wrapper<float>> flags = {std::ref(field.flag_center), std::ref(field.flag_center_top), std::ref(field.flag_center_bottom), std::ref(field.flag_left_top), std::ref(field.flag_left_bottom), std::ref(field.flag_right_top), std::ref(field.flag_right_bottom)};
 
     // parse the initial message
     player = parseInitialMessage(received_message_content, player);
