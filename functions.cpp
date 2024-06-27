@@ -291,8 +291,53 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             player.flags_seen++;
         }
 
-        // Search for the penalty area le
+        // Search for the penalty area left top flag
+        if (see_message[i].find("(f p l t)") != string::npos)
+        {
+            vector<string> penalty_left_top_coords = separate_string_separator(see_message[i], " ");
+            field.flag_penalty_left_top = {stof(penalty_left_top_coords[4]), stof(penalty_left_top_coords[5])};
+            player.flags_seen++;
+        }
 
+        // Search for the penalty area left center flag
+        if (see_message[i].find("(f p l c)") != string::npos)
+        {
+            vector<string> penalty_left_center_coords = separate_string_separator(see_message[i], " ");
+            field.flag_penalty_left_center = {stof(penalty_left_center_coords[4]), stof(penalty_left_center_coords[5])};
+            player.flags_seen++;
+        }
+
+        // Search for the penalty area left bottom flag
+        if (see_message[i].find("(f p l b)") != string::npos)
+        {
+            vector<string> penalty_left_bottom_coords = separate_string_separator(see_message[i], " ");
+            field.flag_penalty_left_bottom = {stof(penalty_left_bottom_coords[4]), stof(penalty_left_bottom_coords[5])};
+            player.flags_seen++;
+        }
+
+        // Search for the penalty area right top flag
+        if (see_message[i].find("(f p r t)") != string::npos)
+        {
+            vector<string> penalty_right_top_coords = separate_string_separator(see_message[i], " ");
+            field.flag_penalty_right_top = {stof(penalty_right_top_coords[4]), stof(penalty_right_top_coords[5])};
+            player.flags_seen++;
+        }
+
+        // Search for the penalty area right center flag
+        if (see_message[i].find("(f p r c)") != string::npos)
+        {
+            vector<string> penalty_right_center_coords = separate_string_separator(see_message[i], " ");
+            field.flag_penalty_right_center = {stof(penalty_right_center_coords[4]), stof(penalty_right_center_coords[5])};
+            player.flags_seen++;
+        }
+
+        // Search for the penalty area right bottom flag
+        if (see_message[i].find("(f p r b)") != string::npos)
+        {
+            vector<string> penalty_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            field.flag_penalty_right_bottom = {stof(penalty_right_bottom_coords[4]), stof(penalty_right_bottom_coords[5])};
+            player.flags_seen++;
+        }
     }
 }
 

@@ -48,6 +48,19 @@ struct Field
     vector<float> flag_right_top_abs = {52.5, -34};
     vector<float> flag_right_bottom;
     vector<float> flag_right_bottom_abs = {52.5, 33.5};
+
+    vector<float> flag_penalty_left_top;
+    vector<float> flag_penalty_left_top_abs = {-36, -20};
+    vector<float> flag_penalty_left_center;
+    vector<float> flag_penalty_left_center_abs = {-36, 0};
+    vector<float> flag_penalty_left_bottom;
+    vector<float> flag_penalty_left_bottom_abs = {-36, 20};
+    vector<float> flag_penalty_right_top;
+    vector<float> flag_penalty_right_top_abs = {36, -20};
+    vector<float> flag_penalty_right_center;
+    vector<float> flag_penalty_right_center_abs = {36, 0};
+    vector<float> flag_penalty_right_bottom;
+    vector<float> flag_penalty_right_bottom_abs = {36, 20};
 };
 
 struct Goal
