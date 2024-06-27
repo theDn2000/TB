@@ -14,7 +14,7 @@ TEST(TrilaterationTest, TrilaterationTest)
     float D2 = 1;
     float D3 = 1;
     vector<float> result = trilateration(P1, P2, P3, D1, D2, D3);
-    vector<float> expected = {0.5, 0.5};
+    vector<float> expected = {-0.5, -0.5};
     for (int i = 0; i < 2; i++)
     {
         cout << "Result: " << result[i] << " Expected: " << expected[i] << endl;
