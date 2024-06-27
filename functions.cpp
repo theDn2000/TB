@@ -153,6 +153,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     field.flag_penalty_right_top = {999, 999};
     field.flag_penalty_right_center = {999, 999};
     field.flag_penalty_right_bottom = {999, 999};
+    field.flag_goal_left_top = {999, 999};
+    field.flag_goal_left_bottom = {999, 999};
+    field.flag_goal_right_top = {999, 999};
+    field.flag_goal_right_bottom = {999, 999};
 
     
 
@@ -344,6 +348,38 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             field.flag_penalty_right_bottom = {stof(penalty_right_bottom_coords[4]), stof(penalty_right_bottom_coords[5])};
             player.flags_seen++;
         }
+    
+        // Search for the goal left top flag
+        if (see_message[i].find("(f g l t)") != string::npos)
+        {
+            vector<string> goal_left_top_coords = separate_string_separator(see_message[i], " ");
+            field.flag_goal_left_top = {stof(goal_left_top_coords[3]), stof(goal_left_top_coords[4])};
+            player.flags_seen++;
+        }
+
+        // Search for the goal left bottom flag
+        if (see_message[i].find("(f g l b)") != string::npos)
+        {
+            vector<string> goal_left_bottom_coords = separate_string_separator(see_message[i], " ");
+            field.flag_goal_left_bottom = {stof(goal_left_bottom_coords[3]), stof(goal_left_bottom_coords[4])};
+            player.flags_seen++;
+        }
+
+        // Search for the goal right top flag
+        if (see_message[i].find("(f g r t)") != string::npos)
+        {
+            vector<string> goal_right_top_coords = separate_string_separator(see_message[i], " ");
+            field.flag_goal_right_top = {stof(goal_right_top_coords[3]), stof(goal_right_top_coords[4])};
+            player.flags_seen++;
+        }
+
+        // Search for the goal right bottom flag
+        if (see_message[i].find("(f g r b)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            field.flag_goal_right_bottom = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+            player.flags_seen++;
+        }
     }
 }
 
@@ -374,7 +410,6 @@ vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> 
     vector<float> result = {A_inv[0]*B[0] + A_inv[1]*B[1],
                             A_inv[2]*B[0] + A_inv[3]*B[1]};
 
-    cout << "Result: " << result[0] << " " << result[1] << endl;
     return result;
 }
 

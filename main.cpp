@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
 
     while (true)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
         auto received_message = udp_socket.receive(message_max_size);
         std::string received_message_content = received_message->received_message;
 
@@ -136,8 +136,8 @@ int main(int argc, char *argv[])
 
 
             // Trilateration
-            vector<vector<float>> flags = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom, field.flag_penalty_left_top, field.flag_penalty_left_center, field.flag_penalty_left_bottom, field.flag_penalty_right_top, field.flag_penalty_right_center, field.flag_penalty_right_bottom};
-            vector<vector<float>> flags_abs = {field.flag_center_abs, field.flag_center_top_abs, field.flag_center_bottom_abs, field.flag_left_top_abs, field.flag_left_bottom_abs, field.flag_right_top_abs, field.flag_right_bottom_abs, field.flag_penalty_left_top_abs, field.flag_penalty_left_center_abs, field.flag_penalty_left_bottom_abs, field.flag_penalty_right_top_abs, field.flag_penalty_right_center_abs, field.flag_penalty_right_bottom_abs};
+            vector<vector<float>> flags = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom, field.flag_penalty_left_top, field.flag_penalty_left_center, field.flag_penalty_left_bottom, field.flag_penalty_right_top, field.flag_penalty_right_center, field.flag_penalty_right_bottom, field.flag_goal_left_top, field.flag_goal_left_bottom};
+            vector<vector<float>> flags_abs = {field.flag_center_abs, field.flag_center_top_abs, field.flag_center_bottom_abs, field.flag_left_top_abs, field.flag_left_bottom_abs, field.flag_right_top_abs, field.flag_right_bottom_abs, field.flag_penalty_left_top_abs, field.flag_penalty_left_center_abs, field.flag_penalty_left_bottom_abs, field.flag_penalty_right_top_abs, field.flag_penalty_right_center_abs, field.flag_penalty_right_bottom_abs, field.flag_goal_left_top_abs, field.flag_goal_left_bottom_abs};
             
             if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
             {
@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
                 float D2 = 0;
                 float D3 = 0;
                 // Recorre todas las variables de la estructura field
-                for (int i = 0; i < 11; i++)
+                for (int i = 0; i < flags.size(); i++)
                 {
                     // If the flag coordinates are (999, 999) then the flag is not seen
                     if (flags[i][0] != 999 && flags_used < 3) 
