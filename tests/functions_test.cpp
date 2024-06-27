@@ -8,8 +8,8 @@ using namespace std;
 TEST(TrilaterationTest, TrilaterationTest)
 {
     vector<float> P1 = {0, 0};
-    vector<float> P2 = {1, 0};
-    vector<float> P3 = {0, 1};
+    vector<float> P2 = {-1, 0};
+    vector<float> P3 = {0, -1};
     float D1 = 1;
     float D2 = 1;
     float D3 = 1;
