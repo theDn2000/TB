@@ -167,11 +167,15 @@ int main(int argc, char *argv[])
                         {
                             D2 = sqrt(pow(flags[i][0], 2) + pow(flags[i][1], 2));
                             P2 = {flags_abs[i][0], flags_abs[i][1]};
+                            cout << "P2: " << P2[0] << " " << P2[1] << endl;
+                            cout << "D2: " << D2 << endl;
                         }
                         else if (flags_used == 3)
                         {
                             D3 = sqrt(pow(flags[i][0], 2) + pow(flags[i][1], 2));
                             P3 = {flags_abs[i][0], flags_abs[i][1]};
+                            cout << "P3: " << P3[0] << " " << P3[1] << endl;
+                            cout << "D3: " << D3 << endl;
                         }
                         cout << "Flags used:" <<flags_used << endl;
                     }
