@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     Field field;
     
     // Reference vector to the flags
-    std::vector<std::reference_wrapper<std::vector<float>>> flags = {std::ref(field.flag_center), std::ref(field.flag_center_top), std::ref(field.flag_center_bottom), std::ref(field.flag_left_top), std::ref(field.flag_left_bottom), std::ref(field.flag_right_top), std::ref(field.flag_right_bottom)};
+    //td::vector<std::reference_wrapper<std::vector<float>>> flags = {std::ref(field.flag_center), std::ref(field.flag_center_top), std::ref(field.flag_center_bottom), std::ref(field.flag_left_top), std::ref(field.flag_left_bottom), std::ref(field.flag_right_top), std::ref(field.flag_right_bottom)};
     // parse the initial message
     player = parseInitialMessage(received_message_content, player);
     
@@ -133,6 +133,8 @@ int main(int argc, char *argv[])
             vector<string> see_message = separate_string(parsed_message[0]);
             store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
         
+
+            vector<vector<float>> flags = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom};
             // Trilateration
             if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
             {
@@ -145,20 +147,20 @@ int main(int argc, char *argv[])
                 for (auto &flag : flags)
                 {
                     // If the flag coordinates are (999, 999) then the flag is not seen
-                    if (flag.get()[0] != 999 && flags_used < 3)
+                    if (flag[0] != 999 && flags_used < 3)
                     {
                         flags_used++;
                         if (flags_used == 1)
                         {
-                            P1 = {flag.get()[0], flag.get()[1]};
+                            P1 = {flag()[0], flag()[1]};
                         }
                         else if (flags_used == 2)
                         {
-                            P2 = {flag.get()[0], flag.get()[1]};
+                            P2 = {flag()[0], flag()[1]};
                         }
                         else if (flags_used == 3)
                         {
-                            P3 = {flag.get()[0], flag.get()[1]};
+                            P3 = {flag()[0], flag()[1]};
                         }
                         cout << "Flags used:" <<flags_used << endl;
                     }
