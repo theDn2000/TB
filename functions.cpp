@@ -304,11 +304,13 @@ vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> 
     vector<float> A = {2*(P2[0]-P1[0]), 2*(P2[1]-P1[1]),
                         2*(P3[0]-P1[0]), 2*(P3[1]-P1[1])};
 
+    cout << "A: " << A[0] << " " << A[1] << endl;
+
     // Calculate matrix B
     vector<float> B = {static_cast<float>(pow(D1, 2) - pow(D2, 2) + pow(P2[0], 2) - pow(P1[0], 2) + pow(P2[1], 2) - pow(P1[1], 2)),
                         static_cast<float>(pow(D1, 2) - pow(D3, 2) + pow(P3[0], 2) - pow(P1[0], 2) + pow(P3[1], 2) - pow(P1[1], 2))};
 
-
+    cout << "B: " << B[0] << " " << B[1] << endl;
 
     // Calculate the inverse of A
     float det = A[0]*A[3] - A[1]*A[2];
