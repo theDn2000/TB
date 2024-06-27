@@ -134,6 +134,7 @@ int main(int argc, char *argv[])
             store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
         
             vector<vector<float>> flags = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom};
+            vector<vector<float>> flags_abs = {field.flag_center_abs, field.flag_center_top_abs, field.flag_center_bottom_abs, field.flag_left_top_abs, field.flag_left_bottom_abs, field.flag_right_top_abs, field.flag_right_bottom_abs};
             // Trilateration
             if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
             {
@@ -142,31 +143,37 @@ int main(int argc, char *argv[])
                 vector<float> P1;
                 vector<float> P2;
                 vector<float> P3;
+                float D1 = 0;
+                float D2 = 0;
+                float D3 = 0;
                 // Recorre todas las variables de la estructura field
-                for (auto &flag : flags)
+                for (int i = 0; i < 7, i++)
                 {
                     // If the flag coordinates are (999, 999) then the flag is not seen
-                    if (flag[0] != 999 && flags_used < 3)
+                    if (flags[i][0] != 999 && flags_used < 3) 
                     {
                         flags_used++;
                         if (flags_used == 1)
                         {
-                            P1 = {flag[0], flag[1]};
+                            D1 = sqrt(pow(stod(flags[i][0]), 2) + pow(stod(flags[i][1]), 2));
+                            P1 = {flags_abs[i][0], flags_abs[i][1]};
                         }
                         else if (flags_used == 2)
                         {
-                            P2 = {flag[0], flag[1]};
+                            D2 = sqrt(pow(stod(flags[i][0]), 2) + pow(stod(flags[i][1]), 2));
+                            P2 = {flags_abs[i][0], flags_abs[i][1]};
                         }
                         else if (flags_used == 3)
                         {
-                            P3 = {flag[0], flag[1]};
+                            D3 = sqrt(pow(stod(flags[i][0]), 2) + pow(stod(flags[i][1]), 2));
+                            P3 = {flags_abs[i][0], flags_abs[i][1]
                         }
                         cout << "Flags used:" <<flags_used << endl;
                     }
                 }
                 if (flags_used == 3)
                 {
-                    vector<float> result = trilateration(P1, P2, P3);
+                    vector<float> result = trilateration(P1, P2, P3, D1, D2, D3);
                     cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
                 }
             }

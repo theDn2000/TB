@@ -35,12 +35,19 @@ struct Ball
 struct Field
 {
     vector<float> flag_center;
+    vector<float> flag_center_abs = {0, 0};
     vector<float> flag_center_top;
+    vector<float> flag_center_top_abs = {0, -33.5};
     vector<float> flag_center_bottom;
+    vector<float> flag_center_bottom_abs = {0, 33.5};
     vector<float> flag_left_top;
+    vector<float> flag_left_top_abs = {-52.5, -33.5};
     vector<float> flag_left_bottom;
+    vector<float> flag_left_bottom_abs = {-52.5, 33.5};
     vector<float> flag_right_top;
+    vector<float> flag_right_top_abs = {52.5, -33.5};
     vector<float> flag_right_bottom;
+    vector<float> flag_right_bottom_abs = {52.5, 33.5};
 };
 
 struct Goal

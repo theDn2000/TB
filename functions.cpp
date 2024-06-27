@@ -237,9 +237,9 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
         // Search for the center flag
         if (see_message[i].find("(f c)") != string::npos)
         {
+            player.flags_seen++;
             vector<string> center_coords = separate_string_separator(see_message[i], " ");
             field.flag_center = {stof(center_coords[2]), stof(center_coords[3])};
-            player.flags_seen++;
             cout << "Center flag coordinates: " << field.flag_center[0] << " " << field.flag_center[1] << endl;
         }
 
@@ -291,23 +291,15 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             player.flags_seen++;
         }
 
-    
-    }
-    if (found_ball == false)
-    {
-        
+        // Search for the penalty area le
+
     }
 }
 
 
 // Trilateration 2D function
-vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> &P3)
+vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> &P3, float &D1, float &D2, float &D3)
 {
-    // Calculate the distances between the points
-    float D1 = sqrt(pow(P2[0]-P1[0], 2) + pow(P2[1]-P1[1], 2));
-    float D2 = sqrt(pow(P3[0]-P1[0], 2) + pow(P3[1]-P1[1], 2));
-    float D3 = sqrt(pow(P3[0]-P1[0], 2) + pow(P3[1]-P1[1], 2));
-
     // Calculate matrix A
     vector<float> A = {2*(P2[0]-P1[0]), 2*(P2[1]-P1[1]),
                         2*(P3[0]-P1[0]), 2*(P3[1]-P1[1])};
@@ -330,6 +322,11 @@ vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> 
     return result;
 }
 
+// Calculate distance between two points
+float distance(vector<float> &P1, vector<float> &P2)
+{
+    return sqrt(pow(P1[0] - P2[0], 2) + pow(P1[1] - P2[1], 2));
+}
 
 
 
