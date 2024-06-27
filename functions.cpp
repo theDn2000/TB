@@ -158,8 +158,6 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     field.flag_goal_right_top = {999, 999};
     field.flag_goal_right_bottom = {999, 999};
 
-    
-
     if (own_goal.side == "l")
     {
         player.see_own_goal = false;
