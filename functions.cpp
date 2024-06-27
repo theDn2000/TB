@@ -233,6 +233,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             player.flags_seen++;
             cout << "Center flag coordinates: " << field.flag_center[0] << " " << field.flag_center[1] << endl;
         }
+        else
+        {
+            field.flag_center = {999, 999};
+        }
 
         // Search for the center top flag
         if (see_message[i].find("(f c t)") != string::npos)
@@ -240,6 +244,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> center_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_center_top = {stof(center_top_coords[3]), stof(center_top_coords[4])};
             player.flags_seen++;
+        }
+        else
+        {
+            field.flag_center_top = {999, 999};
         }
 
         // Search for the center bottom flag
@@ -249,6 +257,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             field.flag_center_bottom = {stof(center_bottom_coords[3]), stof(center_bottom_coords[4])};
             player.flags_seen++;
         }
+        else
+        {
+            field.flag_center_bottom = {999, 999};
+        }
 
         // Search for the left top flag
         if (see_message[i].find("(f l t)") != string::npos)
@@ -256,6 +268,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> left_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_left_top = {stof(left_top_coords[3]), stof(left_top_coords[4])};
             player.flags_seen++;
+        }
+        else
+        {
+            field.flag_left_top = {999, 999};
         }
 
         // Search for the left bottom flag
@@ -265,6 +281,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             field.flag_left_bottom = {stof(left_bottom_coords[3]), stof(left_bottom_coords[4])};
             player.flags_seen++;
         }
+        else
+        {
+            field.flag_left_bottom = {999, 999};
+        }
 
         // Search for the right top flag
         if (see_message[i].find("(f r t)") != string::npos)
@@ -273,6 +293,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             field.flag_right_top = {stof(right_top_coords[3]), stof(right_top_coords[4])};
             player.flags_seen++;
         }
+        else
+        {
+            field.flag_right_top = {999, 999};
+        }
 
         // Search for the right bottom flag
         if (see_message[i].find("(f r b)") != string::npos)
@@ -280,6 +304,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> right_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_right_bottom = {stof(right_bottom_coords[3]), stof(right_bottom_coords[4])};
             player.flags_seen++;
+        }
+        else
+        {
+            field.flag_right_bottom = {999, 999};
         }
     
     }
