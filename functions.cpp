@@ -135,8 +135,9 @@ vector<string> separate_string(string & s)
 void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goal &own_goal, Goal &opponent_goal, Field &field)
 {
     vector<string> ball_coords;
-    bool found_ball = false;
     player.flags_seen = 0;
+
+    player.see_ball = false;
 
     // All the flags are not seen at the beginning
     field.flag_center = {999, 999};
@@ -147,8 +148,24 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     field.flag_right_top = {999, 999};
     field.flag_right_bottom = {999, 999};
 
+    
 
-
+    if (own_goal.side == "l")
+    {
+        player.see_own_goal = false;
+    }
+    else
+    {
+        player.see_opponent_goal = false;
+    }
+    if (own_goal.side == "r")
+    {
+        player.see_own_goal = false;
+    }
+    else
+    {
+        player.see_opponent_goal = false;
+    }
 
 
 
@@ -170,8 +187,6 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             // Calculate the angle to the ball
             double angle = atan2(stod(ball.y), stod(ball.x));
             ball.angle = angle * 180 / M_PI;
-            found_ball = true;
-            //cout << "Angle to the ball: " << angle << endl;
         } 
 
         // Search for the right goal
@@ -193,17 +208,6 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
                 opponent_goal.y = goal_coords[3];
                 cout << "Opponent goal coordinates: " << opponent_goal.x << " " << opponent_goal.y << endl;
                 player.see_opponent_goal = true;
-            }
-        }
-        else
-        {
-            if (own_goal.side == "r")
-            {
-                player.see_own_goal = false;
-            }
-            else
-            {
-                player.see_opponent_goal = false;
             }
         }
 
@@ -228,18 +232,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
                 player.see_opponent_goal = true;
             }
         }
-        else
-        {
-            if (own_goal.side == "l")
-            {
-                player.see_own_goal = false;
-            }
-            else
-            {
-                player.see_opponent_goal = false;
-            }
-        }
-    
+
         // Search for the flags
         // Search for the center flag
         if (see_message[i].find("(f c)") != string::npos)
@@ -282,7 +275,6 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             player.flags_seen++;
         }
 
-
         // Search for the right top flag
         if (see_message[i].find("(f r t)") != string::npos)
         {
@@ -290,7 +282,6 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             field.flag_right_top = {stof(right_top_coords[3]), stof(right_top_coords[4])};
             player.flags_seen++;
         }
-
 
         // Search for the right bottom flag
         if (see_message[i].find("(f r b)") != string::npos)
@@ -304,7 +295,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     }
     if (found_ball == false)
     {
-        player.see_ball = false;
+        
     }
 }
 
