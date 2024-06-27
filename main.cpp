@@ -182,6 +182,8 @@ int main(int argc, char *argv[])
                 }
                 if (flags_used == 3)
                 {
+                    cout << "P1_tri: " << P1[0] << " " << P1[1] << endl;
+                    cout << "D1: " << D1 << endl;
                     vector<float> result = trilateration({P1[0], P1[1]}, {P2[0], P2[1]}, {P3[0], P3[1]}, D1, D2, D3);
                     cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
                 }
