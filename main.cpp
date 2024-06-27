@@ -158,17 +158,17 @@ int main(int argc, char *argv[])
                         flags_used++;
                         if (flags_used == 1)
                         {
-                            D1 = sqrt(pow(stod(flags[i][0]), 2) + pow(stod(flags[i][1]), 2));
+                            D1 = sqrt(pow(flags[i][0], 2) + pow(flags[i][1], 2));
                             P1 = {flags_abs[i][0], flags_abs[i][1]};
                         }
                         else if (flags_used == 2)
                         {
-                            D2 = sqrt(pow(stod(flags[i][0]), 2) + pow(stod(flags[i][1]), 2));
+                            D2 = sqrt(pow(flags[i][0], 2) + pow(flags[i][1], 2));
                             P2 = {flags_abs[i][0], flags_abs[i][1]};
                         }
                         else if (flags_used == 3)
                         {
-                            D3 = sqrt(pow(stod(flags[i][0]), 2) + pow(stod(flags[i][1]), 2));
+                            D3 = sqrt(pow(flags[i][0], 2) + pow(flags[i][1], 2));
                             P3 = {flags_abs[i][0], flags_abs[i][1]}
                         }
                         cout << "Flags used:" <<flags_used << endl;
