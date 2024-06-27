@@ -353,7 +353,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
         if (see_message[i].find("(f g l t)") != string::npos)
         {
             vector<string> goal_left_top_coords = separate_string_separator(see_message[i], " ");
-            field.flag_goal_left_top = {stof(goal_left_top_coords[3]), stof(goal_left_top_coords[4])};
+            field.flag_goal_left_top = {stof(goal_left_top_coords[4]), stof(goal_left_top_coords[5])};
             player.flags_seen++;
         }
 
@@ -361,7 +361,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
         if (see_message[i].find("(f g l b)") != string::npos)
         {
             vector<string> goal_left_bottom_coords = separate_string_separator(see_message[i], " ");
-            field.flag_goal_left_bottom = {stof(goal_left_bottom_coords[3]), stof(goal_left_bottom_coords[4])};
+            field.flag_goal_left_bottom = {stof(goal_left_bottom_coords[4]), stof(goal_left_bottom_coords[5])};
             player.flags_seen++;
         }
 
@@ -369,7 +369,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
         if (see_message[i].find("(f g r t)") != string::npos)
         {
             vector<string> goal_right_top_coords = separate_string_separator(see_message[i], " ");
-            field.flag_goal_right_top = {stof(goal_right_top_coords[3]), stof(goal_right_top_coords[4])};
+            field.flag_goal_right_top = {stof(goal_right_top_coords[4]), stof(goal_right_top_coords[5])};
             player.flags_seen++;
         }
 
@@ -377,7 +377,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
         if (see_message[i].find("(f g r b)") != string::npos)
         {
             vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
-            field.flag_goal_right_bottom = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+            field.flag_goal_right_bottom = {stof(goal_right_bottom_coords[4]), stof(goal_right_bottom_coords[5])};
             player.flags_seen++;
         }
     }
