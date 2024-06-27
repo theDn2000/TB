@@ -160,6 +160,8 @@ int main(int argc, char *argv[])
                         {
                             D1 = sqrt(pow(flags[i][0], 2) + pow(flags[i][1], 2));
                             P1 = {flags_abs[i][0], flags_abs[i][1]};
+                            cout << "P1: " << P1[0] << " " << P1[1] << endl;
+                            cout << "D1: " << D1 << endl;
                         }
                         else if (flags_used == 2)
                         {
