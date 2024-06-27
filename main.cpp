@@ -97,6 +97,9 @@ int main(int argc, char *argv[])
     Goal opponent_goal{"0", "0", "init"};
     Field field;
     
+    // Reference vector to the flags
+    std::vector<std::reference_wrapper<float>> flags = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom};
+
     // parse the initial message
     player = parseInitialMessage(received_message_content, player);
     
@@ -123,12 +126,49 @@ int main(int argc, char *argv[])
 
         vector<string> parsed_message = separate_string(received_message_content);
 
+        
+
         // Search for see message
         if (parsed_message[0].find("see") <= 5)
         {
             vector<string> see_message = separate_string(parsed_message[0]);
             store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
         
+            // Trilateration
+            if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
+            {
+                int flags_used = 0;
+                vector<float> P1;
+                vector<float> P2;
+                vector<float> P3;
+                // Recorre todas las variables de la estructura field
+                for (auto &flag : flags)
+                {
+                    // If the flag coordinates are (999, 999) then the flag is not seen
+                    if (flag.get()[0] != 999)
+                    {
+                        flags_used++;
+                        if (flags_used == 1)
+                        {
+                            P1 = {flag.get()[0], flag.get()[1]};
+                        }
+                        else if (flags_used == 2)
+                        {
+                            P2 = {flag.get()[0], flag.get()[1]};
+                        }
+                        else if (flags_used == 3)
+                        {
+                            P3 = {flag.get()[0], flag.get()[1]};
+                        }
+                    }
+                }
+                if (flags_used == 3)
+                {
+                    vector<float> result = trilateration(P1, P2, P3);
+                    cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
+                }
+            }
+
             // Logic of the player
             if (player.see_ball == true)
             {
