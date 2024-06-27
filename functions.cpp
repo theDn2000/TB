@@ -236,6 +236,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
         else
         {
             field.flag_center = {999, 999};
+            cout << "Center flag coordinates: " << field.flag_center[0] << " " << field.flag_center[1] << endl;
         }
 
         // Search for the center top flag
