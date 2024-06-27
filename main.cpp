@@ -136,6 +136,7 @@ int main(int argc, char *argv[])
             // Trilateration
             if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
             {
+                cout << "The player sees 3 flags or more" << endl;
                 int flags_used = 0;
                 vector<float> P1;
                 vector<float> P2;
