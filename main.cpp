@@ -133,9 +133,12 @@ int main(int argc, char *argv[])
             vector<string> see_message = separate_string(parsed_message[0]);
             store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
         
+
+
+            // Trilateration
             vector<vector<float>> flags = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom};
             vector<vector<float>> flags_abs = {field.flag_center_abs, field.flag_center_top_abs, field.flag_center_bottom_abs, field.flag_left_top_abs, field.flag_left_bottom_abs, field.flag_right_top_abs, field.flag_right_bottom_abs};
-            // Trilateration
+            
             if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
             {
                 cout << "The player sees 3 flags or more" << endl;
@@ -147,7 +150,7 @@ int main(int argc, char *argv[])
                 float D2 = 0;
                 float D3 = 0;
                 // Recorre todas las variables de la estructura field
-                for (int i = 0; i < 7, i++)
+                for (int i = 0; i < 7; i++)
                 {
                     // If the flag coordinates are (999, 999) then the flag is not seen
                     if (flags[i][0] != 999 && flags_used < 3) 
@@ -166,7 +169,7 @@ int main(int argc, char *argv[])
                         else if (flags_used == 3)
                         {
                             D3 = sqrt(pow(stod(flags[i][0]), 2) + pow(stod(flags[i][1]), 2));
-                            P3 = {flags_abs[i][0], flags_abs[i][1]
+                            P3 = {flags_abs[i][0], flags_abs[i][1]}
                         }
                         cout << "Flags used:" <<flags_used << endl;
                     }
@@ -177,6 +180,8 @@ int main(int argc, char *argv[])
                     cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
                 }
             }
+
+
 
             // Logic of the player
             if (player.see_ball == true)
