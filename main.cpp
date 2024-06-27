@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
             vector<string> see_message = separate_string(parsed_message[0]);
             store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
         
-
+            cout << "Center flag: " << field.flag_center[0] << " " << field.flag_center[1] << endl;
             vector<vector<float>> flags = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom};
             // Trilateration
             if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
