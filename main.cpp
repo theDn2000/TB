@@ -160,6 +160,7 @@ int main(int argc, char *argv[])
                         {
                             P3 = {flag.get()[0], flag.get()[1]};
                         }
+                        cout << "Flags used:" <<flags_used << endl
                     }
                 }
                 if (flags_used == 3)
