@@ -354,7 +354,7 @@ int main(int argc, char *argv[])
                     cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
                     */
                     // Simulate robot movement
-                    mcl.update_with_motion(0, 0);
+                    mcl.update_with_motion(10, 0);
 
                     // Update based on measurement
                     mcl.update_with_measurement(observations);
@@ -377,25 +377,11 @@ int main(int argc, char *argv[])
                 {
                 case 1:
                     // Goalkeeper
-                    if (ball.distance < 1.5)
-                    {
-                        // Kick the ball
-                        int power = 100;
-                        std::string kick_command = "(kick " + to_string(power) + " 0)";
-                        udp_socket.sendTo(kick_command, server_udp);
-                    }
-                    else if (ball.distance < 20)
-                    {
-                        // Dash to the ball
-                        int power = 100;
-                        std::string dash_command = "(dash " + to_string(power) + " 0)";
-                        udp_socket.sendTo(dash_command, server_udp);
-                    }
-                    else
-                    {
-                        // Rotate because he mad
-                        std::string rotate_command = "(turn " + to_string(30) + ")";
-                    }
+                    // Dash
+                    int power = 10;
+                    std::string dash_command = "(dash " + to_string(power) + " 0)";
+                    udp_socket.sendTo(dash_command, server_udp);
+
 
                     break;
                 default:
