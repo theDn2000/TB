@@ -324,21 +324,21 @@ int main(int argc, char *argv[])
                         {
                             D1 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
                             P1 = flags[i];
-                            cout << "P1: " << P1[0] << " " << P1[1] << endl;
+                            cout << "P1: " << P1 << endl;
                             cout << "D1: " << D1 << endl;
                         }
                         else if (flags_used == 2)
                         {
                             D2 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
                             P2 = flags[i];
-                            cout << "P2: " << P2[0] << " " << P2[1] << endl;
+                            cout << "P2: " << P2 << endl;
                             cout << "D2: " << D2 << endl;
                         }
                         else if (flags_used == 3)
                         {
                             D3 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
                             P3 = flags[i];
-                            cout << "P3: " << P3[0] << " " << P3[1] << endl;
+                            cout << "P3: " << P3 << endl;
                             cout << "D3: " << D3 << endl;
                         }
                     }
