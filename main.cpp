@@ -14,10 +14,12 @@ using namespace std;
 #include <cmath>
 #include <string>
 #include <algorithm>
+#include <random>
 
 // Include headers
 #include "functions.h"
 #include "structs.h"
+
 
 
 
