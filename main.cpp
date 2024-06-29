@@ -12,10 +12,146 @@ using namespace std;
 #include <vector>
 #include <sstream>
 #include <cmath>
+#include <string>
+#include <algorithm>
 
 // Include headers
 #include "functions.h"
 #include "structs.h"
+
+
+
+
+
+struct Point2D {
+    double x;
+    double y;
+};
+
+struct Particle {
+    Point2D position;
+    double weight;
+};
+
+class MonteCarloLocalization {
+public:
+    MonteCarloLocalization(int num_particles, const std::vector<Point2D>& flags, double sensor_noise)
+        : num_particles(num_particles), flags(flags), sensor_noise(sensor_noise) {
+        // Initialize particles randomly in the field
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<> dis_x(0.0, 105.0); // Width of the soccer field
+        std::uniform_real_distribution<> dis_y(0.0, 68.0); // Height of the soccer field
+
+        for (int i = 0; i < num_particles; ++i) {
+            particles.push_back({{dis_x(gen), dis_y(gen)}, 1.0 / num_particles});
+        }
+    }
+
+    void update_with_motion(double dx, double dy) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::normal_distribution<> motion_noise_x(0.0, 1.0); // Motion noise
+        std::normal_distribution<> motion_noise_y(0.0, 1.0);
+
+        for (auto& particle : particles) {
+            particle.position.x += dx + motion_noise_x(gen);
+            particle.position.y += dy + motion_noise_y(gen);
+        }
+    }
+
+    void update_with_measurement(const std::vector<std::pair<Point2D, double>>& observations) {
+        for (auto& particle : particles) {
+            particle.weight = 1.0;
+            for (const auto& obs : observations) {
+                const auto& landmark = obs.first;
+                double measured_dist = obs.second;
+                double predicted_dist = distance(particle.position, landmark);
+                double weight = gaussian(measured_dist, sensor_noise, predicted_dist);
+                particle.weight *= weight;
+            }
+        }
+        normalize_weights();
+    }
+
+    void resample_particles() {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::vector<Particle> new_particles;
+        std::uniform_real_distribution<> dis(0.0, 1.0);
+
+        std::vector<double> cumulative_sum;
+        double sum = 0.0;
+        for (const auto& particle : particles) {
+            sum += particle.weight;
+            cumulative_sum.push_back(sum);
+        }
+
+        for (int i = 0; i < num_particles; ++i) {
+            double sample = dis(gen) * sum;
+            auto it = std::lower_bound(cumulative_sum.begin(), cumulative_sum.end(), sample);
+            int index = it - cumulative_sum.begin();
+            new_particles.push_back(particles[index]);
+        }
+        particles = new_particles;
+    }
+
+    Point2D estimate_position() const {
+        double x_sum = 0.0, y_sum = 0.0, weight_sum = 0.0;
+        for (const auto& particle : particles) {
+            x_sum += particle.position.x * particle.weight;
+            y_sum += particle.position.y * particle.weight;
+            weight_sum += particle.weight;
+        }
+        return {x_sum / weight_sum, y_sum / weight_sum};
+    }
+
+private:
+    int num_particles;
+    double sensor_noise;
+    std::vector<Point2D> flags;
+    std::vector<Particle> particles;
+
+    double distance(const Point2D& a, const Point2D& b) const {
+        return std::sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+    }
+
+    double gaussian(double mu, double sigma, double x) const {
+        return std::exp(-0.5 * std::pow((x - mu) / sigma, 2.0)) / (sigma * std::sqrt(2.0 * M_PI));
+    }
+
+    void normalize_weights() {
+        double sum = 0.0;
+        for (const auto& particle : particles) {
+            sum += particle.weight;
+        }
+        for (auto& particle : particles) {
+            particle.weight /= sum;
+        }
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Move command function
 void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)
@@ -97,6 +233,31 @@ int main(int argc, char *argv[])
     Goal opponent_goal{"0", "0", "init"};
     Field field;
     
+    // Inicialización del sistema MCL
+    double sensor_noise = 5.0;
+    MonteCarloLocalization mcl(1000, flags, sensor_noise);
+
+    const std::vector<Point2D> flags = 
+    {
+        {0.0, 0.0},        // Center of the field
+        {0.0, -33.5}       // Top center
+        {0.0, 33.5},       // Bottom center
+        {-52.5, -33.5},    // Corner top-left
+        {-52.5, 33.5},     // Corner bottom-left
+        {52.5, -33.5},     // Corner top-right
+        {52.5, 33.5},      // Corner bottom-right
+        {-36, -20},        // Penalty top-left
+        {-36, 0}           // Penalty center-left
+        {-36, 20},         // Penalty bottom-left
+        {36, -20},         // Penalty top-right
+        {36, 0},           // Penalty center-right
+        {36, 20},          // Penalty bottom-right
+        {-52.5, -7.32},    // Goal top-left
+        {-52.5, 7.32},     // Goal bottom-left
+        {52.5, -7.32},     // Goal top-right
+        {52.5, 7.32}       // Goal bottom-right
+    };
+
     // Reference vector to the flags
     //td::vector<std::reference_wrapper<std::vector<float>>> flags = {std::ref(field.flag_center), std::ref(field.flag_center_top), std::ref(field.flag_center_bottom), std::ref(field.flag_left_top), std::ref(field.flag_left_bottom), std::ref(field.flag_right_top), std::ref(field.flag_right_bottom)};
     // parse the initial message
@@ -135,10 +296,8 @@ int main(int argc, char *argv[])
 
 
             // Trilateration
-            vector<vector<double>> flags = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom, field.flag_penalty_left_top, field.flag_penalty_left_center, field.flag_penalty_left_bottom, field.flag_penalty_right_top, field.flag_penalty_right_center, field.flag_penalty_right_bottom, field.flag_goal_left_top, field.flag_goal_left_bottom, field.flag_goal_right_top, field.flag_goal_right_bottom};
-            vector<vector<double>> flags_abs = {field.flag_center_abs, field.flag_center_top_abs, field.flag_center_bottom_abs, field.flag_left_top_abs, field.flag_left_bottom_abs, field.flag_right_top_abs, field.flag_right_bottom_abs, field.flag_penalty_left_top_abs, field.flag_penalty_left_center_abs, field.flag_penalty_left_bottom_abs, field.flag_penalty_right_top_abs, field.flag_penalty_right_center_abs, field.flag_penalty_right_bottom_abs, field.flag_goal_left_top_abs, field.flag_goal_left_bottom_abs, field.flag_goal_right_top_abs, field.flag_goal_right_bottom_abs};
-            cout << "Flags number: " << flags.size() << endl;
-            cout << "Flags_abs number: " << flags_abs.size() << endl;
+            vector<vector<double>> flags_rel = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom, field.flag_penalty_left_top, field.flag_penalty_left_center, field.flag_penalty_left_bottom, field.flag_penalty_right_top, field.flag_penalty_right_center, field.flag_penalty_right_bottom, field.flag_goal_left_top, field.flag_goal_left_bottom, field.flag_goal_right_top, field.flag_goal_right_bottom};
+            //vector<vector<double>> flags_abs = {field.flag_center_abs, field.flag_center_top_abs, field.flag_center_bottom_abs, field.flag_left_top_abs, field.flag_left_bottom_abs, field.flag_right_top_abs, field.flag_right_bottom_abs, field.flag_penalty_left_top_abs, field.flag_penalty_left_center_abs, field.flag_penalty_left_bottom_abs, field.flag_penalty_right_top_abs, field.flag_penalty_right_center_abs, field.flag_penalty_right_bottom_abs, field.flag_goal_left_top_abs, field.flag_goal_left_bottom_abs, field.flag_goal_right_top_abs, field.flag_goal_right_bottom_abs};
 
 
             if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
@@ -152,30 +311,30 @@ int main(int argc, char *argv[])
                 double D2 = 0;
                 double D3 = 0;
                 // Recorre todas las variables de la estructura field
-                for (int i = 0; i < flags.size(); i++)
+                for (int i = 0; i < flags_rel.size(); i++)
                 {
                     // If the flag coordinates are (999, 999) then the flag is not seen
-                    if (flags[i][0] != 999 && flags_used < 3) 
+                    if (flags_rel[i][0] != 999 && flags_used < 3) 
                     {
                         flags_used++;
                         if (flags_used == 1)
                         {
-                            D1 = sqrt(pow(flags[i][0], 2) + pow(flags[i][1], 2));
-                            P1 = {flags_abs[i][0], flags_abs[i][1]};
+                            D1 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
+                            P1 = flags[i];
                             cout << "P1: " << P1[0] << " " << P1[1] << endl;
                             cout << "D1: " << D1 << endl;
                         }
                         else if (flags_used == 2)
                         {
-                            D2 = sqrt(pow(flags[i][0], 2) + pow(flags[i][1], 2));
-                            P2 = {flags_abs[i][0], flags_abs[i][1]};
+                            D2 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
+                            P2 = flags[i];
                             cout << "P2: " << P2[0] << " " << P2[1] << endl;
                             cout << "D2: " << D2 << endl;
                         }
                         else if (flags_used == 3)
                         {
-                            D3 = sqrt(pow(flags[i][0], 2) + pow(flags[i][1], 2));
-                            P3 = {flags_abs[i][0], flags_abs[i][1]};
+                            D3 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
+                            P3 = flags[i];
                             cout << "P3: " << P3[0] << " " << P3[1] << endl;
                             cout << "D3: " << D3 << endl;
                         }
@@ -183,10 +342,29 @@ int main(int argc, char *argv[])
                 }
                 if (flags_used == 3)
                 {
+                    std::vector<std::pair<Point2D, double>> observations = {
+                    {P1, D1},
+                    {P2, D2},
+                    {P3, D3}
+                    };
+                    /*
                     cout << "P1_tri: " << P1[0] << " " << P1[1] << endl;
                     cout << "D1: " << D1 << endl;
                     vector<double> result = trilateration(P1, P2, P3, D1, D2, D3);
                     cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
+                    */
+                    // Simulate robot movement
+                    mcl.update_with_motion(0, 0);
+
+                    // Update based on measurement
+                    mcl.update_with_measurement(observations);
+
+                    // Resample particles
+                    mcl.resample_particles();
+
+                    // Estimate position
+                    Point2D estimated_pos = mcl.estimate_position();
+                    std::cout << "Estimated position: (" << estimated_pos.x << ", " << estimated_pos.y << ")\n";
                 }
             }
 
