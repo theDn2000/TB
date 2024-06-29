@@ -235,9 +235,6 @@ int main(int argc, char *argv[])
     Goal opponent_goal{"0", "0", "init"};
     Field field;
     
-    // Inicialización del sistema MCL
-    double sensor_noise = 5.0;
-    MonteCarloLocalization mcl(1000, flags, sensor_noise);
 
     const std::vector<Point2D> flags = 
     {
@@ -259,6 +256,10 @@ int main(int argc, char *argv[])
         {52.5, -7.32},     // Goal top-right
         {52.5, 7.32}       // Goal bottom-right
     };
+
+    // Inicialización del sistema MCL
+    double sensor_noise = 5.0;
+    MonteCarloLocalization mcl(1000, flags, sensor_noise);
 
     // Reference vector to the flags
     //td::vector<std::reference_wrapper<std::vector<float>>> flags = {std::ref(field.flag_center), std::ref(field.flag_center_top), std::ref(field.flag_center_bottom), std::ref(field.flag_left_top), std::ref(field.flag_left_bottom), std::ref(field.flag_right_top), std::ref(field.flag_right_bottom)};
