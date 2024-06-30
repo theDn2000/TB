@@ -156,7 +156,7 @@ private:
 
 
 // Move command function
-void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)
+void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)
 {
     vector<Posicion>
         posiciones = {{-50, 0},
@@ -474,7 +474,7 @@ int main(int argc, char *argv[])
             else
             {
                 // The player is not in his zone, run back to the zone
-                std::string dash_command = "(dash " + to_string(power) + " 180)";
+                std::string dash_command = "(dash 100 180)";
             }
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
