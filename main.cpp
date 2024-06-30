@@ -37,11 +37,12 @@ struct Particle {
 
 class MonteCarloLocalization {
 public:
-    MonteCarloLocalization(int num_particles, const std::vector<Point2D>& flags, double sensor_noise, bool is_left_side = true)
+    MonteCarloLocalization(int num_particles, const std::vector<Point2D>& flags, double sensor_noise)
         : num_particles(num_particles), flags(flags), sensor_noise(sensor_noise) {
         // Initialize particles randomly in the field
         std::random_device rd;
         std::mt19937 gen(rd());
+        bool is_left_side = flags[0].x < 0.0;
         std::uniform_real_distribution<> dis_x(is_left_side ? 0.0 : 52.5, is_left_side ? 52.5 : 105.0);
         std::uniform_real_distribution<> dis_y(0.0, 68.0); // Height of the soccer field
 
