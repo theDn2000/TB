@@ -42,7 +42,6 @@ public:
         // Initialize particles randomly in the field
         std::random_device rd;
         std::mt19937 gen(rd());
-        bool is_left_side = flags[0].x < 0.0;
         std::uniform_real_distribution<> dis_x(is_left_side ? 0.0 : 52.5, is_left_side ? 52.5 : 105.0);
         std::uniform_real_distribution<> dis_y(0.0, 68.0); // Height of the soccer field
 
@@ -260,14 +259,7 @@ int main(int argc, char *argv[])
 
     // Inicialización del sistema MCL
     double sensor_noise = 5.0;
-    if (player.side == "r")
-    {
-        MonteCarloLocalization mcl(1000, flags, sensor_noise);
-    }
-    else
-    {
-        MonteCarloLocalization mcl(1000, flags, sensor_noise);
-    }
+    MonteCarloLocalization mcl(1000, flags, sensor_noise);
 
     // Reference vector to the flags
     //td::vector<std::reference_wrapper<std::vector<float>>> flags = {std::ref(field.flag_center), std::ref(field.flag_center_top), std::ref(field.flag_center_bottom), std::ref(field.flag_left_top), std::ref(field.flag_left_bottom), std::ref(field.flag_right_top), std::ref(field.flag_right_bottom)};
