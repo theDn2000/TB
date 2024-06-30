@@ -158,8 +158,7 @@ private:
 // Move command function
 void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)
 {
-
-    vector<double>
+    vector<Posicion>
         posiciones = {{-50, 0},
                       {-40, -10},
                       {-35, -28},

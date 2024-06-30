@@ -9,13 +9,18 @@
 
 using namespace std;
 
+struct Posicion
+{
+    int x;
+    int y;
+};
 
 struct Player
 {
     std::string team_name;
     std::string playmode;
     std::string side;
-    vector<double> zone;
+    vector<Posicion> zone;
     bool see_ball;
     bool see_own_goal;
     bool see_opponent_goal;
