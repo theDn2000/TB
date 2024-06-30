@@ -378,9 +378,10 @@ int main(int argc, char *argv[])
                 case 1:
                     // Goalkeeper
                     // Dash
-                    int power = 10;
+                    int power = 100;
                     std::string dash_command = "(dash " + to_string(power) + " 0)";
                     udp_socket.sendTo(dash_command, server_udp);
+                    cout << "Dash command sent" << endl;
 
 
                     break;
