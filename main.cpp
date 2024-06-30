@@ -239,12 +239,12 @@ int main(int argc, char *argv[])
     const std::vector<Point2D> flags = 
     {
         {0.0, 0.0},        // Center of the field
-        {0.0, -34},       // Top center
-        {0.0, 34},       // Bottom center
-        {-52.5, -34},    // Corner top-left
-        {-52.5, 34},     // Corner bottom-left
-        {52.5, -34},     // Corner top-right
-        {52.5, 34},      // Corner bottom-right
+        {0.0, -33.5},       // Top center
+        {0.0, 33.5},       // Bottom center
+        {-52.5, -33.5},    // Corner top-left
+        {-52.5, 33.5},     // Corner bottom-left
+        {52.5, -33.5},     // Corner top-right
+        {52.5, 33.5},      // Corner bottom-right
         {-36, -20},        // Penalty top-left
         {-36, 0},           // Penalty center-left
         {-36, 20},         // Penalty bottom-left
