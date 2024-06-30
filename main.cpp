@@ -364,10 +364,6 @@ int main(int argc, char *argv[])
 
                     // Estimate position
                     Point2D estimated_pos = mcl.estimate_position();
-                    if (player.side == "l")
-                    {
-                        estimated_pos.x = -estimated_pos.x;
-                    }
                     std::cout << "Estimated position: (" << estimated_pos.x << ", " << estimated_pos.y << ")\n";
                 }
             }
