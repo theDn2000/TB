@@ -4,6 +4,8 @@
 #include <string>
 #include<iostream>
 #include <vector>
+#include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,6 +15,7 @@ struct Player
     std::string team_name;
     std::string playmode;
     std::string side;
+    vector<double> zone;
     bool see_ball;
     bool see_own_goal;
     bool see_opponent_goal;
