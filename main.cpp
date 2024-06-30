@@ -382,7 +382,7 @@ int main(int argc, char *argv[])
 
 
             // Check if the player is in his zone
-            if (player.x - player.zone.x < 15 && player.y - player.zone.y < 15)
+            if (player.x - player.zone.x < 10 && player.y - player.zone.y < 10)
             {
                 // Logic of the player
                 if (player.see_ball == true && first_turn == true)
