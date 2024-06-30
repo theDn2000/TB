@@ -259,7 +259,7 @@ int main(int argc, char *argv[])
 
     // Inicialización del sistema MCL
     double sensor_noise = 5.0;
-    if player.side == "r"
+    if (player.side == "r")
     {
         MonteCarloLocalization mcl(1000, flags, sensor_noise, is_left_side=false);
     }
