@@ -37,12 +37,12 @@ struct Particle {
 
 class MonteCarloLocalization {
 public:
-    MonteCarloLocalization(int num_particles, const std::vector<Point2D>& flags, double sensor_noise)
+    MonteCarloLocalization(int num_particles, const std::vector<Point2D>& flags, double sensor_noise, bool is_left_side = true)
         : num_particles(num_particles), flags(flags), sensor_noise(sensor_noise) {
         // Initialize particles randomly in the field
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_real_distribution<> dis_x(0.0, 105.0); // Width of the soccer field
+        std::uniform_real_distribution<> dis_x(is_left_side ? 0.0 : 52.5, is_left_side ? 52.5 : 105.0);
         std::uniform_real_distribution<> dis_y(0.0, 68.0); // Height of the soccer field
 
         for (int i = 0; i < num_particles; ++i) {
@@ -239,12 +239,12 @@ int main(int argc, char *argv[])
     const std::vector<Point2D> flags = 
     {
         {0.0, 0.0},        // Center of the field
-        {0.0, -33.5},       // Top center
-        {0.0, 33.5},       // Bottom center
-        {-52.5, -33.5},    // Corner top-left
-        {-52.5, 33.5},     // Corner bottom-left
-        {52.5, -33.5},     // Corner top-right
-        {52.5, 33.5},      // Corner bottom-right
+        {0.0, -34},       // Top center
+        {0.0, 34},       // Bottom center
+        {-52.5, -34},    // Corner top-left
+        {-52.5, 34},     // Corner bottom-left
+        {52.5, -34},     // Corner top-right
+        {52.5, 34},      // Corner bottom-right
         {-36, -20},        // Penalty top-left
         {-36, 0},           // Penalty center-left
         {-36, 20},         // Penalty bottom-left
