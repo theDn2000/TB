@@ -353,6 +353,8 @@ int main(int argc, char *argv[])
                     vector<double> result = trilateration(P1, P2, P3, D1, D2, D3);
                     cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
                     */
+                    // Simulate robot movement
+                    mcl.update_with_motion(0.0, 0.0);
 
                     // Update based on measurement
                     mcl.update_with_measurement(observations);
@@ -362,6 +364,10 @@ int main(int argc, char *argv[])
 
                     // Estimate position
                     Point2D estimated_pos = mcl.estimate_position();
+                    if player.side == "r"
+                    {
+                        estimated_pos.x = -estimated_pos.x;
+                    }
                     std::cout << "Estimated position: (" << estimated_pos.x << ", " << estimated_pos.y << ")\n";
                 }
             }
@@ -427,9 +433,6 @@ int main(int argc, char *argv[])
                             // Create the dash command
                             std::string dash_command = "(dash " + to_string(power) + " 0)";
                             udp_socket.sendTo(dash_command, server_udp);
-                            
-                            // Move the particles
-                            mcl.update_with_motion(0.1, 0.1);
                         }
                     }
                 }
