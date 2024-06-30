@@ -42,8 +42,8 @@ public:
         // Initialize particles randomly in the field
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_real_distribution<> dis_x(0.0, 105.0); // Width of the soccer field
-        std::uniform_real_distribution<> dis_y(0.0, 68.0); // Height of the soccer field
+        std::uniform_real_distribution<> dis_x(-52.5, 52.5); // Width of the soccer field
+        std::uniform_real_distribution<> dis_y(-33.5, 33.5); // Height of the soccer field
 
         for (int i = 0; i < num_particles; ++i) {
             particles.push_back({{dis_x(gen), dis_y(gen)}, 1.0 / num_particles});
