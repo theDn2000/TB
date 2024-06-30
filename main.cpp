@@ -281,6 +281,10 @@ int main(int argc, char *argv[])
         own_goal.side = "l";
     }
 
+    // First turn checks
+    int first_turn_division = 0;
+    bool first_turn = false;
+
     while (true)
     {
         auto received_message = udp_socket.receive(message_max_size);
@@ -288,7 +292,7 @@ int main(int argc, char *argv[])
 
         vector<string> parsed_message = separate_string(received_message_content);
 
-        
+
 
         // Search for see message
         if (parsed_message[0].find("see") <= 5)
@@ -302,6 +306,18 @@ int main(int argc, char *argv[])
             vector<vector<double>> flags_rel = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom, field.flag_penalty_left_top, field.flag_penalty_left_center, field.flag_penalty_left_bottom, field.flag_penalty_right_top, field.flag_penalty_right_center, field.flag_penalty_right_bottom, field.flag_goal_left_top, field.flag_goal_left_bottom, field.flag_goal_right_top, field.flag_goal_right_bottom};
             //vector<vector<double>> flags_abs = {field.flag_center_abs, field.flag_center_top_abs, field.flag_center_bottom_abs, field.flag_left_top_abs, field.flag_left_bottom_abs, field.flag_right_top_abs, field.flag_right_bottom_abs, field.flag_penalty_left_top_abs, field.flag_penalty_left_center_abs, field.flag_penalty_left_bottom_abs, field.flag_penalty_right_top_abs, field.flag_penalty_right_center_abs, field.flag_penalty_right_bottom_abs, field.flag_goal_left_top_abs, field.flag_goal_left_bottom_abs, field.flag_goal_right_top_abs, field.flag_goal_right_bottom_abs};
 
+            // Turn arround one first time to see the flags
+            if (first_turn == false)
+            {
+                std::string rotate_command = "(turn " + to_string(360/10) + ")";
+                udp_socket.sendTo(rotate_command, server_udp);
+                if (first_turn_division == 10)
+                {
+                    first_turn = true;
+                }
+                first_turn_division++;
+                    
+            }
 
             if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
             {
@@ -371,7 +387,7 @@ int main(int argc, char *argv[])
 
 
             // Logic of the player
-            if (player.see_ball == true)
+            if (player.see_ball == true && first_turn == true)
             {
                 cout << "The player sees the ball" << endl;
                 switch (player.unum)
