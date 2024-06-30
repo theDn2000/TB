@@ -384,8 +384,8 @@ int main(int argc, char *argv[])
                     udp_socket.sendTo(dash_command, server_udp);
                     cout << "Dash command sent" << endl;
 
-
-                    break;
+    
+                break;
                 default:
                     if (ball.distance < 1.5)
                     {
