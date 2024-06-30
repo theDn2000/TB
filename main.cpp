@@ -377,16 +377,17 @@ int main(int argc, char *argv[])
                 switch (player.unum)
                 {
                 case 1:
+                {
                     // Goalkeeper
                     // Dash
                     int power = 100;
                     std::string dash_command = "(dash " + to_string(power) + " 0)";
                     udp_socket.sendTo(dash_command, server_udp);
                     cout << "Dash command sent" << endl;
-
-    
+                }
                 break;
                 default:
+                {
                     if (ball.distance < 1.5)
                     {
                         // Kick the ball
@@ -430,7 +431,8 @@ int main(int argc, char *argv[])
                             udp_socket.sendTo(dash_command, server_udp);
                         }
                     }
-                    break;
+                }
+                break;
                 }
 
             // Saber donde estan las porterias y chutar hacia ellas en el caso de llegar a la pelota [2]
