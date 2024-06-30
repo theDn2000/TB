@@ -183,7 +183,6 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
         // Search for the ball
         if (see_message[i].find("(b)")!=string::npos)
         {
-            cout << "The player sees the ball" << endl;
             player.see_ball = true;
             ball_coords = separate_string_separator(see_message[i], " ");
             ball.x = ball_coords[1];

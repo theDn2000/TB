@@ -354,7 +354,7 @@ int main(int argc, char *argv[])
                     cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
                     */
                     // Simulate robot movement
-                    mcl.update_with_motion(10, 0);
+                    mcl.update_with_motion(2.0, 2.0);
 
                     // Update based on measurement
                     mcl.update_with_measurement(observations);
@@ -373,6 +373,7 @@ int main(int argc, char *argv[])
             // Logic of the player
             if (player.see_ball == true)
             {
+                cout << "The player sees the ball" << endl;
                 switch (player.unum)
                 {
                 case 1:
