@@ -261,11 +261,11 @@ int main(int argc, char *argv[])
     double sensor_noise = 5.0;
     if (player.side == "r")
     {
-        MonteCarloLocalization mcl(1000, flags, sensor_noise, is_left_side=false);
+        MonteCarloLocalization mcl(1000, flags, sensor_noise, false);
     }
     else
     {
-        MonteCarloLocalization mcl(1000, flags, sensor_noise, is_left_side=true);
+        MonteCarloLocalization mcl(1000, flags, sensor_noise, true);
     }
 
     // Reference vector to the flags
