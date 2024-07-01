@@ -171,7 +171,7 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
                       {-15, 0},
                       {-8, -20}};
 
-    const std::vector<Point2D> flags = 
+    const std::vector<Posicion> flags_config = 
     {
         {0.0, 0.0},        // Center of the field
         {0.0, -33.5},       // Top center
@@ -210,12 +210,12 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
     else if (player.unum == 3)
     {
         player.range = 20;
-        player.zone = flags[7];
+        player.zone = flags_config[7];
     }
     else if (player.unum == 5)
     {
         player.range = 20;
-        player.zone = flags[9];
+        player.zone = flags_config[9];
     }
     else if (player.unum == 2)
     {
@@ -230,7 +230,7 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
     else if (player.unum == 8 || player.unum == 6)
     {
         player.range = 30;
-        player.zone = flags[0];
+        player.zone = flags_config[0];
     }
     else if (player.unum ==10)
     {
@@ -240,17 +240,17 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
     else if (player.unum == 7)
     {
         player.range = 65;
-        player.zone = flags[12];
+        player.zone = flags_config[12];
     }
     else if (player.unum == 11)
     {
         player.range = 65;
-        player.zone = flags[10];
+        player.zone = flags_config[10];
     }
     else
     {
         player.range = 65;
-        player.zone = flags[11];
+        player.zone = flags_config[11];
     }
     auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
     udp_socket.sendTo(moveCommand, recipient);
