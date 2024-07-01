@@ -424,13 +424,16 @@ string moveToZone(double &orientation, vector<double> const &P_player, Posicion 
         angle += 360;
     }
     // Normalize theorientation
-    while (orientation < 0 || orientation > 360)
+    if (orientation < 0)
     {
-        if (orientation < 0)
+        while (orientation < 0)
         {
             orientation += 360;
         }
-        else if (orientation > 360)
+    }
+    else if (orientation > 360)
+    {
+        while (orientation > 360)
         {
             orientation -= 360;
         }
