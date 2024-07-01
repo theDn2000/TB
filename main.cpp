@@ -55,9 +55,9 @@ public:
     void update_with_motion(double dx, double dy, double dtheta) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::normal_distribution<> motion_noise_x(0.0, 0.0); // Motion noise
-        std::normal_distribution<> motion_noise_y(0.0, 0.0);
-        std::normal_distribution<> motion_noise_theta(0.0, 0.0); // Ruido de orientación
+        std::normal_distribution<> motion_noise_x(0.0, 0.1); // Motion noise
+        std::normal_distribution<> motion_noise_y(0.0, 0.1);
+        std::normal_distribution<> motion_noise_theta(0.0, 0.1); // Ruido de orientación
 
         for (auto& particle : particles) {
             particle.position.x += dx * std::cos(particle.orientation) - dy * std::sin(particle.orientation) + motion_noise_x(gen);
