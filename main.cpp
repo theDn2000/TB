@@ -570,6 +570,9 @@ int main(int argc, char *argv[])
                 udp_socket.sendTo(dash_command, server_udp);
             }
         }
+        cout << endl << endl << endl;
+        cout << "Orientation: " << player.orientation << endl;
+        cout << endl << endl << endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 return 0;
