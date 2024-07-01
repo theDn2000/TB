@@ -52,7 +52,7 @@ public:
         }
     }
 
-    void update_with_motion(double dx, double dy) {
+    void update_with_motion(double dx, double dy, double dtheta) {
         std::random_device rd;
         std::mt19937 gen(rd());
         std::normal_distribution<> motion_noise_x(0.0, 1.0); // Motion noise
@@ -463,7 +463,7 @@ int main(int argc, char *argv[])
                     cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
                     */
                     // Simulate robot movement
-                    mcl.update_with_motion(0.0, 0.0);
+                    mcl.update_with_motion(0.0, 0.0, 0.0);
 
                     // Update based on measurement
                     mcl.update_with_measurement(observations);
