@@ -472,6 +472,7 @@ int main(int argc, char *argv[])
                     Point2D estimated_pos = mcl.estimate_position();
                     double estimated_orientation = mcl.estimate_orientation();
                     std::cout << "Estimated position: (" << estimated_pos.x << ", " << estimated_pos.y << ")\n";
+                    std::cout << "Estimated orientation: " << estimated_orientation << "\n";
                     player.x = estimated_pos.x;
                     player.y = estimated_pos.y;
                 }
