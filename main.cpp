@@ -32,7 +32,6 @@ struct Point2D {
 
 struct Particle {
     Point2D position;
-    double orientation;
     double weight;
 };
 
@@ -45,25 +44,21 @@ public:
         std::mt19937 gen(rd());
         std::uniform_real_distribution<> dis_x(-52.5, 52.5); // Width of the soccer field
         std::uniform_real_distribution<> dis_y(-33.5, 33.5); // Height of the soccer field
-        std::uniform_real_distribution<> dis_orientation(-M_PI, M_PI); // Rango de orientación [-pi, pi]
 
         for (int i = 0; i < num_particles; ++i) {
-            particles.push_back({{dis_x(gen), dis_y(gen)}, dis_orientation(gen), 1.0 / num_particles});
+            particles.push_back({{dis_x(gen), dis_y(gen)}, 1.0 / num_particles});
         }
     }
 
-    void update_with_motion(double dx, double dy, double dtheta) {
+    void update_with_motion(double dx, double dy) {
         std::random_device rd;
         std::mt19937 gen(rd());
         std::normal_distribution<> motion_noise_x(0.0, 1.0); // Motion noise
         std::normal_distribution<> motion_noise_y(0.0, 1.0);
-        std::normal_distribution<> motion_noise_theta(0.0, 0.1); // Ruido de orientación
 
         for (auto& particle : particles) {
-            particle.position.x += dx * std::cos(particle.orientation) - dy * std::sin(particle.orientation) + motion_noise_x(gen);
-            particle.position.y += dx * std::sin(particle.orientation) + dy * std::cos(particle.orientation) + motion_noise_y(gen);
-            particle.orientation += dtheta + motion_noise_theta(gen);
-            normalize_angle(particle.orientation);
+            particle.position.x += dx + motion_noise_x(gen);
+            particle.position.y += dy + motion_noise_y(gen);
         }
     }
 
@@ -113,16 +108,6 @@ public:
         return {x_sum / weight_sum, y_sum / weight_sum};
     }
 
-    double estimate_orientation() const {
-        double sin_sum = 0.0, cos_sum = 0.0, weight_sum = 0.0;
-        for (const auto& particle : particles) {
-            sin_sum += std::sin(particle.orientation) * particle.weight;
-            cos_sum += std::cos(particle.orientation) * particle.weight;
-            weight_sum += particle.weight;
-        }
-        return std::atan2(sin_sum / weight_sum, cos_sum / weight_sum);
-    }
-
 private:
     int num_particles;
     double sensor_noise;
@@ -145,11 +130,6 @@ private:
         for (auto& particle : particles) {
             particle.weight /= sum;
         }
-    }
-
-    void normalize_angle(double& angle) const {
-        while (angle > M_PI) angle -= 2.0 * M_PI;
-        while (angle < -M_PI) angle += 2.0 * M_PI;
     }
 };
 
@@ -464,7 +444,7 @@ int main(int argc, char *argv[])
                     cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
                     */
                     // Simulate robot movement
-                    mcl.update_with_motion(0.0, 0.0, 0.0);
+                    mcl.update_with_motion(0.0, 0.0);
 
                     // Update based on measurement
                     mcl.update_with_measurement(observations);
@@ -474,12 +454,7 @@ int main(int argc, char *argv[])
 
                     // Estimate position
                     Point2D estimated_pos = mcl.estimate_position();
-                    double estimated_orientation = mcl.estimate_orientation();
                     std::cout << "Estimated position: (" << estimated_pos.x << ", " << estimated_pos.y << ")\n";
-                    // Transform estimated orientation to degrees
-                    estimated_orientation = estimated_orientation * 180 / M_PI;
-                    std::cout << "Estimated orientation: " << estimated_orientation << "\n";
-                    player.orientation = estimated_orientation;
                     player.x = estimated_pos.x;
                     player.y = estimated_pos.y;
                 }
@@ -589,12 +564,14 @@ int main(int argc, char *argv[])
             else
             {
                 // The player is not in his zone, run back to the zone
-                std::string dash_command = moveToZone(player.orientation, {player.x, player.y}, player.zone);
-                //int power = 100;
-                //std::string dash_command = "(dash " + to_string(power) + " 180)";
+                //std::string dash_command = moveToZone(player.orientation, {player.x, player.y}, player.zone);
+                std::string dash_command = ("dash 100 180");
                 udp_socket.sendTo(dash_command, server_udp);
             }
         }
+        cout << endl << endl << endl;
+        cout << "Orientation: " << player.orientation << endl;
+        cout << endl << endl << endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 return 0;
