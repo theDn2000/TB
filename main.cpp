@@ -565,13 +565,10 @@ int main(int argc, char *argv[])
             {
                 // The player is not in his zone, run back to the zone
                 //std::string dash_command = moveToZone(player.orientation, {player.x, player.y}, player.zone);
-                std::string dash_command = ("dash 100 180");
+                std::string dash_command = "(dash " + to_string(power) + " 0)";
                 udp_socket.sendTo(dash_command, server_udp);
             }
         }
-        cout << endl << endl << endl;
-        cout << "Orientation: " << player.orientation << endl;
-        cout << endl << endl << endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 return 0;
