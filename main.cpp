@@ -384,6 +384,7 @@ int main(int argc, char *argv[])
             {
                 std::string rotate_command = "(turn " + to_string(360/10) + ")";
                 udp_socket.sendTo(rotate_command, server_udp);
+                player.orientation = player.orientation + 360/10;
                 if (first_turn_division == 10)
                 {
                     first_turn = true;
