@@ -11,8 +11,8 @@ using namespace std;
 
 struct Posicion
 {
-    int x;
-    int y;
+    double x;
+    double y;
 };
 
 struct Player
