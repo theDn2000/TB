@@ -55,8 +55,8 @@ public:
     void update_with_motion(double dx, double dy, double dtheta) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::normal_distribution<> motion_noise_x(0.0, 0.1); // Motion noise
-        std::normal_distribution<> motion_noise_y(0.0, 0.1);
+        std::normal_distribution<> motion_noise_x(0.0, 1.0); // Motion noise
+        std::normal_distribution<> motion_noise_y(0.0, 1.0);
         std::normal_distribution<> motion_noise_theta(0.0, 0.1); // Ruido de orientación
 
         for (auto& particle : particles) {
@@ -479,6 +479,7 @@ int main(int argc, char *argv[])
                     // Transform estimated orientation to degrees
                     estimated_orientation = estimated_orientation * 180 / M_PI;
                     std::cout << "Estimated orientation: " << estimated_orientation << "\n";
+                    player.orientation = estimated_orientation;
                     player.x = estimated_pos.x;
                     player.y = estimated_pos.y;
                 }
@@ -588,9 +589,9 @@ int main(int argc, char *argv[])
             else
             {
                 // The player is not in his zone, run back to the zone
-                //std::string dash_command = moveToZone(player.orientation, {player.x, player.y}, player.zone);
-                int power = 100;
-                std::string dash_command = "(dash " + to_string(power) + " 180)";
+                std::string dash_command = moveToZone(player.orientation, {player.x, player.y}, player.zone);
+                //int power = 100;
+                //std::string dash_command = "(dash " + to_string(power) + " 180)";
                 udp_socket.sendTo(dash_command, server_udp);
             }
         }
