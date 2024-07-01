@@ -33,6 +33,7 @@ struct Point2D {
 struct Particle {
     Point2D position;
     double weight;
+    double orientation;
 };
 
 class MonteCarloLocalization {
