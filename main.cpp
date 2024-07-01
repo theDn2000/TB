@@ -198,7 +198,7 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
     }
     else
     {
-        player.orientation = 180;
+        player.orientation = 0;
     }   
   
     Posicion myPos = posiciones[player.unum - 1];
