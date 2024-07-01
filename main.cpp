@@ -170,9 +170,88 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
                       {-5, 0},
                       {-15, 0},
                       {-8, -20}};
+
+    const std::vector<Point2D> flags = 
+    {
+        {0.0, 0.0},        // Center of the field
+        {0.0, -33.5},       // Top center
+        {0.0, 33.5},       // Bottom center
+        {-52.5, -33.5},    // Corner top-left
+        {-52.5, 33.5},     // Corner bottom-left
+        {52.5, -33.5},     // Corner top-right
+        {52.5, 33.5},      // Corner bottom-right
+        {-36, -20},        // Penalty top-left
+        {-36, 0},           // Penalty center-left
+        {-36, 20},         // Penalty bottom-left
+        {36, -20},         // Penalty top-right
+        {36, 0},           // Penalty center-right
+        {36, 20},          // Penalty bottom-right
+        {-52.5, -7.32},    // Goal top-left
+        {-52.5, 7.32},     // Goal bottom-left
+        {52.5, -7.32},     // Goal top-right
+        {52.5, 7.32}       // Goal bottom-right
+    };
+
+    if (player.side == "l")
+    {
+        player.orientation = 0;
+    }
+    else
+    {
+        player.orientation = 180;
+    }   
   
     Posicion myPos = posiciones[player.unum - 1];
-    player.zone = posiciones[player.unum - 1];
+    if (player.unum == 1)
+    {
+        player.range = 10;
+        player.zone = posiciones[player.unum - 1];
+    }
+    else if (player.unum == 3)
+    {
+        player.range = 20;
+        player.zone = flags[7];
+    }
+    else if (player.unum == 5)
+    {
+        player.range = 20;
+        player.zone = flags[9];
+    }
+    else if (player.unum == 2)
+    {
+        player.range = 20;
+        player.zone = posiciones[player.unum - 1];
+    }
+    else if (player.unum == 4)
+    {
+        player.range = 20;
+        player.zone = posiciones[player.unum - 1];
+    }
+    else if (player.unum == 8 || player.unum == 6)
+    {
+        player.range = 30;
+        player.zone = flags[0];
+    }
+    else if (player.unum ==10)
+    {
+        player.range = 30;
+        player.zone = posiciones[player.unum - 1];
+    }
+    else if (player.unum == 7)
+    {
+        player.range = 65;
+        player.zone = flags[12];
+    }
+    else if (player.unum == 11)
+    {
+        player.range = 65;
+        player.zone = flags[10];
+    }
+    else
+    {
+        player.range = 65;
+        player.zone = flags[11];
+    }
     auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
     udp_socket.sendTo(moveCommand, recipient);
     cout << "Move command sent" << "Posicion: " << moveCommand << endl;
@@ -223,7 +302,7 @@ int main(int argc, char *argv[])
     MinimalSocket::Address server_udp = MinimalSocket::Address{"127.0.0.1", other_sender_udp.getPort()};
 
     // Create objects
-    Player player{team_name, "", "", false, 0, 0, 0};
+    Player player{team_name, "", "", false, 0, 0, 0, 0};
     Ball ball{"0", "0", "0", "0"};
     Goal own_goal{"0", "0", "init"};
     Goal opponent_goal{"0", "0", "init"};
@@ -382,7 +461,7 @@ int main(int argc, char *argv[])
 
 
             // Check if the player is in his zone
-            if (player.x - player.zone.x < 10 && player.y - player.zone.y < 10)
+            if (player.x - player.zone.x < player.range && player.y - player.zone.y < player.range)
             {
                 // Logic of the player
                 if (player.see_ball == true && first_turn == true)
@@ -404,10 +483,22 @@ int main(int argc, char *argv[])
                     {
                         if (ball.distance < 1.5)
                         {
-                            // Kick the ball
-                            int power = 100;
-                            std::string kick_command = "(kick " + to_string(power) + " 0)";
-                            udp_socket.sendTo(kick_command, server_udp);
+                            if (player.see_opponent_goal)
+                            {
+                                // Kick the ball
+                                float angle=opponent_goal.angle;
+                                int power = 100;
+                                //cout << "Angle: " << angle << endl<<endl<<endl;
+                                std::string kick_command = "(kick " + to_string(power) + " " + to_string(angle) + ")";
+                                udp_socket.sendTo(kick_command, server_udp);
+                            }
+                            else
+                            {
+                                //Aqui deberia pasarsela a otro compañero
+                                int power = 70;
+                                std::string kick_command = "(kick " + to_string(power) + " 0)"; 
+                                udp_socket.sendTo(kick_command, server_udp);
+                            }
                         }
                         else
                         {
@@ -426,6 +517,7 @@ int main(int argc, char *argv[])
                                 // Rotate the player to the ball
                                 std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
                                 udp_socket.sendTo(rotate_command, server_udp);
+                                player.orientation = player.orientation + ball.angle / division;
                             }
 
                             else
@@ -448,9 +540,6 @@ int main(int argc, char *argv[])
                     }
                     break;
                     }
-
-                // Saber donde estan las porterias y chutar hacia ellas en el caso de llegar a la pelota [2]
-
                 // Que corran hacia la pelota mientras giran (IDEA) [3]
 
                 // Revisar codigo y optimizar [4]
@@ -463,18 +552,20 @@ int main(int argc, char *argv[])
                     {
                         std::string rotate_command = "(turn " + to_string(-80) + ")";
                         udp_socket.sendTo(rotate_command, server_udp);
+                        player.orientation = player.orientation - 80;
                     }
                     else
                     {
                         std::string rotate_command = "(turn " + to_string(80) + ")";
                         udp_socket.sendTo(rotate_command, server_udp);
+                        player.orientation = player.orientation + 80;
                     }
                 }
             }
             else
             {
                 // The player is not in his zone, run back to the zone
-                std::string dash_command = "(dash 100 180)";
+                std::string dash_command = moveToZone(player.orientation, {player.x, player.y}, player.zone);
                 udp_socket.sendTo(dash_command, server_udp);
             }
         }

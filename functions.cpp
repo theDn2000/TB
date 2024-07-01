@@ -213,6 +213,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             {
                 opponent_goal.x = goal_coords[2];
                 opponent_goal.y = goal_coords[3];
+                opponent_goal.angle = atan2(stof(goal_coords[3]), stof(goal_coords[2])) * 180 / M_PI;
                 cout << "Opponent goal coordinates: " << opponent_goal.x << " " << opponent_goal.y << endl;
                 player.see_opponent_goal = true;
             }
@@ -235,6 +236,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             {
                 opponent_goal.x = goal_coords[2];
                 opponent_goal.y = goal_coords[3];
+                opponent_goal.angle = atan2(stof(goal_coords[3]), stof(goal_coords[2])) * 180 / M_PI;
                 cout << "Opponent goal coordinates: " << opponent_goal.x << " " << opponent_goal.y << endl;
                 player.see_opponent_goal = true;
             }
@@ -411,6 +413,33 @@ double distance(vector<double> &P1, vector<double> &P2)
 }
 
 
+
+// moveToPosition function
+string moveToZone(double &orientation, vector<double> const &P_player, Posicion const &P_zone)
+{
+    // Compute the angle between the player and the zone with respect to the orientation of the player
+    double angle = atan2(P_zone.y - P_player.y, P_zone.x - P_player.x) * 180 / M_PI;
+    if (angle < 0)
+    {
+        angle += 360;
+    }
+    // Normalize theorientation
+    while (orientation < 0 || orientation > 360)
+    {
+        if (orientation < 0)
+        {
+            orientation += 360;
+        }
+        else if (orientation > 360)
+        {
+            orientation -= 360;
+        }
+    }
+    // Compute the difference between the orientation of the player and the angle
+    double diff = angle - orientation;
+    std::string dash_command = "(dash 100 " + to_string(diff) + ")"; 
+    return dash_command;
+}
 
 
 

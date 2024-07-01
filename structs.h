@@ -20,14 +20,16 @@ struct Player
     std::string team_name;
     std::string playmode;
     std::string side;
-    Posicion zone;
     bool see_ball;
-    bool see_own_goal;
-    bool see_opponent_goal;
     int flags_seen;
     int unum;
     double x;
     double y;
+    double orientation;
+    Posicion zone;
+    double range;
+    bool see_own_goal;
+    bool see_opponent_goal;
 };
 
 struct Ball
@@ -86,6 +88,7 @@ struct Goal
     std::string x;
     std::string y;
     std::string side;
+    float angle;
 };
 
 struct JugadorCercano
