@@ -32,8 +32,8 @@ struct Point2D {
 
 struct Particle {
     Point2D position;
-    double weight;
     double orientation;
+    double weight;
 };
 
 class MonteCarloLocalization {
@@ -45,9 +45,10 @@ public:
         std::mt19937 gen(rd());
         std::uniform_real_distribution<> dis_x(-52.5, 52.5); // Width of the soccer field
         std::uniform_real_distribution<> dis_y(-33.5, 33.5); // Height of the soccer field
+        std::uniform_real_distribution<> dis_orientation(-M_PI, M_PI); // Rango de orientación [-pi, pi]
 
         for (int i = 0; i < num_particles; ++i) {
-            particles.push_back({{dis_x(gen), dis_y(gen)}, 1.0 / num_particles});
+            particles.push_back({{dis_x(gen), dis_y(gen)}, dis_orientation(gen), 1.0 / num_particles});
         }
     }
 
@@ -58,8 +59,10 @@ public:
         std::normal_distribution<> motion_noise_y(0.0, 1.0);
 
         for (auto& particle : particles) {
-            particle.position.x += dx + motion_noise_x(gen);
-            particle.position.y += dy + motion_noise_y(gen);
+            particle.position.x += dx * std::cos(particle.orientation) - dy * std::sin(particle.orientation) + motion_noise_x(gen);
+            particle.position.y += dx * std::sin(particle.orientation) + dy * std::cos(particle.orientation) + motion_noise_y(gen);
+            particle.orientation += dtheta + motion_noise_theta(gen);
+            normalize_angle(particle.orientation);
         }
     }
 
