@@ -418,7 +418,7 @@ double distance(vector<double> &P1, vector<double> &P2)
 string moveToZone(double &orientation, vector<double> const &P_player, Posicion const &P_zone)
 {
     // Compute the angle between the player and the zone with respect to the orientation of the player
-    double angle = atan2(P_zone.y - P_player.y, P_zone.x - P_player.x) * 180 / M_PI;
+    double angle = atan2(P_zone.y - P_player[1], P_zone.x - P_player[0]) * 180 / M_PI;
     if (angle < 0)
     {
         angle += 360;
