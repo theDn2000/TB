@@ -437,6 +437,7 @@ string moveToZone(double &orientation, vector<double> const &P_player, Posicion 
     }
     // Compute the difference between the orientation of the player and the angle
     double diff = (angle - orientation) + 180;
+    cout << "Angle: " << angle << " Orientation: " << orientation << " Diff: " << diff << endl;
     std::string dash_command = "(dash 100 " + to_string(diff) + ")"; 
     return dash_command;
 }
