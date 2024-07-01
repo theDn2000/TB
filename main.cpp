@@ -108,6 +108,16 @@ public:
         return {x_sum / weight_sum, y_sum / weight_sum};
     }
 
+    double estimate_orientation() const {
+        double sin_sum = 0.0, cos_sum = 0.0, weight_sum = 0.0;
+        for (const auto& particle : particles) {
+            sin_sum += std::sin(particle.orientation) * particle.weight;
+            cos_sum += std::cos(particle.orientation) * particle.weight;
+            weight_sum += particle.weight;
+        }
+        return std::atan2(sin_sum / weight_sum, cos_sum / weight_sum);
+    }
+
 private:
     int num_particles;
     double sensor_noise;
@@ -130,6 +140,11 @@ private:
         for (auto& particle : particles) {
             particle.weight /= sum;
         }
+    }
+
+    void normalize_angle(double& angle) const {
+        while (angle > M_PI) angle -= 2.0 * M_PI;
+        while (angle < -M_PI) angle += 2.0 * M_PI;
     }
 };
 
@@ -454,7 +469,9 @@ int main(int argc, char *argv[])
 
                     // Estimate position
                     Point2D estimated_pos = mcl.estimate_position();
+                    double estimated_orientation = mcl.estimate_orientation();
                     std::cout << "Estimated position: (" << estimated_pos.x << ", " << estimated_pos.y << ")\n";
+                    double dtheta = std::atan2(dy, dx) - estimated_orientation;
                     player.x = estimated_pos.x;
                     player.y = estimated_pos.y;
                 }
