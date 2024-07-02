@@ -472,6 +472,7 @@ int main(int argc, char *argv[])
             // Check if the player is in his zone
             if (player.x - player.zone.x < player.range && player.y - player.zone.y < player.range)
             {
+                cout << "I'm in zone" << endl;
                 // Logic of the player
                 if (player.see_ball == true && first_turn == true)
                 {

@@ -454,18 +454,16 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
 // Return to zone function
 string returnToZone(Player const &player)
 {
+    cout << "Not in zone" << endl;
     if (player.seeing_zone == false)
     {
         std::string rotate_command = "(turn " + to_string(50) + ")";
-        cout << "I DONT SEE MY ZONE" << endl;
         return rotate_command;
     }
     else
     {
         // Compute the angle between the player and the flag
-        double angle = atan2(player.zone.y - player.y, player.zone.x - player.x) * 180 / M_PI;
         std::string dash_command = "(dash 100 0)";
-        cout << "I SEE, GOING TO MY ZONE" << endl;
         return dash_command;
     }
 }
