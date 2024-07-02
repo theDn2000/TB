@@ -388,6 +388,7 @@ string returnToZone(Player const &player)
     if (player.zone.x == 999)
     {
         std::string rotate_command = "(turn " + to_string(50) + ")";
+        cout << "I DONT SEE MY ZONE" << endl;
         return rotate_command;
     }
     else
@@ -395,6 +396,7 @@ string returnToZone(Player const &player)
         // Compute the angle between the player and the flag
         double angle = atan2(player.zone.y - player.y, player.zone.x - player.x) * 180 / M_PI;
         std::string dash_command = "(dash 100 " + to_string(angle) + ")";
+        cout << "I SEE, GOING TO MY ZONE" << endl;
         return dash_command;
     }
 }
