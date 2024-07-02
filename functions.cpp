@@ -138,6 +138,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     player.flags_seen = 0;
 
     player.see_ball = false;
+    player.seeing_zone = false;
 
     // All the flags are not seen at the beginning
     field.flag_center = {999, 999};
