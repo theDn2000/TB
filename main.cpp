@@ -206,51 +206,61 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
     {
         player.range = 10;
         player.zone = posiciones[player.unum - 1];
+        player.zone_name = "goalkeeper"; // Does not apply
     }
     else if (player.unum == 3)
     {
         player.range = 20;
         player.zone = flags_config[7];
+        player.zone_name = "(f l t)";
     }
     else if (player.unum == 5)
     {
         player.range = 20;
         player.zone = flags_config[9];
+        player.zone_name = "(f l b)";
     }
     else if (player.unum == 2)
     {
         player.range = 20;
         player.zone = posiciones[player.unum - 1];
+        player.zone_name = "(f p l t)";
     }
     else if (player.unum == 4)
     {
         player.range = 20;
         player.zone = posiciones[player.unum - 1];
+        player.zone_name = "(f p l b)";
     }
     else if (player.unum == 8 || player.unum == 6)
     {
         player.range = 30;
         player.zone = flags_config[0];
+        player.zone_name = "(f c)";
     }
     else if (player.unum ==10)
     {
         player.range = 30;
         player.zone = posiciones[player.unum - 1];
+        player.zone_name = "(f c)";
     }
     else if (player.unum == 7)
     {
         player.range = 65;
         player.zone = flags_config[12];
+        player.zone_name = "(f p r b)";
     }
     else if (player.unum == 11)
     {
         player.range = 65;
         player.zone = flags_config[10];
+        player.zone_name = "(f p r t)";
     }
     else
     {
         player.range = 65;
         player.zone = flags_config[11];
+        player.zone_name = "(f p r c)";
     }
     auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
     udp_socket.sendTo(moveCommand, recipient);

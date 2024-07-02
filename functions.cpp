@@ -251,6 +251,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             field.flag_center = {stof(center_coords[2]), stof(center_coords[3])};
             cout << "Center flag coordinates: " << field.flag_center[0] << " " << field.flag_center[1] << endl;
         }
+        if (player.zone_name =="(f c)")
+            {
+                player.seeing_zone = true;
+            }
 
         // Search for the center top flag
         if (see_message[i].find("(f c t)") != string::npos)
@@ -258,6 +262,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> center_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_center_top = {stof(center_top_coords[3]), stof(center_top_coords[4])};
             player.flags_seen++;
+            if (player.zone_name =="(f c t)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the center bottom flag
@@ -266,6 +274,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> center_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_center_bottom = {stof(center_bottom_coords[3]), stof(center_bottom_coords[4])};
             player.flags_seen++;
+            if (player.zone_name =="(f c b)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the left top flag
@@ -274,6 +286,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> left_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_left_top = {stof(left_top_coords[3]), stof(left_top_coords[4])};
             player.flags_seen++;
+            if (player.zone_name =="(f l t)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the left bottom flag
@@ -282,6 +298,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> left_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_left_bottom = {stof(left_bottom_coords[3]), stof(left_bottom_coords[4])};
             player.flags_seen++;
+            if (player.zone_name =="(f l b)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the right top flag
@@ -290,6 +310,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> right_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_right_top = {stof(right_top_coords[3]), stof(right_top_coords[4])};
             player.flags_seen++;
+            if (player.zone_name =="(f r t)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the right bottom flag
@@ -298,6 +322,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> right_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_right_bottom = {stof(right_bottom_coords[3]), stof(right_bottom_coords[4])};
             player.flags_seen++;
+            if (player.zone_name =="(f r b)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the penalty area left top flag
@@ -306,6 +334,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_left_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_left_top = {stof(penalty_left_top_coords[4]), stof(penalty_left_top_coords[5])};
             player.flags_seen++;
+            if (player.zone_name =="(f p l t)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the penalty area left center flag
@@ -314,6 +346,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_left_center_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_left_center = {stof(penalty_left_center_coords[4]), stof(penalty_left_center_coords[5])};
             player.flags_seen++;
+            if (player.zone_name =="(f p l c)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the penalty area left bottom flag
@@ -322,6 +358,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_left_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_left_bottom = {stof(penalty_left_bottom_coords[4]), stof(penalty_left_bottom_coords[5])};
             player.flags_seen++;
+            if (player.zone_name =="(f p l b)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the penalty area right top flag
@@ -330,6 +370,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_right_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_right_top = {stof(penalty_right_top_coords[4]), stof(penalty_right_top_coords[5])};
             player.flags_seen++;
+            if (player.zone_name =="(f p r t)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the penalty area right center flag
@@ -338,6 +382,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_right_center_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_right_center = {stof(penalty_right_center_coords[4]), stof(penalty_right_center_coords[5])};
             player.flags_seen++;
+            if (player.zone_name =="(f p r c)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the penalty area right bottom flag
@@ -346,6 +394,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_right_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_right_bottom = {stof(penalty_right_bottom_coords[4]), stof(penalty_right_bottom_coords[5])};
             player.flags_seen++;
+            if (player.zone_name =="(f p r b)")
+            {
+                player.seeing_zone = true;
+            }
         }
     
         // Search for the goal left top flag
@@ -354,6 +406,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> goal_left_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_goal_left_top = {stof(goal_left_top_coords[4]), stof(goal_left_top_coords[5])};
             player.flags_seen++;
+            if (player.zone_name =="(f g l t)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the goal left bottom flag
@@ -362,6 +418,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> goal_left_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_goal_left_bottom = {stof(goal_left_bottom_coords[4]), stof(goal_left_bottom_coords[5])};
             player.flags_seen++;
+            if (player.zone_name =="(f g l b)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the goal right top flag
@@ -370,6 +430,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> goal_right_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_goal_right_top = {stof(goal_right_top_coords[4]), stof(goal_right_top_coords[5])};
             player.flags_seen++;
+            if (player.zone_name =="(f g r t)")
+            {
+                player.seeing_zone = true;
+            }
         }
 
         // Search for the goal right bottom flag
@@ -378,6 +442,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_goal_right_bottom = {stof(goal_right_bottom_coords[4]), stof(goal_right_bottom_coords[5])};
             player.flags_seen++;
+            if (player.zone_name =="(f g r b)")
+            {
+                player.seeing_zone = true;
+            }
         }
     }
 }
@@ -385,7 +453,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
 // Return to zone function
 string returnToZone(Player const &player)
 {
-    if (player.zone.x == 999)
+    if (player.seeing_zone == false)
     {
         std::string rotate_command = "(turn " + to_string(50) + ")";
         cout << "I DONT SEE MY ZONE" << endl;

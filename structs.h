@@ -27,6 +27,8 @@ struct Player
     double y;
     double orientation;
     Posicion zone;
+    string zone_name;
+    bool seeing_zone;
     double range;
     bool see_own_goal;
     bool see_opponent_goal;
