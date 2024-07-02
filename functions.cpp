@@ -382,6 +382,22 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     }
 }
 
+// Return to zone function
+string returnToZone(Player const &player)
+{
+    if (player.zone.x == 999)
+    {
+        std::string rotate_command = "(turn " + to_string(50) + ")";
+        return rotate_command;
+    }
+    else
+    {
+        // Compute the angle between the player and the flag
+        double angle = atan2(player.zone.y - player.y, player.zone.x - player.x) * 180 / M_PI;
+        std::string dash_command = "(dash 100 " + to_string(angle) + ")";
+        return dash_command;
+    }
+}
 
 // Trilateration 2D function
 vector<double> trilateration(vector<double> &P1, vector<double> &P2, vector<double> &P3, double &D1, double &D2, double &D3)

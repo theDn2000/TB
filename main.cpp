@@ -516,8 +516,6 @@ int main(int argc, char *argv[])
                                 // Rotate the player to the ball
                                 std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
                                 udp_socket.sendTo(rotate_command, server_udp);
-                                player.orientation = player.orientation + ball.angle / division;
-                                cout << "Rectification:" <<(ball.angle / division) << endl;
                             }
 
                             else
@@ -552,13 +550,11 @@ int main(int argc, char *argv[])
                     {
                         std::string rotate_command = "(turn " + to_string(-80) + ")";
                         udp_socket.sendTo(rotate_command, server_udp);
-                        player.orientation = player.orientation - 80;
                     }
                     else
                     {
                         std::string rotate_command = "(turn " + to_string(80) + ")";
                         udp_socket.sendTo(rotate_command, server_udp);
-                        player.orientation = player.orientation + 80;
                     }
                 }
             }
@@ -566,10 +562,9 @@ int main(int argc, char *argv[])
             {
                 // The player is not in his zone, run back to the zone
                 //std::string dash_command = moveToZone(player.orientation, {player.x, player.y}, player.zone);
-                std::string dash_command = ("dash 100 180");
+                std::string dash_command = returnToZone(player.zone, player.x, player.y);
                 udp_socket.sendTo(dash_command, server_udp);
             }
-            cout << "Orientation: " << player.orientation << endl;
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
