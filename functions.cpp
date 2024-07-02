@@ -464,7 +464,7 @@ string returnToZone(Player const &player)
     {
         // Compute the angle between the player and the flag
         double angle = atan2(player.zone.y - player.y, player.zone.x - player.x) * 180 / M_PI;
-        std::string dash_command = "(dash 100 " + to_string(angle) + ")";
+        std::string dash_command = "(dash 100 0)";
         cout << "I SEE, GOING TO MY ZONE" << endl;
         return dash_command;
     }
