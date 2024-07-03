@@ -10,132 +10,6 @@ using namespace std;
 #include "functions.h"
 #include "structs.h"
 
-// Move players to the field
-void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)
-{
-    vector<Posicion>
-        posiciones = {{-50, 0},
-                      {-40, -10},
-                      {-35, -28},
-                      {-40, 10},
-                      {-35, 28},
-                      {-25, 11},
-                      {-8, 20},
-                      {-25, -11},
-                      {-5, 0},
-                      {-15, 0},
-                      {-8, -20}};
-
-    const std::vector<Posicion> flags_config = 
-    {
-        {0, 0},        // Center of the field
-        {0, -33.5},       // Top center
-        {0, 33.5},       // Bottom center
-        {-52.5, -33.5},    // Corner top-left
-        {-52.5, 33.5},     // Corner bottom-left
-        {52.5, -33.5},     // Corner top-right
-        {52.5, 33.5},      // Corner bottom-right
-        {-36, -20},        // Penalty top-left
-        {-36, 0},           // Penalty center-left
-        {-36, 20},         // Penalty bottom-left
-        {36, -20},         // Penalty top-right
-        {36, 0},           // Penalty center-right
-        {36, 20},          // Penalty bottom-right
-        {-52.5, -7.32},    // Goal top-left
-        {-52.5, 7.32},     // Goal bottom-left
-        {52.5, -7.32},     // Goal top-right
-        {52.5, 7.32}       // Goal bottom-right
-    };
-
-    if (player.side == "l")
-    {
-        player.orientation = 0;
-    }
-    else
-    {
-        player.orientation = 0;
-    }   
-  
-    Posicion myPos = posiciones[player.unum - 1];
-    if (player.unum == 1)
-    {
-        player.range = 10;
-        player.zone = posiciones[player.unum - 1];
-        player.zone_name = "goalkeeper"; // Does not apply
-    }
-    else if (player.unum == 3)
-    {
-        player.range = 20;
-        player.zone = flags_config[7];
-        player.zone_name = "(f l t)";
-    }
-    else if (player.unum == 5)
-    {
-        player.range = 20;
-        player.zone = flags_config[9];
-        player.zone_name = "(f l b)";
-    }
-    else if (player.unum == 2)
-    {
-        player.range = 20;
-        player.zone = posiciones[player.unum - 1];
-        player.zone_name = "(f p l t)";
-    }
-    else if (player.unum == 4)
-    {
-        player.range = 20;
-        player.zone = posiciones[player.unum - 1];
-        player.zone_name = "(f p l b)";
-    }
-    else if (player.unum == 8)
-    {
-        player.range = 30;
-        player.zone = flags_config[0];
-        player.zone_name = "(f p l t)";
-    }
-    else if (player.unum == 6)
-    {
-        player.range = 30;
-        player.zone = flags_config[2];
-        player.zone_name = "(f p l b)";
-    }
-    else if (player.unum == 9)
-    {
-        player.range = 20;
-        player.zone = flags_config[1];
-        player.zone_name = "(f p r c)";
-    }
-    else if (player.unum ==10)
-    {
-        player.range = 15;
-        player.zone = posiciones[player.unum - 1];
-        player.zone_name = "(f c)";
-    }
-    else if (player.unum == 7)
-    {
-        player.range = 25;
-        player.zone = flags_config[12];
-        player.zone_name = "(f c b)";
-    }
-    else if (player.unum == 11)
-    {
-        player.range = 25;
-        player.zone = flags_config[10];
-        player.zone_name = "(f c t)";
-    }
-    else
-    {
-        player.range = 65;
-        player.zone = flags_config[11];
-        player.zone_name = "(f c)";
-    }
-    auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
-    udp_socket.sendTo(moveCommand, recipient);
-    cout << "Move command sent" << "Posicion: " << moveCommand << endl;
-}
-
-// Functions
-
 // Parse initial message function (init Side Unum PlayMode)
 Player parseInitialMessage(std::string &message, Player &player)
 {
@@ -164,6 +38,138 @@ Player parseInitialMessage(std::string &message, Player &player)
     cout << "Player: " << player.side << " " << player.unum << " " << player.playmode << endl;
     return player;
 }
+
+// Move players to the field
+void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)
+{
+    vector<Posicion>
+        posiciones = {{-50, 0},
+                      {-40, -10},
+                      {-35, -28},
+                      {-40, 10},
+                      {-35, 28},
+                      {-25, 11},
+                      {-8, 20},
+                      {-25, -11},
+                      {-5, 0},
+                      {-15, 0},
+                      {-8, -20}};
+    auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
+    udp_socket.sendTo(moveCommand, recipient);
+    cout << "Move command sent" << "Posicion: " << moveCommand << endl;
+}
+
+// Configure player
+void configurePlayer(Player &player)
+{
+    const std::vector<Posicion> flags_config_l = 
+    {
+        {0, 0},        // Center of the field
+        {0, -33.5},       // Top center
+        {0, 33.5},       // Bottom center
+        {-52.5, -33.5},    // Corner top-left
+        {-52.5, 33.5},     // Corner bottom-left
+        {52.5, -33.5},     // Corner top-right
+        {52.5, 33.5},      // Corner bottom-right
+        {-36, -20},        // Penalty top-left
+        {-36, 0},           // Penalty center-left
+        {-36, 20},         // Penalty bottom-left
+        {36, -20},         // Penalty top-right
+        {36, 0},           // Penalty center-right
+        {36, 20},          // Penalty bottom-right
+        {-52.5, -7.32},    // Goal top-left
+        {-52.5, 7.32},     // Goal bottom-left
+        {52.5, -7.32},     // Goal top-right
+        {52.5, 7.32}       // Goal bottom-right
+    };
+  
+    Posicion myPos = posiciones[player.unum - 1];
+    if (player.unum == 1)
+    {
+        player.range = 10;
+        player.zone = posiciones[player.unum - 1];
+        player.zone_name = "goalkeeper"; // Does not apply
+    }
+    else if (player.unum == 3)
+    {
+        player.range = 20;
+        player.zone = flags_config[7];
+        player.zone_name = "(f " + player.side + " t)";
+    }
+    else if (player.unum == 5)
+    {
+        player.range = 20;
+        player.zone = flags_config[9];
+        player.zone_name = "(f " + player.side + " b)";
+    }
+    else if (player.unum == 2)
+    {
+        player.range = 20;
+        player.zone = posiciones[player.unum - 1];
+        player.zone_name = "(f p " + player.side + " t)";
+    }
+    else if (player.unum == 4)
+    {
+        player.range = 20;
+        player.zone = posiciones[player.unum - 1];
+        player.zone_name = "(f p " + player.side + " b)";
+    }
+    else if (player.unum == 8)
+    {
+        player.range = 30;
+        player.zone = flags_config[0];
+        player.zone_name = "(f p " + player.side + " t)";
+    }
+    else if (player.unum == 6)
+    {
+        player.range = 30;
+        player.zone = flags_config[2];
+        player.zone_name = "(f p " + player.side + " b)";
+    }
+    else if (player.unum == 9)
+    {
+        if (player.side == "l")
+        {
+            player.range = 20;
+            player.zone = flags_config[1];
+            player.zone_name = "(f p r c)";
+        }
+        else
+        {
+            player.range = 20;
+            player.zone = flags_config[1];
+            player.zone_name = "(f p l c)";
+        }
+    }
+    else if (player.unum ==10)
+    {
+        player.range = 15;
+        player.zone = posiciones[player.unum - 1];
+        player.zone_name = "(f c)";
+    }
+    else if (player.unum == 7)
+    {
+        player.range = 25;
+        player.zone = flags_config[12];
+        player.zone_name = "(f c b)";
+    }
+    else if (player.unum == 11)
+    {
+        player.range = 25;
+        player.zone = flags_config[10];
+        player.zone_name = "(f c t)";
+    }
+    else
+    {
+        player.range = 65;
+        player.zone = flags_config[11];
+        player.zone_name = "(f c)";
+    }
+}
+
+// Functions
+
+
 
 vector<string> separate_string_separator(string & s, string separator)
 {

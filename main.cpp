@@ -243,6 +243,8 @@ int main(int argc, char *argv[])
     cout << player.unum << endl;
     sendInitialMoveMessage(player, udp_socket, server_udp);
 
+    configurePlayer(player);
+
     // Configure the goals
     if (player.side == "r")
     {
