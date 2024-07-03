@@ -575,6 +575,7 @@ int main(int argc, char *argv[])
                 //std::string dash_command = moveToZone(player.orientation, {player.x, player.y}, player.zone);
                 std::string dash_command = returnToZone(player);
                 udp_socket.sendTo(dash_command, server_udp);
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
             }
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
