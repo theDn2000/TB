@@ -6,6 +6,8 @@
 #include"structs.h"
 using namespace std;
 
+void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient);
+
 Player parseInitialMessage(std::string &message, Player &player);
 
 vector<string> separate_string(string & s);
