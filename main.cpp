@@ -246,25 +246,25 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
     }
     else if (player.unum == 9)
     {
-        player.range = 30;
+        player.range = 50;
         player.zone = flags_config[1];
         player.zone_name = "(f p r c)";
     }
     else if (player.unum ==10)
     {
-        player.range = 30;
+        player.range = 15;
         player.zone = posiciones[player.unum - 1];
         player.zone_name = "(f c)";
     }
     else if (player.unum == 7)
     {
-        player.range = 65;
+        player.range = 50;
         player.zone = flags_config[12];
         player.zone_name = "(f c b)";
     }
     else if (player.unum == 11)
     {
-        player.range = 65;
+        player.range = 50;
         player.zone = flags_config[10];
         player.zone_name = "(f c t)";
     }
@@ -582,7 +582,7 @@ int main(int argc, char *argv[])
                 }
             }
             else
-            {
+            {   
                 // The player is not in his zone, run back to the zone
                 //std::string dash_command = moveToZone(player.orientation, {player.x, player.y}, player.zone);
                 std::string dash_command = returnToZone(player);

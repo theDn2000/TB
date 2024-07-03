@@ -462,9 +462,17 @@ string returnToZone(Player const &player)
     }
     else
     {
-        // Compute the angle between the player and the flag
-        std::string dash_command = "(dash 100 0)";
-        return dash_command;
+        if (player.flags_seen <= 3)
+        {
+            std::string dash_command = "(turn 180)";
+            return dash_command;
+        }
+        else
+        {
+            std::string dash_command = "(dash 100 0)";
+            return dash_command;
+        }
+        
     }
 }
 
