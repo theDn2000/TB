@@ -232,11 +232,23 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
         player.zone = posiciones[player.unum - 1];
         player.zone_name = "(f p l b)";
     }
-    else if (player.unum == 8 || player.unum == 6)
+    else if (player.unum == 8)
     {
         player.range = 30;
         player.zone = flags_config[0];
-        player.zone_name = "(f c)";
+        player.zone_name = "(f p l t)";
+    }
+    else if (player.unum == 6)
+    {
+        player.range = 30;
+        player.zone = flags_config[2];
+        player.zone_name = "(f p l b)";
+    }
+    else if (player.unum == 9)
+    {
+        player.range = 30;
+        player.zone = flags_config[1];
+        player.zone_name = "(f p r c)";
     }
     else if (player.unum ==10)
     {
@@ -248,19 +260,19 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
     {
         player.range = 65;
         player.zone = flags_config[12];
-        player.zone_name = "(f p r b)";
+        player.zone_name = "(f c b)";
     }
     else if (player.unum == 11)
     {
         player.range = 65;
         player.zone = flags_config[10];
-        player.zone_name = "(f p r t)";
+        player.zone_name = "(f c t)";
     }
     else
     {
         player.range = 65;
         player.zone = flags_config[11];
-        player.zone_name = "(f p r c)";
+        player.zone_name = "(f c)";
     }
     auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
     udp_socket.sendTo(moveCommand, recipient);
