@@ -99,42 +99,49 @@ void configurePlayer(Player &player)
     };
     if (player.unum == 1)
     {
+        player.rol = "PORTERO";
         player.range = 10;
         player.zone = posiciones[player.unum - 1];
         player.zone_name = "goalkeeper"; // Does not apply
     }
     else if (player.unum == 3)
     {
+        player.rol = "DEFENSA";
         player.range = 20;
         player.zone = flags_config[7];
         player.zone_name = "(f " + player.side + " t)";
     }
     else if (player.unum == 5)
     {
+        player.rol = "DEFENSA";
         player.range = 20;
         player.zone = flags_config[9];
         player.zone_name = "(f " + player.side + " b)";
     }
     else if (player.unum == 2)
     {
+        player.rol = "DEFENSA";
         player.range = 20;
         player.zone = posiciones[player.unum - 1];
         player.zone_name = "(f p " + player.side + " t)";
     }
     else if (player.unum == 4)
     {
+        player.rol = "DEFENSA";
         player.range = 20;
         player.zone = posiciones[player.unum - 1];
         player.zone_name = "(f p " + player.side + " b)";
     }
     else if (player.unum == 8)
     {
+        player.rol = "DEFENSA";
         player.range = 30;
         player.zone = flags_config[0];
         player.zone_name = "(f p " + player.side + " t)";
     }
     else if (player.unum == 6)
     {
+        player.rol = "DEFENSA";
         player.range = 30;
         player.zone = flags_config[2];
         player.zone_name = "(f p " + player.side + " b)";
@@ -143,12 +150,14 @@ void configurePlayer(Player &player)
     {
         if (player.side == "l")
         {
+            player.rol = "DELANTERO";
             player.range = 20;
             player.zone = flags_config[1];
             player.zone_name = "(f p r c)";
         }
         else
         {
+            player.rol = "DELANTERO";
             player.range = 20;
             player.zone = flags_config[1];
             player.zone_name = "(f p l c)";
@@ -156,24 +165,28 @@ void configurePlayer(Player &player)
     }
     else if (player.unum ==10)
     {
+        player.rol = "DELANTERO";
         player.range = 15;
         player.zone = posiciones[player.unum - 1];
         player.zone_name = "(f c)";
     }
     else if (player.unum == 7)
     {
+        player.rol = "DELANTERO";
         player.range = 25;
         player.zone = flags_config[12];
         player.zone_name = "(f c b)";
     }
     else if (player.unum == 11)
     {
+        player.rol = "DELANTERO";
         player.range = 25;
         player.zone = flags_config[10];
         player.zone_name = "(f c t)";
     }
     else
     {
+        player.rol = "DELANTERO";
         player.range = 65;
         player.zone = flags_config[11];
         player.zone_name = "(f c)";
