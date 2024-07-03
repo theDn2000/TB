@@ -54,7 +54,7 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
                       {-5, 0},
                       {-15, 0},
                       {-8, -20}};
-                      
+
     Posicion myPos = posiciones[player.unum - 1];
     auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
     udp_socket.sendTo(moveCommand, recipient);
@@ -64,6 +64,19 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
 // Configure player
 void configurePlayer(Player &player)
 {
+    vector<Posicion>
+        posiciones = {{-50, 0},
+                      {-40, -10},
+                      {-35, -28},
+                      {-40, 10},
+                      {-35, 28},
+                      {-25, 11},
+                      {-8, 20},
+                      {-25, -11},
+                      {-5, 0},
+                      {-15, 0},
+                      {-8, -20}};
+                      
     const std::vector<Posicion> flags_config_l = 
     {
         {0, 0},        // Center of the field
