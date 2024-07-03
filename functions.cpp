@@ -54,6 +54,7 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
                       {-5, 0},
                       {-15, 0},
                       {-8, -20}};
+                      
     Posicion myPos = posiciones[player.unum - 1];
     auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
     udp_socket.sendTo(moveCommand, recipient);
