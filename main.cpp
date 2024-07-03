@@ -246,7 +246,7 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
     }
     else if (player.unum == 9)
     {
-        player.range = 50;
+        player.range = 20;
         player.zone = flags_config[1];
         player.zone_name = "(f p r c)";
     }
@@ -258,13 +258,13 @@ void sendInitialMoveMessage(Player &player, MinimalSocket::udp::Udp<true> &udp_s
     }
     else if (player.unum == 7)
     {
-        player.range = 50;
+        player.range = 25;
         player.zone = flags_config[12];
         player.zone_name = "(f c b)";
     }
     else if (player.unum == 11)
     {
-        player.range = 50;
+        player.range = 25;
         player.zone = flags_config[10];
         player.zone_name = "(f c t)";
     }
