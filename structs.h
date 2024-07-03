@@ -32,6 +32,7 @@ struct Player
     double range;
     bool see_own_goal;
     bool see_opponent_goal;
+    string rol;
 };
 
 struct Ball
