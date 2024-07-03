@@ -77,7 +77,7 @@ void configurePlayer(Player &player)
                       {-15, 0},
                       {-8, -20}};
                       
-    const std::vector<Posicion> flags_config_l = 
+    const std::vector<Posicion> flags_config = 
     {
         {0, 0},        // Center of the field
         {0, -33.5},       // Top center
