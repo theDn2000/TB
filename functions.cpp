@@ -661,7 +661,17 @@ double distance(vector<double> &P1, vector<double> &P2)
     return sqrt(pow(P1[0] - P2[0], 2) + pow(P1[1] - P2[1], 2));
 }
 
-
+bool imInZone(Player const &player)
+{
+    if (player.x - player.zone.x < player.range && player.y - player.zone.y < player.range)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 // moveToPosition function
 string moveToZone(double &orientation, vector<double> const &P_player, Posicion const &P_zone)
