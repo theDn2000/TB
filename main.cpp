@@ -324,12 +324,7 @@ int main(int argc, char *argv[])
                         {P1, D1},
                         {P2, D2},
                         {P3, D3}};
-                    /*
-                    cout << "P1_tri: " << P1[0] << " " << P1[1] << endl;
-                    cout << "D1: " << D1 << endl;
-                    vector<double> result = trilateration(P1, P2, P3, D1, D2, D3);
-                    cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
-                    */
+
                     // Simulate robot movement
                     mcl.update_with_motion(0.0, 0.0);
 

@@ -446,6 +446,15 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
                 player.seeing_zone = true;
             }
         }
+
+        // Flags out of the field
+        if (see_message[i].find("(f c)") != string::npos)
+        {
+            player.flags_seen++;
+            vector<string> center_coords = separate_string_separator(see_message[i], " ");
+            field.flag_center = {stof(center_coords[2]), stof(center_coords[3])};
+            cout << "Center flag coordinates: " << field.flag_center[0] << " " << field.flag_center[1] << endl;
+        }
     }
 }
 
@@ -821,6 +830,9 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
             {52.5, -7.32},  // Goal top-right 15
             {52.5, 7.32}    // Goal bottom-right 16
         };
+
+    
+
     if (player.unum == 1)
     {
         if (player.side == "r")
