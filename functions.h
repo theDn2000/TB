@@ -18,7 +18,7 @@ vector<string> separate_string(string & s);
 
 vector<string> separate_string_separator(string & s, string separator);
 
-void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goal &own_goal, Goal &opponent_goal, Field &field);
+void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goal &own_goal, Goal &opponent_goal, Field &field, Boundaries &boundaries);
 
 bool estasentusitio (const Field &field, const Player &player, const Goal &own_goal, const Goal &opponent_goal);
 
