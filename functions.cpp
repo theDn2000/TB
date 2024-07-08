@@ -133,7 +133,7 @@ vector<string> separate_string(string &s)
 }
 
 // Find data in see message function
-void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goal &own_goal, Goal &opponent_goal, Field &field)
+void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goal &own_goal, Goal &opponent_goal, Field &field, Boundaries &boundaries)
 {
     vector<string> ball_coords;
     player.flags_seen = 0;
@@ -141,7 +141,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     player.see_ball = false;
     player.seeing_zone = false;
 
-    // All the flags are not seen at the beginning
+    // Field flags not seen
     field.flag_center = {999, 999};
     field.flag_center_top = {999, 999};
     field.flag_center_bottom = {999, 999};
@@ -159,6 +159,35 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     field.flag_goal_left_bottom = {999, 999};
     field.flag_goal_right_top = {999, 999};
     field.flag_goal_right_bottom = {999, 999};
+
+    // Boundary flags not seen
+    boundaries.left_top = {999, 999};
+    boundaries.left_bottom = {999, 999};
+    boundaries.right_top = {999, 999};
+    boundaries.right_bottom = {999, 999};
+    boundaries.top_left_50 = {999, 999};
+    boundaries.top_left_40 = {999, 999};
+    boundaries.top_left_30 = {999, 999};
+    boundaries.top_left_20 = {999, 999};
+    boundaries.top_left_10 = {999, 999};
+    boundaries.top_0 = {999, 999};
+    boundaries.top_right_10 = {999, 999};
+    boundaries.top_right_20 = {999, 999};
+    boundaries.top_right_30 = {999, 999};
+    boundaries.top_right_40 = {999, 999};
+    boundaries.top_right_50 = {999, 999};
+    boundaries.bottom_left_50 = {999, 999};
+    boundaries.bottom_left_40 = {999, 999};
+    boundaries.bottom_left_30 = {999, 999};
+    boundaries.bottom_left_20 = {999, 999};
+    boundaries.bottom_left_10 = {999, 999};
+    boundaries.bottom_0 = {999, 999};
+    boundaries.bottom_right_10 = {999, 999};
+    boundaries.bottom_right_20 = {999, 999};
+    boundaries.bottom_right_30 = {999, 999};
+    boundaries.bottom_right_40 = {999, 999};
+    boundaries.bottom_right_50 = {999, 999};
+
 
     if (own_goal.side == "l")
     {
@@ -445,6 +474,151 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             {
                 player.seeing_zone = true;
             }
+        }
+        // BOUNDARIES
+        // Search for the boundary left top flag
+        if (see_message[i].find("(l t 30)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.left_top = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary left bot flag
+        if (see_message[i].find("(l b 30)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.left_bot = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top left 50 flag
+        if (see_message[i].find("(t l 50)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_left_50 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top left 40 flag
+        if (see_message[i].find("(t l 40)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_left_40 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top left 30 flag
+        if (see_message[i].find("(t l 30)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_left_30 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top left 20 flag
+        if (see_message[i].find("(t l 20)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_left_20 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top left 10 flag
+        if (see_message[i].find("(t l 10)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_left_10 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top 0 flag
+        if (see_message[i].find("(t 0)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_0 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top right 10 flag
+        if (see_message[i].find("(t r 10)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_right_10 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top right 20 flag
+        if (see_message[i].find("(t r 20)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_right_20 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top right 30 flag
+        if (see_message[i].find("(t r 30)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_right_30 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top right 40 flag
+        if (see_message[i].find("(t r 40)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_right_40 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary top right 50 flag
+        if (see_message[i].find("(t r 50)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.top_right_50 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom left 50 flag
+        if (see_message[i].find("(b l 50)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_left_50 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom left 40 flag
+        if (see_message[i].find("(b l 40)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_left_40 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom left 30 flag
+        if (see_message[i].find("(b l 30)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_left_30 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom left 20 flag
+        if (see_message[i].find("(b l 20)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_left_20 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom left 10 flag
+        if (see_message[i].find("(b l 10)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_left_10 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom 0 flag
+        if (see_message[i].find("(b 0)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_0 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom right 10 flag
+        if (see_message[i].find("(b r 10)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_right_10 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom right 20 flag
+        if (see_message[i].find("(b r 20)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_right_20 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom right 30 flag
+        if (see_message[i].find("(b r 30)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_right_30 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom right 40 flag
+        if (see_message[i].find("(b r 40)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_right_40 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
+        }
+        // Search for the boundary bottom right 50 flag
+        if (see_message[i].find("(b r 50)") != string::npos)
+        {
+            vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
+            boundaries.bot_right_50 = {stof(goal_right_bottom_coords[3]), stof(goal_right_bottom_coords[4])};
         }
     }
 }
