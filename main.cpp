@@ -217,6 +217,7 @@ int main(int argc, char *argv[])
     Goal own_goal{"0", "0", "init", 0};
     Goal opponent_goal{"0", "0", "init", 0};
     Field field;
+    Boundaries boundaries;
 
     // Inicialización del sistema MCL
     double sensor_noise = 5.0;
@@ -261,7 +262,7 @@ int main(int argc, char *argv[])
         if (parsed_message[0].find("see") <= 5)
         {
             vector<string> see_message = separate_string(parsed_message[0]);
-            store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
+            store_data_see(see_message, player, ball, own_goal, opponent_goal, field, boundaries);
             // bool in_position = estasentusitio(field, player, own_goal, opponent_goal);
 
             JugadorCercano jugador_mas_cercano = procesarJugadoresVisibles(see_message, player);
