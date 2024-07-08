@@ -246,7 +246,8 @@ int main(int argc, char *argv[])
     // First turn checks
     int first_turn_division = 0;
     bool first_turn = false;
-    while (true)
+    while (true){
+    try
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         auto received_message = udp_socket.receive(message_max_size);
@@ -263,7 +264,8 @@ int main(int argc, char *argv[])
             store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
             // bool in_position = estasentusitio(field, player, own_goal, opponent_goal);
 
-
+            JugadorCercano jugador_mas_cercano = procesarJugadoresVisibles(see_message, player);
+            mostrarJugadorMasCercano(jugador_mas_cercano);
             // Trilateration
             vector<vector<double>> flags_rel = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom, field.flag_penalty_left_top, field.flag_penalty_left_center, field.flag_penalty_left_bottom, field.flag_penalty_right_top, field.flag_penalty_right_center, field.flag_penalty_right_bottom, field.flag_goal_left_top, field.flag_goal_left_bottom, field.flag_goal_right_top, field.flag_goal_right_bottom};
             // vector<vector<double>> flags_abs = {field.flag_center_abs, field.flag_center_top_abs, field.flag_center_bottom_abs, field.flag_left_top_abs, field.flag_left_bottom_abs, field.flag_right_top_abs, field.flag_right_bottom_abs, field.flag_penalty_left_top_abs, field.flag_penalty_left_center_abs, field.flag_penalty_left_bottom_abs, field.flag_penalty_right_top_abs, field.flag_penalty_right_center_abs, field.flag_penalty_right_bottom_abs, field.flag_goal_left_top_abs, field.flag_goal_left_bottom_abs, field.flag_goal_right_top_abs, field.flag_goal_right_bottom_abs};
@@ -324,7 +326,12 @@ int main(int argc, char *argv[])
                         {P1, D1},
                         {P2, D2},
                         {P3, D3}};
-
+                    /*
+                    cout << "P1_tri: " << P1[0] << " " << P1[1] << endl;
+                    cout << "D1: " << D1 << endl;
+                    vector<double> result = trilateration(P1, P2, P3, D1, D2, D3);
+                    cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
+                    */
                     // Simulate robot movement
                     mcl.update_with_motion(0.0, 0.0);
 
@@ -346,8 +353,8 @@ int main(int argc, char *argv[])
            
             int mejorAccion = obtenerMejorAccion(player, ball, opponent_goal, see_message);
             cout << "Mejor accion: " << mejorAccion << endl;
-            cout << "Mejor accion: " << mejorAccion << endl;
             cout << "numero" << player.unum << endl;
+            cout <<"DIstancia a zona"<<player.distancia_a_zona<<endl;
             cout << "En posicion: " << player.in_zone << endl;
 
 
@@ -396,7 +403,7 @@ int main(int argc, char *argv[])
                 else
 
                 {
-                    cout << "---------------rotating to find de ball-" << endl;
+                    //cout << "---------------rotating to find de ball-" << endl;
                     // Rotate to find the ball
                     if (player.y < 0)
                     {
@@ -413,7 +420,7 @@ int main(int argc, char *argv[])
                 break;
             case 1:
                 // Perform pass the ball
-                pasar(player, ball, opponent_goal, udp_socket, server_udp);
+                pase(player,ball,jugador_mas_cercano,udp_socket,server_udp);
                 break;
             case 2:
                 // Perform kick the ball to the goal
@@ -447,6 +454,10 @@ int main(int argc, char *argv[])
 
             // end logic of the player
         }
+    }
+    catch(exception& e){
+        cout << "Error: " << e.what() << endl;
+    }
     }
     return 0;
 }
