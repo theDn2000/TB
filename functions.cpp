@@ -1353,7 +1353,7 @@ void mostrarJugadorMasCercano(const JugadorCercano &jugador_mas_cercano)
 }
 
 //PENDIENTE
-void sacar_balon(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball const &ball, Boundaries const &boundaries)
+void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball const &ball, Boundaries const &boundaries)
 {
     player.posicion_sacar = false;
     if (player.see_ball)
