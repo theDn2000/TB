@@ -1382,7 +1382,7 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
         double distance = sqrt(pow(dest[0], 2) + pow(dest[1], 2));
         if (distance > 1.0)
         {
-            if angle > 10
+            if (angle > 10)
             {
                 std::string rotate_command = "(turn " + to_string(angle) + ")";
                 udp_socket.sendTo(rotate_command, server_udp);
