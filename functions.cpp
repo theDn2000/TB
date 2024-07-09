@@ -1380,12 +1380,9 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
         }
         double angle = atan2(dest[1], dest[0]) * 180 / M_PI;
         double distance = sqrt(pow(dest[0], 2) + pow(dest[1], 2));
-        while (distance > 1.0)
+        if (distance > 1.0)
         {
-            angle = atan2(dest[1], dest[0]) * 180 / M_PI;
-            distance = sqrt(pow(dest[0], 2) + pow(dest[1], 2));
-            // Reach the boundary point
-            if (angle > 10)
+            if angle > 10
             {
                 std::string rotate_command = "(turn " + to_string(angle) + ")";
                 udp_socket.sendTo(rotate_command, server_udp);
@@ -1394,9 +1391,12 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
             {
                 std::string dash_command = "(dash 100 0)";
                 udp_socket.sendTo(dash_command, server_udp);
-            }  
+            }
         }
-        player.posicion_sacar = true;
+        else
+        {
+            player.posicion_sacar = true;
+        }
     }
     else
     {
