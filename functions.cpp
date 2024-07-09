@@ -1448,5 +1448,32 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
          udp_socket.sendTo(returnToZone(player), server_udp);
         }
 
+
+
+
+    if ((player.playmode == "kick_in_l" && player.side == "l") || (player.playmode == "kick_in_r"  && player.side == "r"))
+    {
+        if (player.unum==9)
+        {
+            if (player.posicion_sacar==false)
+            {
+                sacar_balon(player, udp_socket, server_udp, ball, boundaries);
+            }
+            else
+            {
+                if (player.see_ball)
+                {
+                    chutarPorteria(player, ball, player.opponent_goal, udp_socket, server_udp);
+                }
+                else
+                {
+                    std::string rotate_command = "(turn " + to_string(80) + ")";
+                    udp_socket.sendTo(rotate_command, server_udp);
+                }
+            }
+        }
+        else{
+         udp_socket.sendTo(returnToZone(player), server_udp);
+        }
     } 
 }
