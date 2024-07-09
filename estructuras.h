@@ -38,6 +38,7 @@ struct Player
     double angle;
     string playmode_prev;
     string jugadorMarcaGol;
+    bool posicion_sacar;
 
 };
 

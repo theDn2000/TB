@@ -1355,31 +1355,66 @@ void mostrarJugadorMasCercano(const JugadorCercano &jugador_mas_cercano)
 //PENDIENTE
 void sacar_balon(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball const &ball, Boundaries const &boundaries)
 {
-    vector<vector<double>> boundaries_rel = {boundaries.left_top, boundaries.left_bot, boundaries.right_top, boundaries.right_bot, boundaries.top_left_50, boundaries.top_left_40, boundaries.top_left_30, boundaries.top_left_20, boundaries.top_left_10, boundaries.top_0, boundaries.top_right_10, boundaries.top_right_20, boundaries.top_right_30, boundaries.top_right_40, boundaries.top_right_50, boundaries.bot_left_50, boundaries.bot_left_40, boundaries.bot_left_30, boundaries.bot_left_20, boundaries.bot_left_10, boundaries.bot_0, boundaries.bot_right_10, boundaries.bot_right_20, boundaries.bot_right_30, boundaries.bot_right_40, boundaries.bot_right_50};
-    dest = boundaries_rel[0];
-    angle_aux = 999;
-    for (auto elem : boundaries_rel)
+    player.posicion_sacar = false;
+    if (player.see_ball)
     {
-        if (elem[0] == 999) // The player is not seeing the boundary
+        vector<vector<double>> boundaries_rel = {boundaries.left_top, boundaries.left_bot, boundaries.right_top, boundaries.right_bot, boundaries.top_left_50, boundaries.top_left_40, boundaries.top_left_30, boundaries.top_left_20, boundaries.top_left_10, boundaries.top_0, boundaries.top_right_10, boundaries.top_right_20, boundaries.top_right_30, boundaries.top_right_40, boundaries.top_right_50, boundaries.bot_left_50, boundaries.bot_left_40, boundaries.bot_left_30, boundaries.bot_left_20, boundaries.bot_left_10, boundaries.bot_0, boundaries.bot_right_10, boundaries.bot_right_20, boundaries.bot_right_30, boundaries.bot_right_40, boundaries.bot_right_50};
+        dest = boundaries_rel[0];
+        angle_aux = 999;
+        for (auto elem : boundaries_rel)
         {
-            continue;
+            if (elem[0] == 999) // The player is not seeing the boundary
+            {
+                continue;
+            }
+            else
+            {
+                double angle = atan2(stod(elem[1]), stod(elem[0])) * 180 / M_PI;
+                double distance = sqrt(pow(stod(elem[0]), 2) + pow(stod(elem[1]), 2));
+                if (abs(ball.angle-angle) < angle_aux)
+                {
+                    angle_aux = abs(ball.angle-angle);
+                    dest = elem;
+                }
+            }
+        }
+        while (distance > 1)
+        {
+            // Reach the boundary point
+            if (angle > 10)
+            {
+                std::string rotate_command = "(turn " + to_string(angle) + ")";
+                udp_socket.sendTo(rotate_command, server_udp);
+            }
+            else
+            {
+                std::string dash_command = "(dash 100 0)";
+                udp_socket.sendTo(dash_command, server_udp);
+            }
+            angle = atan2(stod(dest[1]), stod(dest[0])) * 180 / M_PI;
+            distance = sqrt(pow(stod(dest[0]), 2) + pow(stod(dest[1]), 2));
+        }
+        player.posicion_sacar = true;
+    }
+    else
+    {
+        // Rotate to find the ball
+        if (player.y < 0)
+        {
+            std::string rotate_command = "(turn " + to_string(-80) + ")";
+            udp_socket.sendTo(rotate_command, server_udp);
         }
         else
         {
-            float angle = double angle = atan2(stod(elem[1]), stod(elem[0])) * 180 / M_PI;
-            if (abs(ball.angle-angle) < angle_aux)
-            {
-                angle_aux = abs(ball.angle-angle);
-                dest = elem;
+            std::string rotate_command = "(turn " + to_string(80) + ")";
+            udp_socket.sendTo(rotate_command, server_udp);
         }
-        }
+    
     }
-    // Relative angle between the boundaries seen and the ball
-    ball.angle
-    ball.x
+    
 }
 
-void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball)
+void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball, Boundaries &boundaries)
 {   
     if ((player.playmode == "goal_l_" + player.jugadorMarcaGol) || (player.playmode == "goal_r_" + player.jugadorMarcaGol) || player.playmode == "half_time") //movemos a los jugadores a su posicion inicial
     {   
@@ -1390,69 +1425,24 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
 
     if ((player.playmode == "corner_kick_l" && player.side == "l") || (player.playmode == "corner_kick_r"  && player.side == "r"))
     {
-        if (player.unum==9){
-            if (player.see_ball)
+        if (player.unum==9)
+        {
+            if (player.posicion_sacar==false)
+            {
+                sacar_balon(player, udp_socket, server_udp, ball, boundaries);
+            }
+            else
+            {
+                if (player.see_ball)
                 {
-                    int i = 0;
-                    if (abs(ball.angle) >= 10)
-                    {
-                        int division = 1;
-                        if (ball.distance < 6)
-                        {
-                            division = 20;
-                        }
-                        else
-                        {
-                            division = 5;
-                        }
-                        // Rotate the player to the ball
-                        std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
-
-                    else
-                    {
-                        int power = 100;
-                        if (ball.distance < 3)
-                        {
-                            power = 60;
-                            std::string dash_command = "(dash " + to_string(power) + " 0)";
-                            udp_socket.sendTo(dash_command, server_udp);
-                        }
-                        else if (ball.distance < 7)
-                        {
-                            power = 80;
-                            std::string dash_command = "(dash " + to_string(power) + " 0)";
-                            udp_socket.sendTo(dash_command, server_udp);
-                        }
-                        else if(ball.distance<=1){
-                        power=10;
-                        float angle=130;
-                        std::string kick_command = "(kick " + to_string(power) + " " + to_string(angle) + ")";
-                        udp_socket.sendTo(kick_command, server_udp); // Enviar comando de chute}
-
-                        }
-
-
-                    }
+                    chutarPorteria(player, ball, player.opponent_goal, udp_socket, server_udp);
                 }
-
                 else
-
                 {
-                    //cout << "---------------rotating to find de ball-" << endl;
-                    // Rotate to find the ball
-                    if (player.y < 0)
-                    {
-                        std::string rotate_command = "(turn " + to_string(-80) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
-                    else
-                    {
-                        std::string rotate_command = "(turn " + to_string(80) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
+                    std::string rotate_command = "(turn " + to_string(80) + ")";
+                    udp_socket.sendTo(rotate_command, server_udp);
                 }
+            }
         }
         else{
          udp_socket.sendTo(returnToZone(player), server_udp);
