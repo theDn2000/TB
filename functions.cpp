@@ -1378,11 +1378,11 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
                 }
             }
         }
-        double angle = atan2(dest[1], stod[0]) * 180 / M_PI;
+        double angle = atan2(dest[1], dest[0]) * 180 / M_PI;
         double distance = sqrt(pow(dest[0], 2) + pow(dest[1], 2));
         while (distance > 1.0)
         {
-            angle = atan2(dest[1], stod[0]) * 180 / M_PI;
+            angle = atan2(dest[1], dest[0]) * 180 / M_PI;
             distance = sqrt(pow(dest[0], 2) + pow(dest[1], 2));
             // Reach the boundary point
             if (angle > 10)
