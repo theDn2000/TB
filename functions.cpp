@@ -1498,12 +1498,12 @@ void logica_portero(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, M
         else
         {
             // Mantener la misma coordenada en y que la pelota
-            if (ball.y > 0 && (field.flag_goal_left_top[1] < 0 || field.flag_goal_left_bottom[1] < 0))
+            if (stod(ball.y) > 0 && (field.flag_goal_left_top[1] < 0 || field.flag_goal_left_bottom[1] < 0))
             {
                 std::string dash_command = "(dash 100 90)";
                 udp_socket.sendTo(dash_command, server_udp);
             }
-            else if (ball.y < 0 && (field.flag_goal_right_top[1] > 0 || field.flag_goal_right_bottom[1] > 0))
+            else if (stod(ball.y) < 0 && (field.flag_goal_right_top[1] > 0 || field.flag_goal_right_bottom[1] > 0))
             {
                 std::string dash_command = "(dash 100 -90)";
                 udp_socket.sendTo(dash_command, server_udp);
