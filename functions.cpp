@@ -1384,7 +1384,7 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
         {
             if (angle > 10)
             {
-                std::string rotate_command = "(turn " + to_string(angle) + ")";
+                std::string rotate_command = "(turn 10)";
                 udp_socket.sendTo(rotate_command, server_udp);
             }
             else
@@ -1480,4 +1480,34 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
          udp_socket.sendTo(returnToZone(player), server_udp);
         }
     } 
+}
+
+
+void logica_portero(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball, Field &field)
+{
+    if (player.see_ball)
+    {
+        if (ball.distance < 1.0)
+        {
+            if (ball.angle < 10 && ball.angle > -10)
+            {
+                std::string catch_command = "(catch " + to_string(ball.angle) + ")";
+                udp_socket.sendTo(catch_command, server_udp);
+            }
+        }
+        else
+        {
+            // Mantener la misma coordenada en y que la pelota
+            if (ball.y > 0 && (field.flag_goal_left_top[1] < 0 || field.flag_goal_left_bot[1] < 0))
+            {
+                std::string dash_command = "(dash 100 90)";
+                udp_socket.sendTo(dash_command, server_udp);
+            }
+            else if (ball.y < 0 && (field.flag_goal_right_top[1] > 0 || field.flag_goal_right_bot[1] > 0))
+            {
+                std::string dash_command = "(dash 100 -90)";
+                udp_socket.sendTo(dash_command, server_udp);
+            }
+        }
+    }
 }
