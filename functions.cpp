@@ -1359,8 +1359,8 @@ void sacar_balon(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket
     if (player.see_ball)
     {
         vector<vector<double>> boundaries_rel = {boundaries.left_top, boundaries.left_bot, boundaries.right_top, boundaries.right_bot, boundaries.top_left_50, boundaries.top_left_40, boundaries.top_left_30, boundaries.top_left_20, boundaries.top_left_10, boundaries.top_0, boundaries.top_right_10, boundaries.top_right_20, boundaries.top_right_30, boundaries.top_right_40, boundaries.top_right_50, boundaries.bot_left_50, boundaries.bot_left_40, boundaries.bot_left_30, boundaries.bot_left_20, boundaries.bot_left_10, boundaries.bot_0, boundaries.bot_right_10, boundaries.bot_right_20, boundaries.bot_right_30, boundaries.bot_right_40, boundaries.bot_right_50};
-        dest = boundaries_rel[0];
-        angle_aux = 999;
+        vector<double> dest = boundaries_rel[0];
+        double angle_aux = 999;
         for (auto elem : boundaries_rel)
         {
             if (elem[0] == 999) // The player is not seeing the boundary
@@ -1447,6 +1447,7 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
         else{
          udp_socket.sendTo(returnToZone(player), server_udp);
         }
+    }
 
 
 
@@ -1472,7 +1473,8 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
                 }
             }
         }
-        else{
+        else
+        {
          udp_socket.sendTo(returnToZone(player), server_udp);
         }
     } 
