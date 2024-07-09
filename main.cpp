@@ -359,7 +359,7 @@ int main(int argc, char *argv[])
             cout << "En posicion: " << player.in_zone << endl;
 
 
-            funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball);
+            funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball, opponent_goal, boundaries);
             switch (mejorAccion)
             {
             case 0:
