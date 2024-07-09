@@ -1352,15 +1352,16 @@ void mostrarJugadorMasCercano(const JugadorCercano &jugador_mas_cercano)
     std::cout << " " << std::endl;
 }
 
-//PENDIENTE
+
 void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball const &ball, Boundaries const &boundaries)
 {
-    player.posicion_sacar = false;
     if (player.see_ball)
     {
         vector<vector<double>> boundaries_rel = {boundaries.left_top, boundaries.left_bot, boundaries.right_top, boundaries.right_bot, boundaries.top_left_50, boundaries.top_left_40, boundaries.top_left_30, boundaries.top_left_20, boundaries.top_left_10, boundaries.top_0, boundaries.top_right_10, boundaries.top_right_20, boundaries.top_right_30, boundaries.top_right_40, boundaries.top_right_50, boundaries.bot_left_50, boundaries.bot_left_40, boundaries.bot_left_30, boundaries.bot_left_20, boundaries.bot_left_10, boundaries.bot_0, boundaries.bot_right_10, boundaries.bot_right_20, boundaries.bot_right_30, boundaries.bot_right_40, boundaries.bot_right_50};
         vector<double> dest = boundaries_rel[0];
         double angle_aux = 999;
+        double angle = atan2(elem[1], elem[0]) * 180 / M_PI;
+        double distance = sqrt(pow(elem[0], 2) + pow(elem[1], 2));
         for (auto elem : boundaries_rel)
         {
             if (elem[0] == 999) // The player is not seeing the boundary
@@ -1369,8 +1370,6 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
             }
             else
             {
-                double angle = atan2(elem[1], elem[0]) * 180 / M_PI;
-                double distance = sqrt(pow(elem[0], 2) + pow(elem[1], 2));
                 if (abs(ball.angle-angle) < angle_aux)
                 {
                     angle_aux = abs(ball.angle-angle);
@@ -1378,8 +1377,6 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
                 }
             }
         }
-        double angle = atan2(dest[1], dest[0]) * 180 / M_PI;
-        double distance = sqrt(pow(dest[0], 2) + pow(dest[1], 2));
         while (distance > 1.0)
         {
             angle = atan2(dest[1], dest[0]) * 180 / M_PI;
