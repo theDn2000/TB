@@ -1414,7 +1414,7 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
     
 }
 
-void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball, Boundaries &boundaries)
+void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball, Goal &opponent_goal, Boundaries &boundaries)
 {   
     if ((player.playmode == "goal_l_" + player.jugadorMarcaGol) || (player.playmode == "goal_r_" + player.jugadorMarcaGol) || player.playmode == "half_time") //movemos a los jugadores a su posicion inicial
     {   
@@ -1435,7 +1435,7 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
             {
                 if (player.see_ball)
                 {
-                    chutarPorteria(player, ball, player.opponent_goal, udp_socket, server_udp);
+                    chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp);
                 }
                 else
                 {
@@ -1464,7 +1464,7 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
             {
                 if (player.see_ball)
                 {
-                    chutarPorteria(player, ball, player.opponent_goal, udp_socket, server_udp);
+                    chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp);
                 }
                 else
                 {
