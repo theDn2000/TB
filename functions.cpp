@@ -1352,6 +1352,32 @@ void mostrarJugadorMasCercano(const JugadorCercano &jugador_mas_cercano)
     std::cout << " " << std::endl;
 }
 
+//PENDIENTE
+void sacar_balon(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball const &ball, Boundaries const &boundaries)
+{
+    vector<vector<double>> boundaries_rel = {boundaries.left_top, boundaries.left_bot, boundaries.right_top, boundaries.right_bot, boundaries.top_left_50, boundaries.top_left_40, boundaries.top_left_30, boundaries.top_left_20, boundaries.top_left_10, boundaries.top_0, boundaries.top_right_10, boundaries.top_right_20, boundaries.top_right_30, boundaries.top_right_40, boundaries.top_right_50, boundaries.bot_left_50, boundaries.bot_left_40, boundaries.bot_left_30, boundaries.bot_left_20, boundaries.bot_left_10, boundaries.bot_0, boundaries.bot_right_10, boundaries.bot_right_20, boundaries.bot_right_30, boundaries.bot_right_40, boundaries.bot_right_50};
+    dest = boundaries_rel[0];
+    angle_aux = 999;
+    for (auto elem : boundaries_rel)
+    {
+        if (elem[0] == 999) // The player is not seeing the boundary
+        {
+            continue;
+        }
+        else
+        {
+            float angle = double angle = atan2(stod(elem[1]), stod(elem[0])) * 180 / M_PI;
+            if (abs(ball.angle-angle) < angle_aux)
+            {
+                angle_aux = abs(ball.angle-angle);
+                dest = elem;
+        }
+        }
+    }
+    // Relative angle between the boundaries seen and the ball
+    ball.angle
+    ball.x
+}
 
 void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball)
 {   
