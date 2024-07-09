@@ -1369,8 +1369,8 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
             }
             else
             {
-                double angle = atan2(stod(elem[1]), stod(elem[0])) * 180 / M_PI;
-                double distance = sqrt(pow(stod(elem[0]), 2) + pow(stod(elem[1]), 2));
+                double angle = atan2(elem[1], elem[0]) * 180 / M_PI;
+                double distance = sqrt(pow(elem[0], 2) + pow(elem[1], 2));
                 if (abs(ball.angle-angle) < angle_aux)
                 {
                     angle_aux = abs(ball.angle-angle);
@@ -1391,8 +1391,8 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
                 std::string dash_command = "(dash 100 0)";
                 udp_socket.sendTo(dash_command, server_udp);
             }
-            angle = atan2(stod(dest[1]), stod(dest[0])) * 180 / M_PI;
-            distance = sqrt(pow(stod(dest[0]), 2) + pow(stod(dest[1]), 2));
+            angle = atan2(dest[1], stod[0]) * 180 / M_PI;
+            distance = sqrt(pow(dest[0], 2) + pow(dest[1], 2));
         }
         player.posicion_sacar = true;
     }
