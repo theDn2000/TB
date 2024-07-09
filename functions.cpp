@@ -1378,7 +1378,7 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
                 }
             }
         }
-        while (distance > 1)
+        while (distance > 1.0)
         {
             angle = atan2(dest[1], stod[0]) * 180 / M_PI;
             distance = sqrt(pow(dest[0], 2) + pow(dest[1], 2));
