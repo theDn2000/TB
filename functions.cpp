@@ -1380,6 +1380,8 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
         }
         while (distance > 1)
         {
+            angle = atan2(dest[1], stod[0]) * 180 / M_PI;
+            distance = sqrt(pow(dest[0], 2) + pow(dest[1], 2));
             // Reach the boundary point
             if (angle > 10)
             {
@@ -1390,9 +1392,7 @@ void sacar_balon(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, Mini
             {
                 std::string dash_command = "(dash 100 0)";
                 udp_socket.sendTo(dash_command, server_udp);
-            }
-            angle = atan2(dest[1], stod[0]) * 180 / M_PI;
-            distance = sqrt(pow(dest[0], 2) + pow(dest[1], 2));
+            }  
         }
         player.posicion_sacar = true;
     }
